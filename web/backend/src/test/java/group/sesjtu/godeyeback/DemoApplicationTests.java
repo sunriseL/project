@@ -1,4 +1,4 @@
-package group.sjtuse.godeyeweb;
+package group.sesjtu.godeyeback;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
