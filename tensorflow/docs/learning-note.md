@@ -1,5 +1,5 @@
 # learning-note
-## day1
+## day1 7.2
 ---
 搜索到谷歌官方models中的object_detection api，打算先行采用此api尝试
 ### 进度
@@ -20,6 +20,8 @@
 1. protoc 编译时出现"expected...."字段错误
 
   解决方法：protoc版本为2.6,不支持此字段，将protoc换为3.6后问题解决。但后面出现别的问题，怀疑是protoc版本过高，正在处理。
+
+  
 2. 在jupyter-notebook中import tensorflow时报错
 > ImportError: libcusolver.so.8.0: cannot open shared object file: No such file or directory
 
