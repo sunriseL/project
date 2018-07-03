@@ -30,13 +30,20 @@ class NavBar extends React.Component {
                 mode="horizontal"
             >
                 <Menu.Item key="cur-vedio">
-                <Icon type="mail" />当前监控
+                    <a href="/current-vedio"><Icon type="mail" />当前监控</a>
                 </Menu.Item>
                 <SubMenu title={<span><Icon type="setting" />历史监控</span>}>
-                <MenuItemGroup title="功能">
-                    <Menu.Item key="setting:1">查看历史记录</Menu.Item>
-                    <Menu.Item key="setting:2">追踪对象</Menu.Item>
-                </MenuItemGroup>
+                    <MenuItemGroup title="功能">
+                        <Menu.Item key="setting:1">
+                            <a href="/history-vedio">查看历史记录</a>
+                        </Menu.Item>
+                        <Menu.Item key="setting:2">
+                            <a href="/trace-target">追踪对象</a>
+                        </Menu.Item>
+                        <Menu.Item key="setting:3">
+                            <a href="/settings">设置</a>
+                        </Menu.Item>
+                    </MenuItemGroup>
                 </SubMenu>
             </Menu>
         </div>
