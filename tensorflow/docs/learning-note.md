@@ -14,6 +14,9 @@
 
    - demo运行成功，尝试使用不同图片识别
 
+运行优化
+  - 默认配置中图片大小过小以及label字体过小，通过调整IMAGE_SIZE以及
+
 
 ### 踩坑与出坑
 ---
@@ -31,3 +34,22 @@
     > TypeError: \__new__() got an unexpected keyword argument 'serialized_options'
 
     解决方法：猜测可能为protoc版本过高api变化编译出的py文件有兼容性问题，尝试安装低版本protoc。将protoc版本换为3.3.0后解决
+
+---
+## day2
+
+---
+
+尝试使用object_detection将人物图像从视频中截取出来，并且使用他人的reid问题的模型
+
+---
+
+### 模型尝试
+- [Open-ReID](https://github.com/Cysu/open-reid)
+  环境已配置好，由于没有提供预训练的模型，从头开始训练过于耗费时间，暂时不进行下去
+
+- [person-reid-tripet-loss-baseline](https://github.com/huanghoujing/person-reid-triplet-loss-baseline)
+  同上
+
+- [tripet-reid](https://github.com/VisualComputingInstitute/triplet-reid)
+  带有预训练好的模型，尝试运行成功，但是效率极低，可能是由于没有进行gpu优化，尝试安装cudnn后再尝试，以及不明白输出的参数的含义
