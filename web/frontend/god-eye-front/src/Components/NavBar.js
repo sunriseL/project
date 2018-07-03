@@ -1,9 +1,10 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon,Layout } from 'antd';
 import './NavBar.css';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+const { Header, Content, Sider } = Layout;
 
 class NavBar extends React.Component {
   state = {
@@ -20,22 +21,20 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="NavBarRoot">
-        <div className="NavBarDiv">  
-            <img src="./icon.jpg" alt="Project Icon"/>
-        </div>
-        <div className="NavBarDiv">  
+        <div className="NavBarDiv">
+        <Layout>
             <Menu
                 onClick={this.handleClick}
                 selectedKeys={[this.state.current]}
                 mode="horizontal"
             >
                 <Menu.Item key="cur-vedio">
-                    <a href="/current-vedio"><Icon type="mail" />当前监控</a>
+                    <a href="/current-video"><Icon type="mail" />当前监控</a>
                 </Menu.Item>
                 <SubMenu title={<span><Icon type="setting" />历史监控</span>}>
                     <MenuItemGroup title="功能">
                         <Menu.Item key="setting:1">
-                            <a href="/history-vedio">查看历史记录</a>
+                            <a href="/history-video">查看历史记录</a>
                         </Menu.Item>
                         <Menu.Item key="setting:2">
                             <a href="/trace-target">追踪对象</a>
@@ -46,6 +45,7 @@ class NavBar extends React.Component {
                     </MenuItemGroup>
                 </SubMenu>
             </Menu>
+        </Layout>
         </div>
       </div>
     );
