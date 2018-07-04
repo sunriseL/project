@@ -18,17 +18,6 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
-                <Header>
-                    <Row>
-                        <Col span={2}>
-                            <Button type="normal">
-                                <Link to="/home">
-                                    <Icon type="left" />回主页
-                                </Link>
-                            </Button>
-                        </Col>
-                    </Row>
-                </Header>
                 <Content>
                     <WrappedHistoryVideoForm />
                     <video height="600" width="800" controls="controls" preload="true">

@@ -27,17 +27,7 @@ class Settings extends React.Component {
     render(){
         return(
             <Layout>
-                <Header>
-                    <Row>
-                        <Col span={2}>
-                            <Button type="normal">
-                                <Link to="/home">
-                                    <Icon type="left" />回主页
-                                </Link>
-                            </Button>
-                        </Col>
-                    </Row>
-                </Header>
+
                 <Content>
                     <Dragger {...uploadProps}>
                         <p className="ant-upload-drag-icon">

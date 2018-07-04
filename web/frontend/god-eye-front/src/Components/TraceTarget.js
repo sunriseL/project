@@ -12,18 +12,6 @@ class TraceTarget extends React.Component {
     render(){
         return(
             <Layout>
-            <PersistentDrawer />
-               <Header>
-                    <Row>
-                        <Col span={2}>
-                            <Button type="normal">
-                                <Link to="/home">
-                                    <Icon type="left" />回主页
-                                </Link>
-                            </Button>
-                        </Col>
-                    </Row>
-                </Header>
                 <Content style={{ padding: '0 24px', minHeight: 280 }}>
                     <p>鬼知道怎么追踪，您歇着吧<Divider /></p>
                     <video id="video" width="400" height="360" controls="controls">
