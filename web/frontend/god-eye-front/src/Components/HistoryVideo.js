@@ -6,7 +6,7 @@ import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-class CurrentVideo extends React.Component {
+class HistoryVideo extends React.Component {
     constructor(props){
         super(props);
         this.state = {
