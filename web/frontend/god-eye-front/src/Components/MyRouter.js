@@ -10,10 +10,10 @@ class MyRouter extends React.Component {
                 <div>
                     <Switch>
                         <Route exact path="/home" component={Home} />
-                        <Route exact path="/current-video" component={Home} />
-                        <Route exact path="/history-video" component={Home} />
-                        <Route exact path="/trace-target"  component={Home } />
-                        <Route exact path="/settings"  component={Home } />
+                        <Route exact path="/current-video" component={currentVideo} />
+                        <Route exact path="/history-video" component={historyVideo} />
+                        <Route exact path="/trace-target"  component={traceTarget} />
+                        <Route exact path="/settings"  component={Settings} />
                     </Switch>
                 </div>
             </Router>

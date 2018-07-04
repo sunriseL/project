@@ -22,7 +22,7 @@ class BarMenu extends React.Component {
             <div style={{ background: '#ECECEC', padding: '30px' }} className="homeMenu">
             <Row gutter={32}>
                     <Col span={11}><Link to="/trace-target"><Card type="inner" hoverable={true}>选取追踪对象</Card></Link></Col>
-                    <Col span={11}><Link to="/settings"><Card type="inner" hoverable={true}>导入新的地图</Card></Link></Col>
+                    <Col span={11}><Link to="/settings"><Card type="inner" hoverable={true}>导入地图和摄像头</Card></Link></Col>
                 </Row>
             </div>
             </div>
