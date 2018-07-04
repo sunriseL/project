@@ -1,7 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-class HistoryVideo extends React.Component {
-=======
 import { Row, Col, Layout, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -17,9 +14,7 @@ class CurrentVideo extends React.Component {
         };
 
     }
-    
 
->>>>>>> fca78443bd9eb7e9990a3cc9a29a1aece4e77204
     render(){
         return(
             <Layout>
