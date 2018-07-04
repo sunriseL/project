@@ -1,16 +1,25 @@
 import React from 'react';
-import { Button } from 'antd';
-import { Layout,Menu,Icon,Input } from 'antd';
-import { Link } from "react-router-dom";
-import BarMenu from "./BarMenu";
+import { Layout, Row, Col, Button, Divider, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
-const { Footer} = Layout;
-const Search = Input.Search;
-
+const { Header, Content } = Layout;
 class traceTarget extends React.Component {
     render(){
         return(
-           <div></div>
+           <Layout>
+               <Header>
+                    <Row>
+                        <Col span={2}>
+                            <Button type="normal">
+                                <Link to="/home">
+                                    <Icon type="left" />回主页
+                                </Link>
+                            </Button>
+                        </Col>
+                    </Row>
+                </Header>
+                <Content><p>鬼知道怎么追踪，您歇着吧<Divider /></p></Content>
+           </Layout>
         );
     }
 }
