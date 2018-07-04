@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
-import { Layout,Menu,Icon,Input } from 'antd';
-import { Link,BrowserRouter as Router, Route } from "react-router-dom";
+import { Layout, Input } from 'antd';
 import BarMenu from "./BarMenu";
 
 const { Footer} = Layout;
