@@ -30,18 +30,18 @@ class CurrentVideo extends React.Component {
                         </Col>
                     </Row>
                 </Header>
-                    <Content>
-                        <WrappedHistoryVideoForm />
-                        <video height="600" width="800" controls="controls" preload="true">
-                            <source src= { this.state['videoLink'] } type="video/mp4" /> 
-                            <source src= { this.state['videoLink'] } type="video/ogg" /> 
-                            <source src= { this.state['videoLink'] } type="video/webm" />
-                            <object data = { this.state['videoLink'] } >
-                                <embed src= { this.state['videoLink'] } />
-                            </object> 
-                            您的环境不支持h5播放器
-                        </video>
-                    </Content>
+                <Content>
+                    <WrappedHistoryVideoForm />
+                    <video height="600" width="800" controls="controls" preload="true">
+                        <source src= { this.state['videoLink'] } type="video/mp4" /> 
+                        <source src= { this.state['videoLink'] } type="video/ogg" /> 
+                        <source src= { this.state['videoLink'] } type="video/webm" />
+                        <object data = { this.state['videoLink'] } >
+                            <embed src= { this.state['videoLink'] } />
+                        </object> 
+                        您的环境不支持h5播放器
+                    </video>
+                </Content>
             </Layout>
         );
     }
