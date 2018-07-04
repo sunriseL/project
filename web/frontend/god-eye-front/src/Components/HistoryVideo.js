@@ -1,10 +1,9 @@
 import React from 'react';
-import { Row, Col, Layout, Icon, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Layout } from 'antd';
 
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 class HistoryVideo extends React.Component {
     constructor(props){

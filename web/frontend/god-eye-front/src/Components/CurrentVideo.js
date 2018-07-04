@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Layout, Button, Icon, Row, Col } from 'antd';
+import { Layout } from 'antd';
 
-const {Header, Content } = Layout;
+const { Content } = Layout;
 
 class CurrentVideo extends React.Component {
     constructor(props){

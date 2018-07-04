@@ -1,13 +1,9 @@
 import React from 'react';
-import { Layout, Row, Col, Button, Divider, Icon, Menu, Input} from 'antd';
-import { Link } from 'react-router-dom';
-import PersistentDrawer from './TestDrawer.js';
-const { SubMenu } = Menu;
+import { Layout ,Divider } from 'antd';
 const { Footer } = Layout;
-const Search = Input.Search;
 
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 class TraceTarget extends React.Component {
     render(){
         return(

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Layout, Upload, Icon, message, Row, Col, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Layout, Upload, Icon, message } from 'antd';
 
 const uploadProps = {
     name: 'file',
@@ -19,7 +18,7 @@ const uploadProps = {
     },
 }
 
-const { Header, Content } = Layout;
+const {  Content } = Layout;
 const Dragger = Upload.Dragger;
 
 class Settings extends React.Component {
