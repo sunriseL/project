@@ -1,12 +1,6 @@
 import React from 'react';
-import { Menu,Icon,Card, Col, Row} from 'antd';
+import { Card, Col, Row} from 'antd';
 import {  Link } from "react-router-dom";
-
-
-const gridStyle = {
-    width: '25%',
-    textAlign: 'center',
-};
 
 
 class BarMenu extends React.Component {

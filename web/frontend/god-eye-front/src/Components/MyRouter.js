@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import TraceTarget from "./TraceTarget";
 import HistoryVideo from "./HistoryVideo";
 import Settings from "./Settings";
-import CurrentVideo from "./CurrentVideo";
+import CurrentVideo from "./CurrentVideo.js";
+
 
 class MyRouter extends React.Component {
     render(){

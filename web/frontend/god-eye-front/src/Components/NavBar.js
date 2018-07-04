@@ -4,7 +4,7 @@ import './NavBar.css';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-const { Header, Content, Sider } = Layout;
+
 
 class NavBar extends React.Component {
   state = {
