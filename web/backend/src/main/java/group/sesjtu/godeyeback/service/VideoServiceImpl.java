@@ -1,18 +1,18 @@
-package godeyeback.service;
+package group.sesjtu.godeyeback.service;
 
-import godeyeback.dao.PictureDao;
+import group.sesjtu.godeyeback.dao.VideoDao;
 
-import godeyeback.entity.Picture;
+import group.sesjtu.godeyeback.entity.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PicServiceImpl implements PicService {
+public class VideoServiceImpl implements VideoService {
     @Autowired
-    private PictureDao picRepo;
+    private VideoDao picRepo;
 
     public void addPicture(String name,String bin){
-        Picture p = new Picture();
+        Video p = new Video();
         p.setStr(bin);
         p.setName(name);
         picRepo.insert(p);

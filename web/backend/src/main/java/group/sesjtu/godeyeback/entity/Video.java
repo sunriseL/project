@@ -1,4 +1,4 @@
-package godeyeback.entity;
+package group.sesjtu.godeyeback.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 
 @Document
-public class Picture implements Serializable {
+public class Video implements Serializable {
         @Id
         @JsonIgnore
         @GeneratedValue(strategy = GenerationType.IDENTITY)

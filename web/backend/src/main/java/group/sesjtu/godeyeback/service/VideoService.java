@@ -1,7 +1,7 @@
-package godeyeback.service;
+package group.sesjtu.godeyeback.service;
 
 
-public interface PicService {
+public interface VideoService {
     void addPicture(String name,String bin);
 
     String getPicture(String name);
