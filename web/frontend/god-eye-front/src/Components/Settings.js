@@ -19,7 +19,7 @@ const uploadProps = {
     },
 }
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 const Dragger = Upload.Dragger;
 
 class Settings extends React.Component {

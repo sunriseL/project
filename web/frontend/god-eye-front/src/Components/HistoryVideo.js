@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
 
 class HistoryVideo extends React.Component {
     constructor(props){

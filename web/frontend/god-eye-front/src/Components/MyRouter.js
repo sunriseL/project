@@ -14,11 +14,12 @@ class MyRouter extends React.Component {
             <Router>
                 <div>
                     <Switch>
-                        <Route exact path="/home" component={Home} />
-                        <Route exact path="/current-video" component={CurrentVideo} />
-                        <Route exact path="/history-video" component={HistoryVideo} />
-                        <Route exact path="/trace-target"  component={TraceTarget} />
-                        <Route exact path="/settings"  component={Settings} />
+                        <Route exact path="/" component={ Home } />
+                        <Route exact path="/home" component={ Home } />
+                        <Route exact path="/current-video" component={ CurrentVideo } />
+                        <Route exact path="/history-video" component={ HistoryVideo } />
+                        <Route exact path="/trace-target"  component={ TraceTarget } />
+                        <Route exact path="/settings"  component={ Settings } />
                     </Switch>
                 </div>
             </Router>

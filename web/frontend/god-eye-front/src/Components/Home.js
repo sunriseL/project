@@ -1,9 +1,8 @@
 import React from 'react';
-import { Layout, Input } from 'antd';
+import { Layout } from 'antd';
 import BarMenu from "./BarMenu";
 
 const { Footer} = Layout;
-const Search = Input.Search;
 
 class Home extends React.Component {
     render(){
