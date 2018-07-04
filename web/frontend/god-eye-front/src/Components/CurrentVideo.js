@@ -1,5 +1,5 @@
 import React from 'react';
-class HistoryVideo extends React.Component {
+class CurrentVideo extends React.Component {
     render(){
         return(
             <div></div>
@@ -7,4 +7,4 @@ class HistoryVideo extends React.Component {
     }
 }
 
-export default HistoryVideo;
+export default CurrentVideo;
