@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout ,Divider, Breadcrumb } from 'antd';
+import { Layout ,Divider, Breadcrumb, Row, Col } from 'antd';
 import VideoPlayer from './VideoPlayer';
 const { Footer } = Layout;
 
@@ -9,19 +9,21 @@ class TraceTarget extends React.Component {
     render(){
         return(
             <Layout>
-                <Layout>
-                    <Breadcrumb>
-                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
-                        <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
-                    </Breadcrumb>
-                </Layout>
+                <Row>
+                    <Col span={4}>
+                        <Breadcrumb>
+                            <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                            <Breadcrumb.Item>查看追踪结果</Breadcrumb.Item>
+                        </Breadcrumb>
+                    </Col>
+                </Row>
                 <Content style={{ padding: '0 24px', minHeight: 400 }}>
                     <p>鬼知道怎么追踪，您歇着吧<Divider /></p>
                     <VideoPlayer />
                 </Content>
-            <Footer style={{ textAlign: 'center' }}>
-               God Eye ©2018 Created by SunriseL Team
-           </Footer>
+                <Footer style={{ textAlign: 'center' }}>
+                    God Eye ©2018 Created by SunriseL Team
+                </Footer>
            </Layout>
         );
     }

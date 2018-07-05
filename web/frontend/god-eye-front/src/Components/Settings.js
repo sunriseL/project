@@ -2,7 +2,7 @@ import React from 'react';
 import {  Modal,Layout, Upload, Icon, Breadcrumb, Row, Col } from 'antd';
 import UserMap from './UserMap';
 
-const {  Content } = Layout;
+const {  Content, Footer } = Layout;
 
 class Settings extends React.Component {
     constructor() {
@@ -39,12 +39,14 @@ class Settings extends React.Component {
         );
         return(
             <Layout>
-                <Layout>
-                    <Breadcrumb>
-                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
-                        <Breadcrumb.Item>导入地图与摄像头</Breadcrumb.Item>
-                    </Breadcrumb>
-                </Layout>
+                <Row>
+                    <Col span={4}>
+                        <Breadcrumb>
+                            <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                            <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
+                        </Breadcrumb>
+                    </Col>
+                </Row>
                 <Content>
                     <Row><Col offset={8}>
                         <div className="div1">
@@ -65,6 +67,9 @@ class Settings extends React.Component {
                     </Col></Row>
                     <UserMap />
                 </Content>
+                <Footer style={{ textAlign: 'center' }}>
+                    God Eye ©2018 Created by SunriseL Team
+                </Footer>
             </Layout>
         );
     }

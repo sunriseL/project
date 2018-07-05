@@ -5,6 +5,7 @@ import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
 
+const { Footer } = Layout;
 
 class HistoryVideo extends React.Component {
     constructor(props){
@@ -25,12 +26,14 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
-                <Layout>
-                    <Breadcrumb>
-                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
-                        <Breadcrumb.Item>查看历史记录</Breadcrumb.Item>
-                    </Breadcrumb>
-                </Layout>
+                <Row>
+                    <Col span={4}>
+                        <Breadcrumb>
+                            <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                            <Breadcrumb.Item>查看历史监控</Breadcrumb.Item>
+                        </Breadcrumb>
+                    </Col>
+                </Row>
                 <Row align='top'>
                     <Col span={12}>
                         <UserMap />
@@ -43,6 +46,9 @@ class HistoryVideo extends React.Component {
                         </Layout>
                     </Col>
                 </Row>
+                <Footer style={{ textAlign: 'center' }}>
+                    God Eye ©2018 Created by SunriseL Team
+                </Footer>
             </Layout>
         );
     }
