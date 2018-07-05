@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Upload, Icon, message } from 'antd';
+import { Layout, Upload, Icon, message, Breadcrumb } from 'antd';
+import UserMap from './UserMap';
 
 const uploadProps = {
     name: 'file',
@@ -23,10 +24,16 @@ const Dragger = Upload.Dragger;
 
 class Settings extends React.Component {
 
+
     render(){
         return(
             <Layout>
-
+                <Layout>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                        <Breadcrumb.Item>查看历史记录</Breadcrumb.Item>
+                    </Breadcrumb>
+                </Layout>
                 <Content>
                     <Dragger {...uploadProps}>
                         <p className="ant-upload-drag-icon">
@@ -35,6 +42,7 @@ class Settings extends React.Component {
                         <p className="ant-upload-drag-text">上传地图</p>
                         <p className="ant-upload-drag-hint">点击或拖拽上传地图图片</p>
                     </Dragger>
+                    <UserMap />
                 </Content>
             </Layout>
         );

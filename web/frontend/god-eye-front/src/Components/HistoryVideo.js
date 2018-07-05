@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
@@ -17,6 +17,12 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
+                <Layout>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                        <Breadcrumb.Item>查看历史记录</Breadcrumb.Item>
+                    </Breadcrumb>
+                </Layout>
                 <Content>
                     <WrappedHistoryVideoForm />
                     <video height="600" width="800" controls="controls" preload="true">
