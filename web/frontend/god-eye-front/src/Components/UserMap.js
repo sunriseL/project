@@ -18,8 +18,6 @@ const styles = {
     },
 };
 
-let url='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=930073930,3424315015&fm=27&gp=0.jpg'
-
 class UserMap extends React.Component{
     constructor(props){
         super(props);
@@ -32,7 +30,6 @@ class UserMap extends React.Component{
     upload() {
         let file = document.getElementById('image').files[0];
         let url = URL.createObjectURL(file);
-        console.log(url);
         document.getElementById("map_id").image = url;
         this.setState({
             map_url : url
@@ -40,7 +37,6 @@ class UserMap extends React.Component{
     }
 
     render(){
-
         return (
             <div>
                 <Card style={{maxWidth:2160, width: '90%', margin: '5%'}}>

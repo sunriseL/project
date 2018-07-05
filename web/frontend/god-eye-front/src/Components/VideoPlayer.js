@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'antd';
-//let url = '../image/1.mp4';
 
 class VideoPlayer extends React.Component {
     constructor(props){

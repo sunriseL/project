@@ -1,10 +1,8 @@
 import React from 'react';
-import { Layout, Upload, Icon, Breadcrumb, Row, Col, message } from 'antd';
+import { Layout, Breadcrumb, Row, Col} from 'antd';
 import UserMap from './UserMap';
-import MyUpload from "./Upload";
 
 const {  Content, Footer } = Layout;
-
 
 class Settings extends React.Component {
     constructor() {

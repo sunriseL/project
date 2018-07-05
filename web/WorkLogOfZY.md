@@ -8,3 +8,9 @@ Modify backend
 Find Canvas Demo to solve map-importing 
 
 Learn Material-ui 
+
+
+### 2018/7/5
+Play local video
+Upload local picture
+Backend map entity&dao&service&controller
