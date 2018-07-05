@@ -1,64 +1,25 @@
 import React from 'react';
-import { Upload, Icon, message } from 'antd';
+import { Button } from 'antd';
 
-function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
-    if (!isJPG) {
-        message.error('You can only upload JPG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
-    }
-    return isJPG && isLt2M;
-}
 
 class MyUpload extends React.Component {
-    state = {
-        loading: false,
-    };
-
-    handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            this.setState({ loading: true });
-            return;
-        }
-        if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, imageUrl => this.setState({
-                imageUrl,
-                loading: false,
-            }));
-        }
+    play() {
+        let file = document.getElementById('image').files[0];
+        let url = URL.createObjectURL(file);
+        console.log(url);
+        document.getElementById("img_id").src = url;
+        document.getElementById("map_id").image = url;
+        console.log( document.getElementById("map_id").image );
     }
 
     render() {
-        const uploadButton = (
-            <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'} />
-                <div className="ant-upload-text">Upload</div>
-            </div>
-        );
-        const imageUrl = this.state.imageUrl;
         return (
-            <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="//jsonplaceholder.typicode.com/posts/"
-                beforeUpload={beforeUpload}
-                onChange={this.handleChange}
-            >
-                {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-            </Upload>
-        );
+            <div>
+            <img id="img_id"/>
+            <input type="file"  id="image"/>
+                <Button type="primary" onClick = {() => this.play()}>上传地图</Button>
+            </div>
+                );
     }
 }
 export default MyUpload;

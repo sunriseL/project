@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'antd';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,22 +18,33 @@ const styles = {
     },
 };
 
+let url='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=930073930,3424315015&fm=27&gp=0.jpg'
+
 class UserMap extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             map_url:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=930073930,3424315015&fm=27&gp=0.jpg',
-            // Put UserMap Here
             map_name: "用户地图",
         }
     };
+
+    upload() {
+        let file = document.getElementById('image').files[0];
+        let url = URL.createObjectURL(file);
+        console.log(url);
+        document.getElementById("map_id").image = url;
+        this.setState({
+            map_url : url
+        })
+    }
 
     render(){
 
         return (
             <div>
                 <Card style={{maxWidth:2160, width: '90%', margin: '5%'}}>
-                    <CardMedia
+                    <CardMedia id="map_id"
                     style={{height: '80%', paddingTop: '56.25%'}}
                     image={ this.state['map_url'] }
                     title={ this.state['map_name'] }
@@ -43,7 +55,8 @@ class UserMap extends React.Component{
                         </Typography>
                     </CardContent>
                 </Card>
-
+                <input type="file"  id="image"/>
+                <Button type="primary" onClick = {() => this.upload()}>上传地图</Button>
                 </div>
         );
     }

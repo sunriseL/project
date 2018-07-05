@@ -18,14 +18,13 @@ class VideoPlayer extends React.Component {
             minWidth: "80",
         };
     }
+
     play() {
-        console.log('aaa');
         let file = document.getElementById('file').files[0];
         let url = URL.createObjectURL(file);
         console.log(url);
         document.getElementById("video_id").src = url;
     }
-
 
     render(){
         return(
