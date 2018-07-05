@@ -6,12 +6,6 @@ import VideoPlayer from './VideoPlayer.js';
 const { Footer } = Layout;
 
 class CurrentVideo extends React.Component {
-<<<<<<< HEAD
-    constructor(props){
-        super(props);
-    }
-=======
->>>>>>> 34398e902ef7e4629b51ed582270daab3f58a53b
     render(){
         return(
             <Layout>

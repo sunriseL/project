@@ -18,7 +18,7 @@ class HistoryVideo extends React.Component {
     }
 
     getCurrentTime() {
-        var player = document.getElementById('video-player');
+        var player = document.getElementById('video_id');
 
         console.log(player.currentTime);
     };

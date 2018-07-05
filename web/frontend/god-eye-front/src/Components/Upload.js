@@ -1,6 +1,5 @@
 import React from 'react';
 import { Upload, Icon, message } from 'antd';
-import VideoPlayer from "./VideoPlayer";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
