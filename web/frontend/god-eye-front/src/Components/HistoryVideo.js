@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
+import VideoPlayer from './VideoPlayer.js';
 
 const { Content } = Layout;
 
@@ -25,15 +26,7 @@ class HistoryVideo extends React.Component {
                 </Layout>
                 <Content>
                     <WrappedHistoryVideoForm />
-                    <video height="600" width="800" controls="controls" preload="true">
-                        <source src= { this.state['videoLink'] } type="video/mp4" /> 
-                        <source src= { this.state['videoLink'] } type="video/ogg" /> 
-                        <source src= { this.state['videoLink'] } type="video/webm" />
-                        <object data = { this.state['videoLink'] } >
-                            <embed src= { this.state['videoLink'] } />
-                        </object> 
-                        您的环境不支持h5播放器
-                    </video>
+                    <VideoPlayer />
                 </Content>
             </Layout>
         );

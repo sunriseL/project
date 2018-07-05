@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, DatePicker,  Button } from 'antd';
+import { Form, DatePicker,  Button, Row, Col } from 'antd';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
@@ -23,7 +23,6 @@ class HistoryVideoForm extends React.Component {
             ],
         };
 
-
         console.log('Received values of form: ', values);
         // Commit time data to server here
         });
@@ -37,18 +36,20 @@ class HistoryVideoForm extends React.Component {
         };
         return (
         <Form onSubmit={this.handleSubmit}>
-            <FormItem
-            >
-                {getFieldDecorator('range-time-picker', rangeConfig)(
-                    <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-                )}
-            </FormItem>
-            
-            <FormItem
-
-            >
-                <Button type="primary" htmlType="submit">Submit</Button>
-            </FormItem>
+            <Row>
+                <Col span={6} offset={6}>
+                    <FormItem>
+                        {getFieldDecorator('range-time-picker', rangeConfig)(
+                            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                        )}
+                    </FormItem>
+                </Col>
+                <Col span={6}>
+                    <FormItem>
+                        <Button type="primary" htmlType="submit">Submit</Button>
+                    </FormItem>
+                </Col>
+            </Row>
         </Form>
         );
     }

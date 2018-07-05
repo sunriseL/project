@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import PersistentDrawer from './Components/TestDrawer.js';
+import MainNav from './Components/MainNav';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <PersistentDrawer />
+                <MainNav />
             </div>
         );
     }

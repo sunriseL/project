@@ -96,7 +96,7 @@ const styles = theme => ({
     },
 });
 
-class PersistentDrawer extends React.Component {
+class MainNav extends React.Component {
     state = {
         open: false,
         anchor: 'left',
@@ -192,9 +192,9 @@ class PersistentDrawer extends React.Component {
     }
 }
 
-PersistentDrawer.propTypes = {
+MainNav.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(PersistentDrawer);
+export default withStyles(styles, { withTheme: true })(MainNav);

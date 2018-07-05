@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Breadcrumb, Row, Col } from 'antd';
 import UserMap from './UserMap';
+import VideoPlayer from './VideoPlayer.js';
 
-const { Content, Sider } = Layout;
 
 class CurrentVideo extends React.Component {
     constructor(props){
@@ -27,15 +27,7 @@ class CurrentVideo extends React.Component {
                             <UserMap /> 
                         </Col>
                         <Col span={ 12 }>
-                            <video height="600" width="800" controls="controls" preload="true">
-                                <source src= { this.state['videoLink'] } type="video/mp4" /> 
-                                <source src= { this.state['videoLink'] } type="video/ogg" /> 
-                                <source src= { this.state['videoLink'] } type="video/webm" />
-                                <object data = { this.state['videoLink'] } >
-                                    <embed src= { this.state['videoLink'] } />
-                                </object> 
-                                您的环境不支持h5播放器
-                            </video>
+                            <VideoPlayer />
                         </Col>
                     </Row>
                     <div style={{float: 'left', width: '40%'}}>
