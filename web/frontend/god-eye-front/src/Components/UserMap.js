@@ -1,5 +1,4 @@
 import React from 'react';
-import { Upload, Icon, Modal } from 'antd';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,24 +35,8 @@ class UserMap extends React.Component{
         }
     };
 
-    handleCancel = () => this.setState({ previewVisible: false })
-
-    handlePreview = (file) => {
-        this.setState({
-            previewImage: file.url || file.thumbUrl,
-            previewVisible: true,
-        });
-    }
-
-    handleChange = ({ fileList }) => this.setState({ fileList })
-
     render(){
-        const uploadButton = (
-            <div>
-                <Icon type="plus" />
-                <div className="ant-upload-text">Upload</div>
-            </div>
-        );
+
         return (
             <div>
                 <Card style={{maxWidth:2160, width: '90%', margin: '5%'}}>
@@ -68,21 +51,7 @@ class UserMap extends React.Component{
                         </Typography>
                     </CardContent>
                 </Card>
-                <div className="div1">
-                    <Upload
-                        style={{maxWidth:2160, width: '90%', margin: '5%',height: '200%'}}
-                        action="//jsonplaceholder.typicode.com/posts/"
-                        listType="picture"
-                        fileList={this.state.fileList}
-                        onPreview={this.handlePreview}
-                        onChange={this.handleChange}
-                    >
-                        {this.state.fileList.length >= 1 ? null : uploadButton}
-                    </Upload>
-                    <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
-                        <img alt="example" style={{ width: '500%' ,height: '500%'}} src={this.state.previewImage} />
-                    </Modal>
-                </div>
+
                 </div>
         );
     }
