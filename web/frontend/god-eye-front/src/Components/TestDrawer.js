@@ -144,7 +144,7 @@ class PersistentDrawer extends React.Component {
                         <ListItemText primary="查看追踪结果" />
                     </ListItem>
                 </a>
-                    <a href='settings'>
+                <a href='settings'>
                     <ListItem button>
                         <ListItemText primary="添加地图与摄像头" />
                     </ListItem>

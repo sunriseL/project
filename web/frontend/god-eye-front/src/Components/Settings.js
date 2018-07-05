@@ -4,8 +4,8 @@ import UserMap from './UserMap';
 
 const uploadProps = {
     name: 'file',
-    multiple: true,
-    action: '//jsonplaceholder.typicode.com/posts/',
+    multiple: false,
+    action: 'localhost:8090',
     onChange(info) {
         const status = info.file.status;
         if (status !== 'uploading') {
