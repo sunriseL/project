@@ -13,3 +13,9 @@ img {
     background: navajowhite;
 }
 
+.div1{
+    float: left;
+    width: 500px;
+    margin-right: 8px;
+}
+
