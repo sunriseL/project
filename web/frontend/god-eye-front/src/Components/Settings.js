@@ -1,27 +1,9 @@
 import React from 'react';
-import {  Modal,Layout, Upload, Icon, message, Breadcrumb } from 'antd';
+import {  Modal,Layout, Upload, Icon, Breadcrumb, Row, Col } from 'antd';
 import UserMap from './UserMap';
 import MyUpload from "./Upload";
 
-const uploadProps = {
-    name: 'file',
-    multiple: false,
-    action: 'localhost:8090',
-    onChange(info) {
-        const status = info.file.status;
-        if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }       
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-}
-
-const {  Content } = Layout;
-const Dragger = Upload.Dragger;
+const {  Content, Footer } = Layout;
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -81,13 +63,16 @@ class Settings extends React.Component {
         const imageUrl = this.state.imageUrl;
         return(
             <Layout>
-                <Layout>
-                    <Breadcrumb>
-                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
-                        <Breadcrumb.Item>导入地图与摄像头</Breadcrumb.Item>
-                    </Breadcrumb>
-                </Layout>
+                <Row>
+                    <Col span={4}>
+                        <Breadcrumb>
+                            <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                            <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
+                        </Breadcrumb>
+                    </Col>
+                </Row>
                 <Content>
+<<<<<<< HEAD
                     <UserMap />
                     <Dragger {...uploadProps}>
                         <p className="ant-upload-drag-icon">
@@ -108,7 +93,30 @@ class Settings extends React.Component {
                     >
                         {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
                     </Upload>
+=======
+                    <Row><Col offset={8}>
+                        <div className="div1">
+                            <Upload
+                                style={{maxWidth:2160, width: '90%', margin: '5%',height: '200%'}}
+                                action="//jsonplaceholder.typicode.com/posts/"
+                                listType="picture"
+                                fileList={this.state.fileList}
+                                onPreview={this.handlePreview}
+                                onChange={this.handleChange}
+                            >
+                                {this.state.fileList.length >= 1 ? null : uploadButton}
+                            </Upload>
+                            <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
+                                <img alt="example" style={{ width: '500%' ,height: '500%'}} src={this.state.previewImage} />
+                            </Modal>
+                        </div>
+                    </Col></Row>
+                    <UserMap />
+>>>>>>> 34398e902ef7e4629b51ed582270daab3f58a53b
                 </Content>
+                <Footer style={{ textAlign: 'center' }}>
+                    God Eye ©2018 Created by SunriseL Team
+                </Footer>
             </Layout>
         );
     }
