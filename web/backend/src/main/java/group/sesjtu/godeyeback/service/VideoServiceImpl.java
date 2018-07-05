@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class VideoServiceImpl implements VideoService {
     @Autowired
-    private VideoDao picRepo;
+    private VideoDao videoRepo;
 
-    public void addPicture(String name,String bin){
-        Video p = new Video();
-        p.setStr(bin);
-        p.setName(name);
-        picRepo.insert(p);
-        System.out.println("insert picture success");
+    public void addVideo(String name, String bin){
+        Video v = new Video();
+        v.setStr(bin);
+        v.setName(name);
+        videoRepo.insert(v);
+        System.out.println("add video success");
     }
 
-    public String getPicture(String name){
-        return picRepo.findByName(name).getStr();
+    public String getVideo(String name){
+        return videoRepo.findByName(name).getStr();
     }
 
 }
