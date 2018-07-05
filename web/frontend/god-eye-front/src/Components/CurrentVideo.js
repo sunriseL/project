@@ -31,10 +31,6 @@ class CurrentVideo extends React.Component {
                             <VideoPlayer />
                         </Col>
                     </Row>
-                    <div style={{float: 'left', width: '40%'}}>
-                    </div>
-                    <div style={{float: 'right', width: '60%'}}>
-                    </div>
                 </Layout>
             </Layout>
         );
