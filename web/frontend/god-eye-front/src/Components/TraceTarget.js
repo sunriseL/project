@@ -14,7 +14,7 @@ class TraceTarget extends React.Component {
                         <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
                     </Breadcrumb>
                 </Layout>
-                <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                <Content style={{ padding: '0 24px', minHeight: 400 }}>
                     <p>鬼知道怎么追踪，您歇着吧<Divider /></p>
                     <video id="video" width="400" height="360" controls="controls">
                     <source src="http://mvpc.eastday.com/vtiyu/20170907/20170907095753399577898_1_06400360.mp4" type="video/mp4"/>
