@@ -12,3 +12,7 @@ Learn Junit
 Add react-router, react-app-rewires, antd into front end
 Some progress in front end
 Prepare for video displaying
+
+### 2018/7/4
+Add Material-UI
+Progress in frontend part

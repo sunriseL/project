@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 
 const { Content } = Layout;
 
@@ -14,6 +14,12 @@ class CurrentVideo extends React.Component {
     render(){
         return(
             <Layout>
+                <Layout>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
+                        <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
+                    </Breadcrumb>
+                </Layout>
                 <Content>
                     <video height="600" width="800" controls="controls" preload="true">
                         <source src= { this.state['videoLink'] } type="video/mp4" /> 
