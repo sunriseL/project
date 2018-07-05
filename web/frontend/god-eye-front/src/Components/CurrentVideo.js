@@ -8,7 +8,7 @@ class CurrentVideo extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: "https://mvpc.eastday.com/vgaoxiao/20180703/20180703175205896698808_1_06400360.mp4"
+            videoLink: "http://mvpc.eastday.com/vtiyu/20170907/20170907095753399577898_1_06400360.mp4"
         };
 
     }
@@ -21,6 +21,7 @@ class CurrentVideo extends React.Component {
                         <Breadcrumb.Item>查看当前监控</Breadcrumb.Item>
                     </Breadcrumb>
                 </Layout>
+
                 <Layout>
                     <Row>
                         <Col span={ 12 }>
