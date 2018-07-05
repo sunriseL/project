@@ -2,7 +2,7 @@ import React from 'react';
 import {Card } from 'antd';
 import { withStyles } from '@material-ui/core/styles';
 import pic from '../image/usermap.jpg'
-//import Card from '@material-ui/core/Card';
+import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -33,11 +33,11 @@ class UserMap extends React.Component{
     render(){
         return (
             <div>
-                <Card style={{maxWidth:2160, width: '60%'}}>
+                <Card style={{maxWidth:2160, width: '90%', margin: '5%'}}>
                     <CardMedia
-                        style={{height: '60%', paddingTop: '56.25%'}}
-                        image={ this.state['map_url'] }
-                        title={ this.state['map_name'] }
+                    style={{height: '80%', paddingTop: '56.25%'}}
+                    image={ this.state['map_url'] }
+                    title={ this.state['map_name'] }
                     />
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
