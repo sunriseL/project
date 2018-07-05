@@ -5,6 +5,7 @@ class VideoPlayer extends React.Component {
         super(props);
         this.state = {
             videoLink: "http://sp.ntaotu.com/localhost-wordpress-phpstudy.mp4",
+            catchTime: 0,
         };
 
         this.style = {
@@ -16,9 +17,10 @@ class VideoPlayer extends React.Component {
         };
     }
 
+
     render(){
         return(
-            <video style={ this.style } controls="controls" preload="true">
+            <video id='video-player' style={ this.style } controls="controls" preload="true">
                 <source src= { this.state['videoLink'] } type="video/mp4" /> 
                 <source src= { this.state['videoLink'] } type="video/ogg" /> 
                 <source src= { this.state['videoLink'] } type="video/webm" />
