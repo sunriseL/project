@@ -2,9 +2,9 @@ import React from 'react';
 import { Layout, Breadcrumb, Row, Col, Divider } from 'antd';
 import Button from '@material-ui/core/Button';
 
-import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
+import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
 const { Footer } = Layout;
 

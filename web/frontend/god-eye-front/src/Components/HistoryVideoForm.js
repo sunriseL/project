@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, DatePicker, Row, Col } from 'antd';
 import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
@@ -47,7 +48,10 @@ class HistoryVideoForm extends React.Component {
                 </Col>
                 <Col span={6}>
                     <FormItem>
-                        <Button htmlType="submit">选定时间</Button>
+                    <Button  variant="contained" size="small" >
+                        <SaveIcon />
+                        选定时间
+                    </Button>
                     </FormItem>
                 </Col>
             </Row>
