@@ -21,3 +21,7 @@ Progress in frontend part
 Optimize project struct
 Func Catch Video time
 Optimize layout of the whole project
+
+
+### 2018/7/6
+md! md!  
