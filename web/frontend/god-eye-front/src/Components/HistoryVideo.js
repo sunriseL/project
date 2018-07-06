@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Breadcrumb, Row, Col, Button, Divider } from 'antd';
+import { Layout, Breadcrumb, Row, Col, Divider } from 'antd';
+import Button from '@material-ui/core/Button';
 
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import VideoPlayer from './VideoPlayer.js';
@@ -43,7 +44,7 @@ class HistoryVideo extends React.Component {
                             <WrappedHistoryVideoForm />
                             <VideoPlayer />
                             <Divider />
-                            <Button type='primary' onClick={this.getCurrentTime}>选定当前帧</Button>
+                            <Button onClick={this.getCurrentTime} style={{width: "60%", minWidth: 70, left: "20%"}}>选定当前帧</Button>
                         </Layout>
                     </Col>
                 </Row>
