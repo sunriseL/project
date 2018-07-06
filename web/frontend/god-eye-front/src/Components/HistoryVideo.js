@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Breadcrumb, Row, Col, Button } from 'antd';
+import { Layout, Breadcrumb, Row, Col, Button, Divider } from 'antd';
 
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import VideoPlayer from './VideoPlayer.js';
@@ -42,6 +42,7 @@ class HistoryVideo extends React.Component {
                         <Layout>
                             <WrappedHistoryVideoForm />
                             <VideoPlayer />
+                            <Divider />
                             <Button type='primary' onClick={this.getCurrentTime}>选定当前帧</Button>
                         </Layout>
                     </Col>
