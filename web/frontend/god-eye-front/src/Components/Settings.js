@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Upload, Icon, Breadcrumb, Row, Col, message } from 'antd';
+import { Layout, Upload, Icon, Breadcrumb, message } from 'antd';
+import Grid from '@material-ui/core/Grid';
 import UserMap from './UserMap';
 import MyUpload from "./Upload";
 
@@ -63,14 +64,14 @@ class Settings extends React.Component {
         const imageUrl = this.state.imageUrl;
         return(
             <Layout>
-                <Row>
-                    <Col span={4}>
+                <Grid container spacing={24}>
+                    <Grid item xs={2}>
                         <Breadcrumb>
                             <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
                             <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
                         </Breadcrumb>
-                    </Col>
-                </Row>
+                    </Grid>
+                </Grid>
                 <Content>
                     <UserMap />
                     <MyUpload/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Breadcrumb, Row, Col, Divider } from 'antd';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
@@ -27,14 +28,14 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
-                <Row>
-                    <Col span={4}>
+                <Grid container spacing={24}>
+                    <Grid item xs={2}>
                         <Breadcrumb>
                             <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
                             <Breadcrumb.Item>查看历史监控</Breadcrumb.Item>
                         </Breadcrumb>
-                    </Col>
-                </Row>
+                    </Grid>
+                </Grid>
                 <Row align='top'>
                     <Col span={12}>
                         <UserMap />

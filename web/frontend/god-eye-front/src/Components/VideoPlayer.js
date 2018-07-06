@@ -30,7 +30,7 @@ class VideoPlayer extends React.Component {
 
     render(){
         return(
-        <Paper elevation={1}>
+        <Paper elevation={1} style={{margin: "1%"}}>
             <video id="video_id" style={ this.style } controls="controls" preload={false}>
                 <source src= { this.state['videoLink'] } type="video/mp4" /> 
                 <source src= { this.state['videoLink'] } type="video/ogg" /> 

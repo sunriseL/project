@@ -31,7 +31,7 @@ class UserMap extends React.Component{
 
         return (
             <div>
-                <Card style={{maxWidth:2160, width: '90%', margin: '5%'}}>
+                <Card style={{margin: "1%"}}>
                     <CardMedia
                     style={{height: '80%', paddingTop: '56.25%'}}
                     image={ this.state['map_url'] }
