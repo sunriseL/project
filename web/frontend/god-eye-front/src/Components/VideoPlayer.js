@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button } from 'antd';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+//let url = '../image/1.mp4';
 
 class VideoPlayer extends React.Component {
     constructor(props){
@@ -27,7 +29,7 @@ class VideoPlayer extends React.Component {
 
     render(){
         return(
-        <div>
+        <Paper elevation={1} style={{margin: "1%"}}>
             <video id="video_id" style={ this.style } controls="controls" preload={false}>
                 <source src= { this.state['videoLink'] } type="video/mp4" /> 
                 <source src= { this.state['videoLink'] } type="video/ogg" /> 
@@ -38,8 +40,8 @@ class VideoPlayer extends React.Component {
                 您的环境不支持h5播放器
             </video>
             <input type="file" id="file"/>
-            <Button type="primary" onClick = {() => this.play()}>播放监控</Button>
-        </div>
+            <Button onClick = {() => this.play()}>播放监控</Button>
+        </Paper>
         );
     }
 }
