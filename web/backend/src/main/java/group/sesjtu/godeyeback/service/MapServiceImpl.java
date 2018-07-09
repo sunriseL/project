@@ -40,8 +40,8 @@ public class MapServiceImpl implements MapService {
         Map newMap = new Map();
         newMap .setStr(bin);
         newMap .setName(name);
-        mapRepo.insert(newMap );
-        System.out.println("add map success");
+        mapRepo.save(newMap);
+        System.out.println("add map success"+name);
     }
 
     public Map getMap(String name){

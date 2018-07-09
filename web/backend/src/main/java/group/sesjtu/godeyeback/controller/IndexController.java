@@ -25,11 +25,12 @@ public class IndexController {
     }
 
     /* add new map to mongodb */
-    @RequestMapping("/map/add")
-    protected void addMap(@RequestParam("name") String name,
-                                 @RequestParam("bin") String bin){
+    @PostMapping("/map/add")
+    protected String addMap(@RequestParam("name")String name,
+                            @RequestParam("bin")String bin){
+        System.out.println(name);
         mapService.addMap(name,bin);
-       // return mapService.getMap(name);
+        return name;
     }
 
     @RequestMapping("/map/get")
