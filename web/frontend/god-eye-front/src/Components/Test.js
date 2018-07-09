@@ -10,7 +10,6 @@ class Test extends React.Component {
     }
 
     test(){
-        let params = {"name":"abc"};
         fetch('http://localhost:8081/test', {
                 method: 'POST',
                 mode: 'cors',
