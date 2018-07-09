@@ -12,4 +12,6 @@ public interface MapService {
     int showMap(String name, int x,int y);
 
     Map getMap(String name);
+
+    Map getNewestMap();
 }

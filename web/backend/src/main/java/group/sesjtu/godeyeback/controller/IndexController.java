@@ -48,9 +48,10 @@ public class IndexController {
     }
 
     @RequestMapping("/test")
-    protected JSONArray test(String name){
-        System.out.println("accessed by frontend："+name);
-        Map m = mapService.getMap("map1");
+    protected JSONArray test(){
+        System.out.println("accessed by frontend");
+        Map m = mapService.getNewestMap();
         return JSONArray.fromObject(m);
     }
+
 }

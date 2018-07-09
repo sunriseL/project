@@ -1,6 +1,5 @@
 package group.sesjtu.godeyeback.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +26,8 @@ public class CrossConfig {
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
-        //     corsConfiguration.addExposedHeader(HttpHeaderConStant.X_TOTAL_COUNT);
         return corsConfiguration;
     }
-
 
     @Bean
     public CorsFilter corsFilter() {
