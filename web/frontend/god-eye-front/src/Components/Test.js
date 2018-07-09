@@ -10,9 +10,14 @@ class Test extends React.Component {
     }
 
     test(){
+        let params = {"name":"abc"};
         fetch('http://localhost:8081/test', {
-            //    method: 'POST',
+                method: 'POST',
                 mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: 'abc' }),
         }).then(response =>{
             console.log("Request Successful", response);
             return response.json()

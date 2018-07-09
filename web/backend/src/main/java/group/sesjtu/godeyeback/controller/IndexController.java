@@ -47,8 +47,8 @@ public class IndexController {
     }
 
     @RequestMapping("/test")
-    protected JSONArray test(){
-        System.out.println("accessed by frontend");
+    protected JSONArray test(String name){
+        System.out.println("accessed by frontend："+name);
         Map m = mapService.getMap("map1");
         return JSONArray.fromObject(m);
     }
