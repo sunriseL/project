@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Breadcrumb, Row, Col, Divider } from 'antd';
+import { Layout, Breadcrumb, Divider } from 'antd';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
@@ -36,19 +36,19 @@ class HistoryVideo extends React.Component {
                         </Breadcrumb>
                     </Grid>
                 </Grid>
-                <Row align='top'>
-                    <Col span={12}>
+                <Grid container xs={12} spacing={24}>
+                    <Grid item xs={6}>
                         <UserMap />
-                    </Col>
-                    <Col span={12}>
-                        <Layout>
+                    </Grid>
+                    <Grid xs={6} item>
                             <WrappedHistoryVideoForm />
                             <VideoPlayer />
                             <Divider />
-                            <Button onClick={this.getCurrentTime} style={{width: "60%", minWidth: 70, left: "20%"}}>选定当前帧</Button>
-                        </Layout>
-                    </Col>
-                </Row>
+                            <Grid style={{textAlign:'center'}} xs={12}>
+                                <Button variant="contained" onClick={this.getCurrentTime} small>选定当前帧</Button>
+                            </Grid>
+                    </Grid>
+                </Grid>
                 <Footer style={{ textAlign: 'center' }}>
                     God Eye ©2018 Created by SunriseL Team
                 </Footer>

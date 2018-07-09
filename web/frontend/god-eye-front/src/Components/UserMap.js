@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'antd';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -35,6 +35,19 @@ class UserMap extends React.Component{
         })
     }
 
+    ifSetting(){
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+        var splitUrl = arrUrl[1].split("/");
+        var relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+
+　　　　if(relUrl.indexOf("?") !== -1){
+　　　　　　relUrl = relUrl.split("?")[0];
+　　　　}
+　　　　return (relUrl==='settings');
+
+    }
+
     render(){
         return (
             <div>
@@ -50,8 +63,10 @@ class UserMap extends React.Component{
                         </Typography>
                     </CardContent>
                 </Card>
-                <input type="file"  id="image"/>
-                <Button type="primary" onClick = {() => this.upload()}>上传地图</Button>
+                {(this.ifSetting() ? <div>
+                    <input type="file"  id="image"/>
+                    <Button variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
+                </div> : null)}
                 </div>
         );
     }

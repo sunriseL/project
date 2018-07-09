@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, DatePicker, Row, Col } from 'antd';
+import { Form, DatePicker } from 'antd';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -38,23 +39,24 @@ class HistoryVideoForm extends React.Component {
         };
         return (
         <Form onSubmit={this.handleSubmit}>
-            <Row>
-                <Col span={6} offset={6}>
+            <Grid container>
+                <Grid item xs={3} />
+                <Grid item xs={3}>
                     <FormItem>
                         {getFieldDecorator('range-time-picker', rangeConfig)(
                             <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{width:'100%'}}/>
                         )}
                     </FormItem>
-                </Col>
-                <Col span={6}>
+                </Grid>
+                <Grid xs={3}>
                     <FormItem>
                     <Button  variant="contained" size="small" >
                         <SaveIcon />
                         选定时间
                     </Button>
                     </FormItem>
-                </Col>
-            </Row>
+                </Grid>
+            </Grid>
         </Form>
         );
     }
