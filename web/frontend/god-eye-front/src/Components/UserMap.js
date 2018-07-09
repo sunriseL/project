@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import './NavBar.css';
 import $ from "jquery";
@@ -49,26 +48,26 @@ class UserMap extends React.Component{
     upload() {
         let file = document.getElementById('image').files[0];
         let url = URL.createObjectURL(file);
-        let map_bin = '';
 
         this.getBase64(file, (result) => {
             let uploadJSON = {
-                'name': url,
-                'bin': result,
+                'map_name': url,
+                'map_bin': result,
             };
             console.log(uploadJSON);
+            this.setState(uploadJSON);
             $.ajax({
                 type: "post",
                 url: "http://127.0.0.1:8081/map/add",
                 crossDomain: true,
                 data: uploadJSON,
                 success: function (data) {
-                    console.log(data);
-                }.bind(this),
+                console.log(data);
+            }.bind(this),
                 error : function() {}
             })
         });
-
+        this.render();
     }
 
     ifSetting(){
@@ -84,15 +83,25 @@ class UserMap extends React.Component{
 
     }
 
+    ifMapExist(){
+        var mapBin = this.state['map_bin'];
+        return (mapBin!=="");
+    }
+
     render(){
+
         return (
             <div>
                 <Card style={{margin: "1%"}}>
-                    <CardMedia
-                    style={{height: '80%', paddingTop: '56.25%'}}
-                    image={ this.state['map_url'] }
-                    title={ this.state['map_name'] }
-                    />
+                    {this.ifMapExist() ?
+                    <img
+                    style={{height: '95%', width:'95%', margin:'2.5%'}}
+                    src={ this.state['map_bin'] }
+                    alt='无法显示图片'
+                    // title={ this.state['map_name'] }
+                    /> : 
+                    <div style={{height: '90%', width:'90%', margin:'5%'}}>请上传地图</div>
+                    }
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
                             { this.state['map_name'] }
