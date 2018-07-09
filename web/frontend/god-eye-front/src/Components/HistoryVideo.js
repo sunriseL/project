@@ -1,9 +1,11 @@
 import React from 'react';
-import { Layout, Breadcrumb, Row, Col, Button } from 'antd';
+import { Layout, Breadcrumb, Row, Col, Divider } from 'antd';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
+import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
 const { Footer } = Layout;
 
@@ -26,14 +28,14 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
-                <Row>
-                    <Col span={4}>
+                <Grid container spacing={24}>
+                    <Grid item xs={2}>
                         <Breadcrumb>
                             <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
                             <Breadcrumb.Item>查看历史监控</Breadcrumb.Item>
                         </Breadcrumb>
-                    </Col>
-                </Row>
+                    </Grid>
+                </Grid>
                 <Row align='top'>
                     <Col span={12}>
                         <UserMap />
@@ -42,7 +44,8 @@ class HistoryVideo extends React.Component {
                         <Layout>
                             <WrappedHistoryVideoForm />
                             <VideoPlayer />
-                            <Button type='primary' onClick={this.getCurrentTime}>选定当前帧</Button>
+                            <Divider />
+                            <Button onClick={this.getCurrentTime} style={{width: "60%", minWidth: 70, left: "20%"}}>选定当前帧</Button>
                         </Layout>
                     </Col>
                 </Row>
