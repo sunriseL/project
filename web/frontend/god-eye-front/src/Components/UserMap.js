@@ -27,12 +27,36 @@ class UserMap extends React.Component{
         }
     };
 
+    getBase64(file,cb){
+        if(typeof(FileReader) === 'undefined'){
+            alert("您的浏览器不支持FileReader,请使用Chrome访问本应用");
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = function(){
+            cb(reader.result);
+        }
+
+        reader.onerror = function(error){
+            console.log('Error: ', error);
+        }
+    }
     upload() {
         let file = document.getElementById('image').files[0];
         let url = URL.createObjectURL(file);
         this.setState({
             map_url : url
+        });
+
+        let mapSrc = '';
+        this.getBase64(file, (result) => {
+            mapSrc = result;
         })
+
+
     }
 
     ifSetting(){
