@@ -24,6 +24,7 @@ class UserMap extends React.Component{
         this.state = {
             map_url:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=930073930,3424315015&fm=27&gp=0.jpg',
             map_name: "用户地图",
+            map_bin: "",
         }
     };
 
@@ -47,15 +48,17 @@ class UserMap extends React.Component{
     upload() {
         let file = document.getElementById('image').files[0];
         let url = URL.createObjectURL(file);
-        this.setState({
-            map_url : url
-        });
+        let map_bin = '';
 
-        let mapSrc = '';
         this.getBase64(file, (result) => {
-            mapSrc = result;
-        })
-
+            let uploadJSON = {
+                'name': url,
+                'bin': result,
+            };
+    
+            console.log(uploadJSON);
+            //replace to fetch
+        });
 
     }
 
