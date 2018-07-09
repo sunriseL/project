@@ -20,6 +20,9 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.8.0",
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
     "react-app-rewired": "^1.5.2"
-  }
+  },
+  "homepage": "."
 }

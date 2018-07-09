@@ -30,7 +30,6 @@ class UserMap extends React.Component{
     upload() {
         let file = document.getElementById('image').files[0];
         let url = URL.createObjectURL(file);
-        document.getElementById("map_id").image = url;
         this.setState({
             map_url : url
         })
