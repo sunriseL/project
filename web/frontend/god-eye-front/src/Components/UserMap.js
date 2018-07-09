@@ -66,6 +66,14 @@ class UserMap extends React.Component{
             },
                 error : function() {}
             })
+        //     fetch('http://localhost:8081/map/add', {
+        //         method: 'POST',
+        //         mode: 'cors',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(uploadJSON),
+        // })
         });
         this.render();
     }
