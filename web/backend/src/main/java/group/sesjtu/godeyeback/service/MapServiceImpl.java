@@ -44,8 +44,8 @@ public class MapServiceImpl implements MapService {
         System.out.println("add map success");
     }
 
-    public String getMap(String name){
-        return mapRepo.findByName(name).getStr();
+    public Map getMap(String name){
+        return mapRepo.findByName(name);
     }
 
 
