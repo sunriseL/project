@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import './NavBar.css';
 import $ from "jquery";
 
@@ -50,9 +51,10 @@ class UserMap extends React.Component{
         let url = URL.createObjectURL(file);
 
         this.getBase64(file, (result) => {
+            let map_name = document.getElementById('mapNameHolder').value;
             let uploadJSON = {
-                'map_name': url,
                 'map_bin': result,
+                'map_name': map_name,
             };
             console.log(uploadJSON);
             this.setState(uploadJSON);
@@ -63,7 +65,7 @@ class UserMap extends React.Component{
                 data: uploadJSON,
                 success: function (data) {
                 console.log(data);
-            }.bind(this),
+            },
                 error : function() {}
             })
         });
@@ -109,6 +111,12 @@ class UserMap extends React.Component{
                     </CardContent>
                 </Card>
                 {(this.ifSetting() ? <div>
+                    <TextField
+                        id="mapNameHolder"
+                        label="请输入地图名称"
+                        placeholder="Placeholder"                        
+                        margin="normal"
+                    />
                     <input type="file"  id="image"/>
                     <Button variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
                 </div> : null)}
