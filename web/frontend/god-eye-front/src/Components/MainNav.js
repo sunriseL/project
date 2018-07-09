@@ -20,6 +20,7 @@ import TraceTarget from "./TraceTarget";
 import HistoryVideo from "./HistoryVideo";
 import Settings from "./Settings";
 import CurrentVideo from "./CurrentVideo.js";
+import Test from "./Test";
 
 
 const drawerWidth = 240;
@@ -191,6 +192,7 @@ class MainNav extends React.Component {
                             <Route exact path="/history-video" component={ HistoryVideo } />
                             <Route exact path="/trace-target"  component={ TraceTarget } />
                             <Route exact path="/settings"  component={ Settings } />
+                            <Route exact path="/test"  component={ Test } />
                         </Switch>
                         </div>
                     </main>

@@ -44,4 +44,8 @@ public class IndexController {
         return mapService.get(name,1,0);
     }
 
+    @RequestMapping("/test")
+    protected String test(){
+        return "backend:OK";
+    }
 }
