@@ -3,6 +3,8 @@ package group.sesjtu.godeyeback.controller;
 import group.sesjtu.godeyeback.entity.Map;
 import group.sesjtu.godeyeback.service.MapService;
 import group.sesjtu.godeyeback.service.VideoService;
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +26,15 @@ public class IndexController {
 
     /* add new map to mongodb */
     @RequestMapping("/map/add")
-    protected String addMap(@RequestParam("name") String name,
+    protected void addMap(@RequestParam("name") String name,
                                  @RequestParam("bin") String bin){
         mapService.addMap(name,bin);
-        return mapService.getMap(name);
+       // return mapService.getMap(name);
     }
 
     @RequestMapping("/map/get")
     protected String getMap(@RequestParam("name") String name){
-        return mapService.getMap(name);
+        return mapService.getMap(name).getStr();
     }
 
     @RequestMapping("/map/setRoad")
@@ -45,7 +47,9 @@ public class IndexController {
     }
 
     @RequestMapping("/test")
-    protected String test(){
-        return "backend:OK";
+    protected JSONArray test(){
+        System.out.println("accessed by frontend");
+        Map m = mapService.getMap("map1");
+        return JSONArray.fromObject(m);
     }
 }

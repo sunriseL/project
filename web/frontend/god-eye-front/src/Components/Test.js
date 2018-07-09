@@ -10,13 +10,16 @@ class Test extends React.Component {
     }
 
     test(){
-        fetch('http://localhost:8081/test',
-            {
-                method: 'POST',
+        fetch('http://localhost:8081/test', {
+            //    method: 'POST',
                 mode: 'cors',
-            }).then(response =>{
-                console.log("Request Successful",response);
-        })
+        }).then(response =>{
+            console.log("Request Successful", response);
+            return response.json()
+                .then(result =>{
+                    console.log(result[0]);
+                })
+            })
     }
 
     render(){
