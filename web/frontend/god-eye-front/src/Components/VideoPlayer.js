@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-//let url = '../image/1.mp4';
 
 class VideoPlayer extends React.Component {
     constructor(props){
@@ -40,7 +39,7 @@ class VideoPlayer extends React.Component {
                 您的环境不支持h5播放器
             </video>
             <input type="file" id="file"/>
-            <Button onClick = {() => this.play()}>播放监控</Button>
+            <Button variant="contained" size="small" onClick = {() => this.play()}>播放监控</Button>
         </Paper>
         );
     }

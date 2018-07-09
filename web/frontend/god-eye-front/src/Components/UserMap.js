@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import './NavBar.css';
+import $ from "jquery";
 
 const styles = {
     card: {
@@ -55,9 +56,17 @@ class UserMap extends React.Component{
                 'name': url,
                 'bin': result,
             };
-    
             console.log(uploadJSON);
-            //replace to fetch
+            $.ajax({
+                type: "post",
+                url: "http://127.0.0.1:8081/map/add",
+                crossDomain: true,
+                data: uploadJSON,
+                success: function (data) {
+                    console.log(data);
+                }.bind(this),
+                error : function() {}
+            })
         });
 
     }
