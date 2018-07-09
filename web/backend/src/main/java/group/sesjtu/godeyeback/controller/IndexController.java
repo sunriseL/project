@@ -26,11 +26,11 @@ public class IndexController {
 
     /* add new map to mongodb */
     @PostMapping("/map/add")
-    protected String addMap(@RequestParam("name")String name,
-                            @RequestParam("bin")String bin){
-        System.out.println(name);
-        mapService.addMap(name,bin);
-        return name;
+    protected String addMap(@RequestParam("map_name")String map_name,
+                            @RequestParam("map_bin")String map_bin){
+        System.out.println(map_name);
+        mapService.addMap(map_name,map_bin);
+        return map_name;
     }
 
     @RequestMapping("/map/get")

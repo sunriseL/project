@@ -63,7 +63,7 @@ class UserMap extends React.Component{
                 data: uploadJSON,
                 success: function (data) {
                 console.log(data);
-            }.bind(this),
+            },
                 error : function() {}
             })
         });
