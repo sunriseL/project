@@ -8,7 +8,7 @@ const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 
 class HistoryVideoForm extends React.Component {
-    handleSubmit = (e) => {
+    handleClick = (e) => {
         e.preventDefault();
 
         this.props.form.validateFields((err, fieldsValue) => {
@@ -19,11 +19,8 @@ class HistoryVideoForm extends React.Component {
         // Should format date value before submit.
         const rangeTimeValue = fieldsValue['range-time-picker'];
         const values = {
-            ...fieldsValue,
-            'range-time-picker': [
-            rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
-            rangeTimeValue[1].format('YYYY-MM-DD HH:mm:ss'),
-            ],
+            'start': rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
+            'end': rangeTimeValue[1].format('YYYY-MM-DD HH:mm:ss'),
         };
 
         console.log('Received values of form: ', values);
@@ -38,10 +35,9 @@ class HistoryVideoForm extends React.Component {
         rules: [{ type: 'array', required: true, message: 'Please select time!' }],
         };
         return (
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
             <Grid container>
-                <Grid item xs={3} />
-                <Grid item xs={3}>
+                <Grid item xs={9}>
                     <FormItem>
                         {getFieldDecorator('range-time-picker', rangeConfig)(
                             <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{width:'100%'}}/>
@@ -50,7 +46,7 @@ class HistoryVideoForm extends React.Component {
                 </Grid>
                 <Grid xs={3}>
                     <FormItem>
-                    <Button  variant="contained" size="small" >
+                    <Button  variant="contained" size="small" onClick={this.handleClick} >
                         <SaveIcon />
                         选定时间
                     </Button>
