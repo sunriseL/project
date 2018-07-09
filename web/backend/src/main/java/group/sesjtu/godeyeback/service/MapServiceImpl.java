@@ -48,5 +48,8 @@ public class MapServiceImpl implements MapService {
         return mapRepo.findByName(name);
     }
 
-
+    public Map getNewestMap(){
+        int size = mapRepo.findAll().size();
+        return mapRepo.findAll().get(size-1);
+    }
 }

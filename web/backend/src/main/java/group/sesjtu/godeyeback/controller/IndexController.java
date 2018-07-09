@@ -26,11 +26,11 @@ public class IndexController {
 
     /* add new map to mongodb */
     @PostMapping("/map/add")
-    protected String addMap(@RequestParam("name")String name,
-                            @RequestParam("bin")String bin){
-        System.out.println(name);
-        mapService.addMap(name,bin);
-        return name;
+    protected String addMap(@RequestParam("map_name")String map_name,
+                            @RequestParam("map_bin")String map_bin){
+        System.out.println(map_name);
+        mapService.addMap(map_name,map_bin);
+        return map_name;
     }
 
     @RequestMapping("/map/get")
@@ -48,9 +48,10 @@ public class IndexController {
     }
 
     @RequestMapping("/test")
-    protected JSONArray test(String name){
-        System.out.println("accessed by frontend："+name);
-        Map m = mapService.getMap("map1");
+    protected JSONArray test(){
+        System.out.println("accessed by frontend");
+        Map m = mapService.getNewestMap();
         return JSONArray.fromObject(m);
     }
+
 }
