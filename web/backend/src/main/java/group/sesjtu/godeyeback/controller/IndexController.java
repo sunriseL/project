@@ -54,4 +54,11 @@ public class IndexController {
         return bin;
     }
 
+    @RequestMapping("/has_map")
+    protected int hasMap(){
+        int result = mapService.hasMap();
+        System.out.println("has map?"+result);
+        return result;
+    }
+
 }

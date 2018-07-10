@@ -52,4 +52,8 @@ public class MapServiceImpl implements MapService {
         int size = mapRepo.findAll().size();
         return mapRepo.findAll().get(size-1);
     }
+
+    public int hasMap(){
+        return mapRepo.findAll().size();
+    }
 }
