@@ -3,9 +3,14 @@ import './App.css';
 import MainNav from './Components/MainNav';
 
 class App extends Component {
+    ifDBEmpty(){
+        return 'false';
+    }
+
     componentDidMount(){
         localStorage.setItem('ifMapChanged', 'true');
         localStorage.setItem('currentMapBin', '');
+        localStorage.setItem('ifDBEmpty', this.ifDBEmpty());
     }   
 
     componentWillUnmount(){

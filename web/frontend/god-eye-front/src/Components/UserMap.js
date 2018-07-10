@@ -31,6 +31,9 @@ class UserMap extends React.Component{
     componentDidMount(){
         let _this = this;
         let if_map_changed = (localStorage.getItem('ifMapChanged') === 'true');
+        if(localStorage.getItem('ifDBEmpty')==='true'){
+            return;
+        }
         if(if_map_changed){
             $.ajax({
                 type: "get",
@@ -121,24 +124,28 @@ class UserMap extends React.Component{
 
     }
 
-    ifMapExist(){
+    ifMapLoading(){
         var mapBin = this.state['map_bin'];
-        return (mapBin!=="");
+        return (mapBin==="");
     }
 
     render(){
+        let mapInstantce = <div style={{height: '90%', width:'90%', margin:'5%'}}>请上传地图</div>
+        if(localStorage.getItem('ifDBEmpty')==='true'){
+            mapInstantce = <div>Loading</div>
+        }
+        if(!this.ifMapLoading()){
+            mapInstantce = <img
+            style={{height: '95%', width:'95%', margin:'2.5%'}}
+            src={ this.state['map_bin'] }
+            alt='无法显示图片'
+            /> 
+        }
 
         return (
             <div>
                 <Card style={{margin: "1%"}}>
-                    {this.ifMapExist() ?
-                    <img
-                    style={{height: '95%', width:'95%', margin:'2.5%'}}
-                    src={ this.state['map_bin'] }
-                    alt='无法显示图片'
-                    /> : 
-                    <div style={{height: '90%', width:'90%', margin:'5%'}}>请上传地图</div>
-                    }
+                    {mapInstantce}
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
                             { this.state['map_name'] }
