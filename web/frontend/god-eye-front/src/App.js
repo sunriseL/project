@@ -8,6 +8,7 @@ class App extends Component {
         $.ajax({
             type: "get",
             url: "http://127.0.0.1:8081/has_map",
+            async: false,
             crossDomain: true,
             success: function (data) {
                 if(data===0){
@@ -20,12 +21,9 @@ class App extends Component {
                 alert("something went wrong");
             }
         })
-
-        // return 'false';
     }
 
     componentDidMount(){
-        localStorage.setItem('ifMapChanged', 'true');
         localStorage.setItem('currentMapBin', '');
         localStorage.setItem('ifDBEmpty', this.ifDBEmpty());
     }   

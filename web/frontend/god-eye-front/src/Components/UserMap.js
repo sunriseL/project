@@ -24,38 +24,15 @@ class UserMap extends React.Component{
         super(props);
         this.state = {
             map_name: "用户地图",
-            map_bin: '',
+            map_bin: localStorage.getItem('currentMapBin'),
         };
     };
 
     componentDidMount(){
-        let _this = this;
-        let if_map_changed = (localStorage.getItem('ifMapChanged') === 'true');
         if(localStorage.getItem('ifDBEmpty')==='true'){
             return;
         }
-        if(if_map_changed){
-            $.ajax({
-                type: "get",
-                url: "http://127.0.0.1:8081/get_new_map",
-                crossDomain: true,
-                success: function (data) {
-                    _this.setState({
-                        map_name: "用户地图",
-                        map_bin: data,
-                    });
-                    localStorage.setItem('ifMapChanged', 'false');
-                    localStorage.setItem('currentMapBin', data);
-                    _this.render();
-                },
-                error : function() {}
-            })
-        }else{
-            _this.setState({
-                map_name: "用户地图",
-                map_bin: localStorage.getItem('currentMapBin'),
-            });
-        }
+        
     }
 
     getBase64(file,cb){
@@ -86,14 +63,15 @@ class UserMap extends React.Component{
                 'map_name': map_name,
             };
             this.setState(uploadJSON);
+            let _this=this;
             $.ajax({
                 type: "post",
                 url: "http://127.0.0.1:8081/map/add",
                 crossDomain: true,
                 data: uploadJSON,
                 success: function (data) {
-                    localStorage.setItem('ifMapChanged', 'true');
                     alert("地图上传成功");
+                    _this.render();
                 },
                 error : function() {
                     alert("地图上传失败");
@@ -124,24 +102,16 @@ class UserMap extends React.Component{
 
     }
 
-    ifMapLoading(){
-        var mapBin = this.state['map_bin'];
-        return (mapBin==="");
-    }
-
     render(){
-        let mapInstantce = <div style={{height: '90%', width:'90%', margin:'5%'}}>请上传地图</div>
-        if(localStorage.getItem('ifDBEmpty')==='true'){
-            mapInstantce = <div>Loading</div>
-        }
-        if(!this.ifMapLoading()){
+        let mapInstantce = <div>Loading</div>
+        if(!(localStorage.getItem('ifDBEmpty')==='true')){
             mapInstantce = <img
             style={{height: '95%', width:'95%', margin:'2.5%'}}
             src={ this.state['map_bin'] }
             alt='无法显示图片'
             /> 
         }
-
+    
         return (
             <div>
                 <Card style={{margin: "1%"}}>
