@@ -16,3 +16,12 @@ Prepare for video displaying
 ### 2018/7/4
 Add Material-UI
 Progress in frontend part
+
+### 2018/7/5
+Optimize project struct
+Func Catch Video time
+Optimize layout of the whole project
+
+
+### 2018/7/6
+md! md!  

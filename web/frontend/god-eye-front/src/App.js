@@ -1,8 +1,53 @@
 import React, { Component } from 'react';
 import './App.css';
 import MainNav from './Components/MainNav';
+import $ from 'jquery';
 
 class App extends Component {
+    ifDBEmpty(){
+        $.ajax({
+            type: "get",
+            url: "http://127.0.0.1:8081/has_map",
+            async: false,
+            crossDomain: true,
+            success: function (data) {
+                if(data===0){
+                    localStorage.setItem('ifDBEmpty', 'true');
+                }else{
+                    localStorage.setItem('ifDBEmpty', 'false');
+                }
+            },
+            error : function() {
+                alert("something went wrong");
+            }
+        })
+    }
+
+    getDefaultMap(){
+        $.ajax({
+            type: "get",
+            url: "http://127.0.0.1:8081/get_new_map",
+            async: false,
+            crossDomain: true,
+            success: function (data) {
+                localStorage.setItem('currentMapBin', data);
+            },
+            error : function() {
+                console.log("something went wrong");
+            }
+        })
+    }
+
+    componentDidMount(){
+        this.ifDBEmpty();
+        if(localStorage.getItem('ifDBEmpty')==='false')
+            this.getDefaultMap();
+        console.log("ifDBEmpty:"+localStorage.getItem('ifDBEmpty'));
+    }   
+
+    componentWillUnmount(){
+        localStorage.clear();
+    }
     render() {
         return (
             <div className="App">

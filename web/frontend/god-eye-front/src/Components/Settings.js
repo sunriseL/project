@@ -1,6 +1,8 @@
 import React from 'react';
-import { Layout, Breadcrumb, Row, Col} from 'antd';
+import { Layout, Breadcrumb } from 'antd';
+import Grid from '@material-ui/core/Grid';
 import UserMap from './UserMap';
+
 
 const {  Content, Footer } = Layout;
 
@@ -23,14 +25,14 @@ class Settings extends React.Component {
     render(){
         return(
             <Layout>
-                <Row>
-                    <Col span={4}>
+                <Grid container spacing={24}>
+                    <Grid item xs={2}>
                         <Breadcrumb>
                             <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
                             <Breadcrumb.Item>添加地图与摄像头</Breadcrumb.Item>
                         </Breadcrumb>
-                    </Col>
-                </Row>
+                    </Grid>
+                </Grid>
                 <Content>
                     <UserMap />
                 </Content>

@@ -1,9 +1,11 @@
 import React from 'react';
-import { Layout, Breadcrumb, Row, Col, Button } from 'antd';
+import { Layout, Breadcrumb, Divider } from 'antd';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
+import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 
 const { Footer } = Layout;
 
@@ -26,26 +28,27 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
-                <Row>
-                    <Col span={4}>
+                <Grid container spacing={24}>
+                    <Grid item xs={2}>
                         <Breadcrumb>
                             <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
                             <Breadcrumb.Item>查看历史监控</Breadcrumb.Item>
                         </Breadcrumb>
-                    </Col>
-                </Row>
-                <Row align='top'>
-                    <Col span={12}>
+                    </Grid>
+                </Grid>
+                <Grid container xs={12} spacing={24}>
+                    <Grid item xs={6}>
                         <UserMap />
-                    </Col>
-                    <Col span={12}>
-                        <Layout>
+                    </Grid>
+                    <Grid xs={6} item>
                             <WrappedHistoryVideoForm />
                             <VideoPlayer />
-                            <Button type='primary' onClick={this.getCurrentTime}>选定当前帧</Button>
-                        </Layout>
-                    </Col>
-                </Row>
+                            <Divider />
+                            <Grid style={{textAlign:'center'}} xs={12}>
+                                <Button variant="contained" onClick={this.getCurrentTime} small>选定当前帧</Button>
+                            </Grid>
+                    </Grid>
+                </Grid>
                 <Footer style={{ textAlign: 'center' }}>
                     God Eye ©2018 Created by SunriseL Team
                 </Footer>

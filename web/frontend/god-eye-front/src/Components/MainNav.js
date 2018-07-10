@@ -12,8 +12,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { ListItem, ListItemText } from '@material-ui/core';
+import { Switch } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import MyRouter from './MyRouter.js';
+
+import TraceTarget from "./TraceTarget";
+import HistoryVideo from "./HistoryVideo";
+import Settings from "./Settings";
+import CurrentVideo from "./CurrentVideo.js";
+import Test from "./Test";
+
 
 const drawerWidth = 240;
 
@@ -129,64 +137,67 @@ class MainNav extends React.Component {
             </IconButton>
             </div>
             <List>
-                <a href='current-video'>
-                    <ListItem button>
-                        <ListItemText primary="查看当前监控" />
-                    </ListItem>
-                </a>
-                <a href='history-video'>
-                    <ListItem button>
-                        <ListItemText primary="查看历史监控" />
-                    </ListItem>
-                </a>
-                <a href='trace-target'>
-                    <ListItem button>
-                        <ListItemText primary="查看追踪结果" />
-                    </ListItem>
-                </a>
-                <a href='settings'>
-                    <ListItem button>
-                        <ListItemText primary="添加地图与摄像头" />
-                    </ListItem>
-                </a>
+                <ListItem button component={ Link } to='current-video'>
+                    <ListItemText primary="查看当前监控" />
+                </ListItem>
+                <ListItem button component={ Link } to='history-video'>
+                    <ListItemText primary="查看历史监控" />
+                </ListItem>
+                <ListItem button component={ Link } to='trace-target'>
+                    <ListItemText primary="查看追踪结果" />
+                </ListItem>
+                <ListItem button component={ Link } to='settings'>
+                    <ListItemText primary="添加地图与摄像头" />
+                </ListItem>
             </List>
         </Drawer>
         );
 
         return (
         <div className={classes.root}>
-            <div className={classes.appFrame}>
-            <AppBar
-                className={classNames(classes.appBar, {
-                [classes.appBarShift]: open,
-                [classes[`appBarShift-${anchor}`]]: open,
-                })}
-            >
-                <Toolbar disableGutters={!open}>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={this.handleDrawerOpen}
-                    className={classNames(classes.menuButton, open && classes.hide)}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="title" color="inherit" noWrap>
-                    慧眼识踪
-                </Typography>
-                </Toolbar>
-            </AppBar>
-            { drawer }
-            <main
-                className={classNames(classes.content, classes[`content-${anchor}`], {
-                [classes.contentShift]: open,
-                [classes[`contentShift-${anchor}`]]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                <MyRouter />
-            </main>
-            </div>
+            <Router>
+                <div className={classes.appFrame}>
+                    <AppBar
+                        className={classNames(classes.appBar, {
+                        [classes.appBarShift]: open,
+                        [classes[`appBarShift-${anchor}`]]: open,
+                        })}
+                    >
+                        <Toolbar disableGutters={!open}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={this.handleDrawerOpen}
+                            className={classNames(classes.menuButton, open && classes.hide)}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="title" color="inherit" noWrap>
+                            慧眼识踪
+                        </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    { drawer }
+                    <main
+                        className={classNames(classes.content, classes[`content-${anchor}`], {
+                        [classes.contentShift]: open,
+                        [classes[`contentShift-${anchor}`]]: open,
+                        })}
+                    >
+                        <div className={classes.drawerHeader} />
+                        <div>
+                        <Switch>
+                            <Route exact path="/" component={ Settings } />
+                            <Route exact path="/current-video" component={ CurrentVideo } />
+                            <Route exact path="/history-video" component={ HistoryVideo } />
+                            <Route exact path="/trace-target"  component={ TraceTarget } />
+                            <Route exact path="/settings"  component={ Settings } />
+                            <Route exact path="/test"  component={ Test } />
+                        </Switch>
+                        </div>
+                    </main>
+                </div>
+            </Router>
         </div>
         );
     }

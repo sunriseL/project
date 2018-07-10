@@ -1,5 +1,7 @@
 package group.sesjtu.godeyeback.service;
 
+import group.sesjtu.godeyeback.entity.Map;
+
 public interface MapService {
     void setRoad(String mapName,int x,int y);
 
@@ -9,5 +11,9 @@ public interface MapService {
 
     int showMap(String name, int x,int y);
 
-    String getMap(String name);
+    int hasMap();
+
+    Map getMap(String name);
+
+    Map getNewestMap();
 }

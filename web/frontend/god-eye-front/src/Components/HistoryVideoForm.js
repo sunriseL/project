@@ -1,11 +1,14 @@
 import React from 'react';
-import { Form, DatePicker,  Button, Row, Col } from 'antd';
+import { Form, DatePicker } from 'antd';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 
 class HistoryVideoForm extends React.Component {
-    handleSubmit = (e) => {
+    handleClick = (e) => {
         e.preventDefault();
 
         this.props.form.validateFields((err, fieldsValue) => {
@@ -16,11 +19,8 @@ class HistoryVideoForm extends React.Component {
         // Should format date value before submit.
         const rangeTimeValue = fieldsValue['range-time-picker'];
         const values = {
-            ...fieldsValue,
-            'range-time-picker': [
-            rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
-            rangeTimeValue[1].format('YYYY-MM-DD HH:mm:ss'),
-            ],
+            'start': rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
+            'end': rangeTimeValue[1].format('YYYY-MM-DD HH:mm:ss'),
         };
 
         console.log('Received values of form: ', values);
@@ -35,21 +35,24 @@ class HistoryVideoForm extends React.Component {
         rules: [{ type: 'array', required: true, message: 'Please select time!' }],
         };
         return (
-        <Form onSubmit={this.handleSubmit}>
-            <Row>
-                <Col span={6} offset={6}>
+        <Form>
+            <Grid container>
+                <Grid item xs={9}>
                     <FormItem>
                         {getFieldDecorator('range-time-picker', rangeConfig)(
-                            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{width:'100%'}}/>
                         )}
                     </FormItem>
-                </Col>
-                <Col span={6}>
+                </Grid>
+                <Grid xs={3}>
                     <FormItem>
-                        <Button type="primary" htmlType="submit">Submit</Button>
+                    <Button  variant="contained" size="small" onClick={this.handleClick} >
+                        <SaveIcon />
+                        选定时间
+                    </Button>
                     </FormItem>
-                </Col>
-            </Row>
+                </Grid>
+            </Grid>
         </Form>
         );
     }
