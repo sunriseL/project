@@ -47,11 +47,11 @@ public class IndexController {
         return mapService.get(name,1,0);
     }
 
-    @RequestMapping("/test")
-    protected JSONArray test(){
+    @RequestMapping("/get_new_map")
+    protected String getNewMap(){
         System.out.println("accessed by frontend");
-        Map m = mapService.getNewestMap();
-        return JSONArray.fromObject(m);
+        String bin = mapService.getNewestMap().getStr();
+        return bin;
     }
 
 }

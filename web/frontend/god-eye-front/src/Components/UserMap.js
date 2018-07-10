@@ -23,11 +23,37 @@ class UserMap extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            map_url:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=930073930,3424315015&fm=27&gp=0.jpg',
             map_name: "用户地图",
-            map_bin: "",
-        }
+            map_bin: '',
+        };
     };
+
+    componentDidMount(){
+        let _this = this;
+        let if_map_changed = (localStorage.getItem('ifMapChanged') === 'true');
+        if(if_map_changed){
+            $.ajax({
+                type: "get",
+                url: "http://127.0.0.1:8081/get_new_map",
+                crossDomain: true,
+                success: function (data) {
+                    _this.setState({
+                        map_name: "用户地图",
+                        map_bin: data,
+                    });
+                    localStorage.setItem('ifMapChanged', 'false');
+                    localStorage.setItem('currentMapBin', data);
+                    _this.render();
+                },
+                error : function() {}
+            })
+        }else{
+            _this.setState({
+                map_name: "用户地图",
+                map_bin: localStorage.getItem('currentMapBin'),
+            });
+        }
+    }
 
     getBase64(file,cb){
         if(typeof(FileReader) === 'undefined'){
@@ -46,9 +72,9 @@ class UserMap extends React.Component{
             console.log('Error: ', error);
         }
     }
+
     upload() {
         let file = document.getElementById('image').files[0];
-        let url = URL.createObjectURL(file);
 
         this.getBase64(file, (result) => {
             let map_name = document.getElementById('mapNameHolder').value;
@@ -56,7 +82,6 @@ class UserMap extends React.Component{
                 'map_bin': result,
                 'map_name': map_name,
             };
-            console.log(uploadJSON);
             this.setState(uploadJSON);
             $.ajax({
                 type: "post",
@@ -64,9 +89,12 @@ class UserMap extends React.Component{
                 crossDomain: true,
                 data: uploadJSON,
                 success: function (data) {
-                console.log(data);
-            },
-                error : function() {}
+                    localStorage.setItem('ifMapChanged', 'true');
+                    alert("地图上传成功");
+                },
+                error : function() {
+                    alert("地图上传失败");
+                }
             })
         //     fetch('http://localhost:8081/map/add', {
         //         method: 'POST',
@@ -108,7 +136,6 @@ class UserMap extends React.Component{
                     style={{height: '95%', width:'95%', margin:'2.5%'}}
                     src={ this.state['map_bin'] }
                     alt='无法显示图片'
-                    // title={ this.state['map_name'] }
                     /> : 
                     <div style={{height: '90%', width:'90%', margin:'5%'}}>请上传地图</div>
                     }

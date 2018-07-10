@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import $ from 'jquery';
 
 class Test extends React.Component {
     constructor() {
@@ -10,7 +11,7 @@ class Test extends React.Component {
     }
 
     test(){
-        fetch('http://localhost:8081/test', {
+      /*  fetch('http://localhost:8081/test', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -23,6 +24,15 @@ class Test extends React.Component {
                 .then(result =>{
                     console.log(result[0]);
                 })
+            })*/
+            $.ajax({
+                type: "get",
+                url: "http://127.0.0.1:8081/get_new_map",
+                crossDomain: true,
+                success: function (data) {
+                console.log(data);
+            },
+                error : function() {}
             })
     }
 
