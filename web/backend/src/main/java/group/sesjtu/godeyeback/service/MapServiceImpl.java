@@ -38,12 +38,11 @@ public class MapServiceImpl implements MapService {
 
     public void addMap(String name, String bin){
         Map newMap = new Map();
-        Map defaultMap = new Map();
+        Map defaultMap = mapRepo.findByName("default");
         newMap.setStr(bin);
-        defaultMap.setStr(bin);
         newMap.setName(name);
         mapRepo.save(newMap);
-        defaultMap.setName("default");
+        defaultMap.setStr(bin);
         mapRepo.save(defaultMap);
         System.out.println("add map success"+name);
     }

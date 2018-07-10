@@ -16,4 +16,5 @@ public interface MapDao extends MongoRepository<Map, Integer> {
     Map insert(Map p);
 
     Map save(Map p);
+
 }

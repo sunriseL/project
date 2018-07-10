@@ -12,9 +12,9 @@ class App extends Component {
             crossDomain: true,
             success: function (data) {
                 if(data===0){
-                    return 'true';
+                    localStorage.setItem('ifDBEmpty', 'true');
                 }else{
-                    return 'false';
+                    localStorage.setItem('ifDBEmpty', 'false');
                 }
             },
             error : function() {
@@ -23,9 +23,26 @@ class App extends Component {
         })
     }
 
+    getDefaultMap(){
+        $.ajax({
+            type: "get",
+            url: "http://127.0.0.1:8081/get_new_map",
+            async: false,
+            crossDomain: true,
+            success: function (data) {
+                localStorage.setItem('currentMapBin', data);
+            },
+            error : function() {
+                console.log("something went wrong");
+            }
+        })
+    }
+
     componentDidMount(){
-        localStorage.setItem('currentMapBin', '');
-        localStorage.setItem('ifDBEmpty', this.ifDBEmpty());
+        this.ifDBEmpty();
+        if(localStorage.getItem('ifDBEmpty')==='false')
+            this.getDefaultMap();
+        console.log("ifDBEmpty:"+localStorage.getItem('ifDBEmpty'));
     }   
 
     componentWillUnmount(){

@@ -29,10 +29,7 @@ class UserMap extends React.Component{
     };
 
     componentDidMount(){
-        if(localStorage.getItem('ifDBEmpty')==='true'){
-            return;
-        }
-        
+
     }
 
     getBase64(file,cb){
@@ -63,6 +60,7 @@ class UserMap extends React.Component{
                 'map_name': map_name,
             };
             this.setState(uploadJSON);
+            localStorage.setItem('currentMapBin',result);
             let _this=this;
             $.ajax({
                 type: "post",
@@ -74,17 +72,9 @@ class UserMap extends React.Component{
                     _this.render();
                 },
                 error : function() {
-                    alert("地图上传失败");
+                    alert("地图名重复，请使用其它地图名");
                 }
             })
-        //     fetch('http://localhost:8081/map/add', {
-        //         method: 'POST',
-        //         mode: 'cors',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(uploadJSON),
-        // })
         });
         this.render();
     }
@@ -135,7 +125,6 @@ class UserMap extends React.Component{
                 </div>
         );
     }
-    
 }
 
 export default withStyles(styles)(UserMap);
