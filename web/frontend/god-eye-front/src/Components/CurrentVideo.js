@@ -4,7 +4,7 @@ import UserMap from './UserMap';
 import Grid from '@material-ui/core/Grid';
 
 const { Footer } = Layout;
-let video,canvas,capture,context;
+let video,canvas,context;
 function getUserMediaToPhoto(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
         //最新标准API
@@ -37,7 +37,6 @@ class CurrentVideo extends React.Component {
     componentDidMount(){
         video = document.getElementById('video');
         canvas = document.getElementById('canvas');
-        capture = document.getElementById('capture');
         context = canvas.getContext('2d');
         if (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia) {
             getUserMediaToPhoto({video: {width: 480, height: 320}}, success, error);

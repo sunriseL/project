@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'antd';
-import $ from 'jquery';
 
 
 class Test extends React.Component {
