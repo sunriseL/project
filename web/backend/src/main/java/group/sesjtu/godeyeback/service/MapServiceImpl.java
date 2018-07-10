@@ -54,6 +54,6 @@ public class MapServiceImpl implements MapService {
     }
 
     public int hasMap(){
-        return mapRepo.findAll().size();
+        return Integer.valueOf(String.valueOf(mapRepo.count()));
     }
 }
