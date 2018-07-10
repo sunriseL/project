@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import UserMap from './UserMap';
-import VideoPlayer from './VideoPlayer.js';
 import Grid from '@material-ui/core/Grid';
 
 const { Footer } = Layout;
