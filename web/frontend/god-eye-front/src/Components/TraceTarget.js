@@ -2,10 +2,10 @@ import React from 'react';
 import { Layout ,Divider, Breadcrumb } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import VideoPlayer from './VideoPlayer';
+
 const { Footer } = Layout;
-
-
 const { Content } = Layout;
+
 class TraceTarget extends React.Component {
     render(){
         return(

@@ -20,7 +20,7 @@ function getUserMediaToPhoto(constraints,success,error) {
         navigator.getUserMedia(constraints,success,error);
     }
 }
-//成功回调函数
+
 function success(stream){
     //兼容webkit核心浏览器
     var CompatibleURL = window.URL || window.webkitURL;
@@ -28,6 +28,7 @@ function success(stream){
     video.src = CompatibleURL.createObjectURL(stream);
     video.play();//播放视频
 }
+
 function error(error) {
     console.log('访问用户媒体失败：',error.name,error.message);
 }
@@ -58,7 +59,7 @@ class CurrentVideo extends React.Component {
                 </Grid>
                 <Grid container spacing={24}>
                     <Grid item xs>
-                            <UserMap /> 
+                        <UserMap />
                     </Grid>
                     <Grid item xs>
                         <video id="video" width="640" height="480" autoplay></video>
@@ -71,8 +72,6 @@ class CurrentVideo extends React.Component {
                 </Footer>
             </Layout>
         );
-        
-
     }
 }
 
