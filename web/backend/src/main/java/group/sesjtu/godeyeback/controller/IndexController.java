@@ -49,16 +49,12 @@ public class IndexController {
 
     @RequestMapping("/get_new_map")
     protected String getNewMap(){
-        System.out.println("accessed by frontend");
-        String bin = mapService.getNewestMap().getStr();
-        return bin;
+        return mapService.getNewestMap().getStr();
     }
 
     @RequestMapping("/has_map")
     protected int hasMap(){
-        int result = mapService.hasMap();
-        System.out.println("has map?"+result);
-        return result;
+        return mapService.hasMap();
     }
 
 }
