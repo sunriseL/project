@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import $ from 'jquery';
 
+
 class Test extends React.Component {
     constructor() {
         super();
@@ -10,36 +11,16 @@ class Test extends React.Component {
         }
     }
 
-    test(){
-      /*  fetch('http://localhost:8081/test', {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name: 'abc' }),
-        }).then(response =>{
-            console.log("Request Successful", response);
-            return response.json()
-                .then(result =>{
-                    console.log(result[0]);
-                })
-            })*/
-            $.ajax({
-                type: "get",
-                url: "http://127.0.0.1:8081/get_new_map",
-                crossDomain: true,
-                success: function (data) {
-                console.log(data);
-            },
-                error : function() {}
-            })
-    }
-
     render(){
         return(
            <div>
                <Button onClick={() => this.test()}> 跨域测试</Button>
+               <video id="video" width="480" height="320" controls>
+               </video>
+               <div>
+                   <button id="capture">拍照</button>
+               </div>
+               <canvas id="canvas" width="480" height="320"></canvas>
            </div>
         );
     }
