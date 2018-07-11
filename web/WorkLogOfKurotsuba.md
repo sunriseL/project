@@ -29,4 +29,4 @@ md! md!
 ### 2018/7/10
 complete map uploading  
 more md replacement  
-learn about md pricipal  
+learn about md principle  
