@@ -45,3 +45,53 @@ img {
   margin-right: 8px;
 }
 
+.se1{
+    width:100px;
+    height:36px;
+    position: absolute;
+    top:100px;
+    left:430px;
+    z-index: 1;
+    opacity: 0;
+}
+.se2{
+    width:100px;
+    height:36px;
+    font-size:16px;
+    color:#fff;
+    background: #2f54eb;
+    position: absolute;
+    border-radius:5px;
+    top:100px;
+    left:430px;
+}
+.se2:hover{
+    cursor: pointer;
+}
+.se3{
+    width:100px;
+    height:36px;
+    position: absolute;
+    font-size:16px;
+    color:#fff;
+    background: #2f54eb;
+    border-radius:5px;
+    top:100px;
+    left:810px;
+
+}
+.textField{
+    width:260px;
+    height:36px;
+    position: absolute;
+    font-size:16px;
+    top:100px;
+    left:540px;
+    text-align:center;
+
+}
+.NameHolder{
+    position: absolute;
+    top:100px;
+    left:250px;
+}

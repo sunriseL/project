@@ -14,14 +14,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { ListItem, ListItemText } from '@material-ui/core';
 import { Switch } from 'react-router';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-
 import TraceTarget from "./TraceTarget";
 import HistoryVideo from "./HistoryVideo";
 import Settings from "./Settings";
 import CurrentVideo from "./CurrentVideo.js";
 import Test from "./Test";
-
 
 const drawerWidth = 240;
 
