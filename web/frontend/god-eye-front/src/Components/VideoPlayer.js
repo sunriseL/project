@@ -94,10 +94,28 @@ class VideoPlayer extends React.Component {
         };
     }
 
+    ifHistory(){
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+        var splitUrl = arrUrl[1].split("/");
+        var relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+
+　　　　if(relUrl.indexOf("?") !== -1){
+　　　　　　relUrl = relUrl.split("?")[0];
+　　　　}
+　　　　return (relUrl==='history-video');
+
+    }
+
     handleClickOpen = () => {
         this.setState({
             open: true,
         });
+    };
+
+    getCurrentTime() {
+        var player = document.getElementById('video_id');
+        console.log(player.currentTime);
     };
 
     handleClose = value => {
@@ -106,8 +124,6 @@ class VideoPlayer extends React.Component {
     };
 
     play() {
-        //let file = document.getElementById('file').files[0];
-        //let url = URL.createObjectURL(file);
         let url = "http://mvpc.eastday.com/vzixun/20180330/20180330162618207325724_1_06400360.mp4";
         console.log(url);
         document.getElementById("video_id").src = url;
@@ -115,18 +131,7 @@ class VideoPlayer extends React.Component {
 
     render(){
         return(
-        <Paper  elevation={1} style={{margin: "1%"}}>
-            <Grid container spacing={24}>
-                <Grid item xs={4} />
-                <Grid item xs>
-                    <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
-                </Grid>
-                <Grid item xs={2} />
-                <Grid item xs>
-                    <Button variant="contained"  onClick = {() => this.play()}>播放监控</Button>
-                </Grid>
-                <Grid item xs={4} />
-            </Grid>
+        <Paper  elevation={1} style={{margin: "1%"}} square='true'>
             <Grid>
                 <video id="video_id" style={ this.style } controls="controls" preload={false}>
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 
@@ -137,14 +142,22 @@ class VideoPlayer extends React.Component {
                     </object> 
                     您的环境不支持h5播放器
                 </video>
-                <div>
-                    <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
+                <Grid container spacing={24}>
+                    <Grid item xs>
+                        <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
+                    </Grid>
+                    <Grid item xs>
+                        <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
+                    </Grid>
+                    {this.ifHistory() && <Grid item xs>
+                        <Button variant="contained" color='primary' onClick={this.getCurrentTime} small>选定当前帧</Button>
+                    </Grid>}
+                </Grid>
                     <SimpleDialogWrapped
                         selectedValue={this.state.selectedValue}
                         open={this.state.open}
                         onClose={this.handleClose}
                     />
-                </div>
             </Grid>
         </Paper>
         );

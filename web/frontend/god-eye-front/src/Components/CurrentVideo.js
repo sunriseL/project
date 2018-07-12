@@ -3,7 +3,6 @@ import { Layout, Breadcrumb } from 'antd';
 import UserMap from './UserMap';
 import Grid from '@material-ui/core/Grid';
 
-const { Footer } = Layout;
 let video,canvas,context;
 function getUserMediaToPhoto(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
@@ -37,14 +36,11 @@ function error(error) {
 class CurrentVideo extends React.Component {
     componentDidMount(){
         video = document.getElementById('video');
-        canvas = document.getElementById('canvas');
-        context = canvas.getContext('2d');
         if (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia) {
             getUserMediaToPhoto({video: {width: 480, height: 320}}, success, error);
         } else {
             alert('你的浏览器不支持访问用户媒体设备');
         }
-        context.drawImage(video, 0, 0, 480, 320);
     }
     render(){
         return(
@@ -62,13 +58,9 @@ class CurrentVideo extends React.Component {
                         <UserMap />
                     </Grid>
                     <Grid item xs>
-                        <video id="video" width="640" height="480" autoplay></video>
-                        <canvas id="canvas" width="640" height="480"></canvas>
+                        <video id="video" width="640" height="480" autoplay ></video>
                     </Grid>
                 </Grid>
-                <Footer style={{ textAlign: 'center' }}>
-                    God Eye ©2018 Created by SunriseL Team
-                </Footer>
             </Layout>
         );
     }

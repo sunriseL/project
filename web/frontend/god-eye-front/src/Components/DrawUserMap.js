@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import '../App.css';
 import $ from "jquery";
-import { Grid, Input, InputLabel } from '../../node_modules/@material-ui/core';
+import { Grid, Input } from '../../node_modules/@material-ui/core';
 import './UserMap.css';
 
 const styles = {
@@ -25,7 +25,7 @@ function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
 }
 
-function huayuan(){
+function drawCycle(){
     var c=document.getElementById("canvas");
     var ctx = c.getContext('2d');
     ctx.beginPath();
@@ -44,13 +44,13 @@ class DrawUserMap extends React.Component{
     };
 
     componentDidMount(){
-        let canvas = document.getElementById('canvas');
-        canvas.width = 1000;
-        canvas.height= 800;
-        let ctx = canvas.getContext('2d');
+        let c = document.getElementById('canvas');
+        c.width = 1100;
+        c.height= 750;
+        let ctx = c.getContext('2d');
         let img = new Image();
         img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,1000,800)};
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
     }
 
     getBase64(file,cb){
@@ -121,42 +121,37 @@ class DrawUserMap extends React.Component{
         }
 
         return (
-            <div>
-                <Card style={{margin: "1%"}}>
-
-                    <Button id="snap" onClick={() => huayuan()}>画图</Button>
-                    {mapInstantce}
-                    <CardContent>
-                        <Typography gutterBottom variant="headline" component="h2">
-                            { this.state['map_name'] }
-                        </Typography>
-                    </CardContent>
-                </Card>
+            <Card style={{margin: "1%", height:"99%"}} square='true'>
+                {mapInstantce}
+                <CardContent>
+                    <Typography gutterBottom variant="headline" component="h2">
+                        { this.state['map_name'] }
+                    </Typography>
+                    <Button onClick={()=>drawCycle()}/>
+                </CardContent>
                 {(this.ifSetting() &&
                     <Grid container>
-                        <Grid item xs={2} />
+                        <Grid item xs={3} />
                         <Grid item xs={2} style={{position: 'relative'}}>
                             <TextField
-                                id="mapNameHolder" class="NameHolder"
-                                label="请输入地图名称"
+                                id="mapNameHolder"
+                                label="地图名"
                                 placeholder="请输入地图名称"
                                 margin="normal"
-                                style={{position: 'absolute', top: 0, left: 0}}
                             />
                         </Grid>
                         <Grid id="control-grid" item xs={2} className="control-grid">
                             <input type="file"  id="image" onChange={() => select()} />
-                            <Button variant="contained" small >选择文件</Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <InputLabel>文件名</InputLabel>
-                            <Input id="map-path" disabled/>
+                            <Button variant="contained" color="primary" small >选择文件</Button>
                         </Grid>
                         <Grid item xs={2}>
-                            <Button variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
+                            <Input style={{top:'25%'}} id="map-path" value="文件路径" disabled/>
+                        </Grid>
+                        <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
+                            <Button variant="contained" color="primary" small onClick = {() => this.upload()}>上传地图</Button>
                         </Grid>
                     </Grid>)}
-            </div>
+            </Card>
         );
     }
 }
