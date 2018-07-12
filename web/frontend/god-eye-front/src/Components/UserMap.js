@@ -131,14 +131,14 @@ class UserMap extends React.Component{
                     </Grid>
                     <Grid id="control-grid" item xs={2} className="control-grid">
                         <input type="file"  id="image" onChange={() => select()} />
-                        <Button variant="contained" small >选择文件</Button>
+                        <Button variant="contained" color="primary" small >选择文件</Button>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}  style={{position:'relative'}}>
                         <InputLabel>文件名</InputLabel>
                         <Input id="map-path" disabled/> 
                     </Grid>
-                    <Grid item xs={2}>
-                        <Button variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
+                    <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
+                        <Button variant="contained" color="primary" small onClick = {() => this.upload()}>上传地图</Button>
                     </Grid>
                 </Grid>)}
                 </div>
