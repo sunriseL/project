@@ -114,11 +114,11 @@ class VideoPlayer extends React.Component {
         <Paper class="fatherPaper" elevation={1} style={{margin: "1%"}}>
             <Grid container spacing={24}>
                 <Grid item xs={4} />
-                <Grid item xs>
+                <Grid item xs={2}>
                     <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
                 </Grid>
                 <Grid item xs={2} />
-                <Grid item xs>
+                <Grid item xs={1}>
                     <Button variant="contained"  onClick = {() => this.play()}>播放监控</Button>
                 </Grid>
                 <Grid item xs={4} />

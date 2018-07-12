@@ -119,7 +119,7 @@ class UserMap extends React.Component{
                 </Card>
                 {(this.ifSetting() && 
                 <Grid container>
-                    <Grid item xs={2} />
+                    <Grid item xs={3} />
                     <Grid item xs={2} style={{position: 'relative'}}>
                         <TextField
                             id="mapNameHolder" class="NameHolder"
