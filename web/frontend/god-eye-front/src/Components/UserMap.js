@@ -24,6 +24,7 @@ const styles = {
 function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
 }
+
 class UserMap extends React.Component{
     constructor(props){
         super(props);
@@ -32,10 +33,6 @@ class UserMap extends React.Component{
             map_bin: localStorage.getItem('currentMapBin'),
         };
     };
-
-    componentDidMount(){
-
-    }
 
     getBase64(file,cb){
         if(typeof(FileReader) === 'undefined'){
@@ -100,7 +97,7 @@ class UserMap extends React.Component{
     render(){
         let mapInstantce = <div>Loading</div>
         if(!(localStorage.getItem('ifDBEmpty')==='true')){
-            mapInstantce = <img
+            mapInstantce = <img id="mapImage"
             style={{height: '95%', width:'95%', margin:'2.5%'}}
             src={ this.state['map_bin'] }
             alt='无法显示图片'

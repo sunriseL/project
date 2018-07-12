@@ -19,6 +19,7 @@ import HistoryVideo from "./HistoryVideo";
 import Settings from "./Settings";
 import CurrentVideo from "./CurrentVideo.js";
 import Test from "./Test";
+import Draw from "./DrawUserMap";
 
 const drawerWidth = 240;
 

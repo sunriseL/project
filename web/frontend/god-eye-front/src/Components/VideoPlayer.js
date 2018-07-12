@@ -115,7 +115,7 @@ class VideoPlayer extends React.Component {
 
     render(){
         return(
-        <Paper class="fatherPaper" elevation={1} style={{margin: "1%"}}>
+        <Paper  elevation={1} style={{margin: "1%"}}>
             <Grid container spacing={24}>
                 <Grid item xs={4} />
                 <Grid item xs>
