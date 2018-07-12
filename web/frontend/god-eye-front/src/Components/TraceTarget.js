@@ -1,11 +1,11 @@
 import React from 'react';
-import { Layout ,Divider, Breadcrumb } from 'antd';
+import { Layout , Breadcrumb } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import VideoPlayer from './VideoPlayer';
+
 const { Footer } = Layout;
-
-
 const { Content } = Layout;
+
 class TraceTarget extends React.Component {
     render(){
         return(
@@ -19,7 +19,6 @@ class TraceTarget extends React.Component {
                     </Grid>
                 </Grid>
                 <Content style={{ padding: '0 24px', minHeight: 400 }}>
-                    <p>鬼知道怎么追踪，您歇着吧<Divider /></p>
                     <VideoPlayer />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>

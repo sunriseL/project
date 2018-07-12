@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import './NavBar.css';
+import '../App.css';
 import $ from "jquery";
 
 const styles = {
@@ -19,6 +19,9 @@ const styles = {
     },
 };
 
+function select(){
+    document.getElementById('textField').value = document.getElementById('image').value;
+}
 class UserMap extends React.Component{
     constructor(props){
         super(props);
@@ -114,13 +117,15 @@ class UserMap extends React.Component{
                 </Card>
                 {(this.ifSetting() ? <div>
                     <TextField
-                        id="mapNameHolder"
+                        id="mapNameHolder" class="NameHolder"
                         label="请输入地图名称"
                         placeholder="Placeholder"                        
                         margin="normal"
                     />
-                    <input type="file"  id="image"/>
-                    <Button variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
+                    <input class="se1" type="file"  id="image" onChange={() => select()}/>
+                    <Button class="se2" variant="contained" small>选择文件</Button>
+                    <input class="textField" id="textField" type="text" disabled={true}/>
+                    <Button class="se3" variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
                 </div> : null)}
                 </div>
         );

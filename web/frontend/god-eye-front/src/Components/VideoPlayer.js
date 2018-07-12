@@ -1,13 +1,86 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import PersonIcon from '@material-ui/icons/Person';
+import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
+import blue from '@material-ui/core/colors/blue';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import file from '../image/1.mp4';
+import '../App.css';
 
+const camera = ['camera1', 'camera2','camera3'];
+const styles = {
+    avatar: {
+        backgroundColor: blue[100],
+        color: blue[600],
+    },
+};
+class SimpleDialog extends React.Component {
+    handleClose = () => {
+        this.props.onClose(this.props.selectedValue);
+    };
+
+    handleListItemClick = value => {
+        this.props.onClose(value);
+    };
+
+    render() {
+        const { classes, onClose, selectedValue, ...other } = this.props;
+
+        return (
+            <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
+                <DialogTitle id="simple-dialog-title">列表</DialogTitle>
+                <div>
+                    <List>
+                        {camera.map(camera => (
+                            <ListItem button onClick={() => this.handleListItemClick(camera)} key={camera}>
+                                <ListItemAvatar>
+                                    <Avatar className={classes.avatar}>
+                                        <PersonIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={camera} />
+                            </ListItem>
+                        ))}
+                        <ListItem button onClick={() => this.handleListItemClick('增加摄像头')}>
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <AddIcon />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary="增加摄像头" />
+                        </ListItem>
+                    </List>
+                </div>
+            </Dialog>
+        );
+    }
+}
+
+SimpleDialog.propTypes = {
+    classes: PropTypes.object.isRequired,
+    onClose: PropTypes.func,
+    selectedValue: PropTypes.string,
+};
+
+const SimpleDialogWrapped = withStyles(styles)(SimpleDialog);
 class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: '../image/1.mp4',
+            videoLink: file,
             catchTime: 0,
+            open: false,
+            selectedValue: camera[1],
         };
 
         this.style = {
@@ -16,19 +89,34 @@ class VideoPlayer extends React.Component {
             margin: "5%",
             minHeight: "60",
             minWidth: "80",
+            maxHeight:"600",
+            maxWidth: "1000",
         };
     }
 
+    handleClickOpen = () => {
+        this.setState({
+            open: true,
+        });
+    };
+
+    handleClose = value => {
+        this.setState({ selectedValue: value, open: false });
+    };
+
     play() {
-        let file = document.getElementById('file').files[0];
-        let url = URL.createObjectURL(file);
+        //let file = document.getElementById('file').files[0];
+        //let url = URL.createObjectURL(file);
+        let url = "";
         console.log(url);
-        document.getElementById("video_id").src = url;
+        document.getElementById("video_id").src = file;
     }
 
     render(){
         return(
-        <Paper elevation={1} style={{margin: "1%"}}>
+        <Paper class="fatherPaper" elevation={1} style={{margin: "1%"}}>
+            <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
+            <Button variant="contained"  style={{marginLeft:40}} onClick = {() => this.play()}>播放监控</Button>
             <video id="video_id" style={ this.style } controls="controls" preload={false}>
                 <source src= { this.state['videoLink'] } type="video/mp4" /> 
                 <source src= { this.state['videoLink'] } type="video/ogg" /> 
@@ -38,8 +126,14 @@ class VideoPlayer extends React.Component {
                 </object> 
                 您的环境不支持h5播放器
             </video>
-            <input type="file" id="file"/>
-            <Button variant="contained" size="small" onClick = {() => this.play()}>播放监控</Button>
+            <div>
+                <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
+                <SimpleDialogWrapped
+                    selectedValue={this.state.selectedValue}
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                />
+            </div>
         </Paper>
         );
     }

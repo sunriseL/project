@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout, Breadcrumb, Divider } from 'antd';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-
 import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
