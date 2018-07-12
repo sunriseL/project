@@ -3,7 +3,7 @@ import { Layout, Breadcrumb } from 'antd';
 import UserMap from './UserMap';
 import Grid from '@material-ui/core/Grid';
 
-let video,canvas,context;
+let video;
 function getUserMediaToPhoto(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
         //最新标准API

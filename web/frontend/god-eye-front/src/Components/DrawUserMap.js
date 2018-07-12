@@ -21,17 +21,51 @@ const styles = {
     },
 };
 
+let c,ctx,img;
+let executionArray = [];
 function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
 }
 
-function drawCycle(){
-    var c=document.getElementById("canvas");
-    var ctx = c.getContext('2d');
+function addCamera (x,y) {
+    executionArray.push({_x : x, _y : y});
+    drawCamera(x,y);
+}
+
+function drawCamera(x,y){
+    c = document.getElementById("canvas");
+    ctx = c.getContext('2d');
     ctx.beginPath();
-    ctx.arc(150,75,10,0,2*Math.PI);
+    ctx.arc(x,y,10,0,2*Math.PI);
     ctx.fillStyle="red";
     ctx.fill();
+}
+
+function undo(){
+    if (executionArray.length > 0) {
+        clearCanvas();
+        executionArray.pop();
+        for (let exe of executionArray) {
+            drawCamera(exe._x,exe._y)
+        }
+    }
+}
+
+function clearCanvas () {
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.drawImage(img,0,0,c.width,c.height);
+}
+
+function getEventPosition(ev){
+    let x, y;
+    if (ev.layerX || ev.layerX === 0) {
+        x = ev.layerX;
+        y = ev.layerY;
+    } else if (ev.offsetX || ev.offsetX === 0) { // Opera
+        x = ev.offsetX;
+        y = ev.offsetY;
+    }
+    return {x: x, y: y};
 }
 
 class DrawUserMap extends React.Component{
@@ -47,10 +81,15 @@ class DrawUserMap extends React.Component{
         let c = document.getElementById('canvas');
         c.width = 1100;
         c.height= 750;
-        let ctx = c.getContext('2d');
-        let img = new Image();
+        ctx = c.getContext('2d');
+        img = new Image();
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+        c.addEventListener('click', function(e){
+                let p = getEventPosition(e);
+                console.log('你点击了',p);
+                addCamera(p.x,p.y);
+        }, false);
     }
 
     getBase64(file,cb){
@@ -65,7 +104,6 @@ class DrawUserMap extends React.Component{
         reader.onload = function(){
             cb(reader.result);
         }
-
         reader.onerror = function(error){
             console.log('Error: ', error);
         }
@@ -73,7 +111,6 @@ class DrawUserMap extends React.Component{
 
     upload() {
         let file = document.getElementById('image').files[0];
-
         this.getBase64(file, (result) => {
             let map_name = document.getElementById('mapNameHolder').value;
             let uploadJSON = {
@@ -110,7 +147,6 @@ class DrawUserMap extends React.Component{
             relUrl = relUrl.split("?")[0];
         }
         return (relUrl==='settings');
-
     }
 
     render(){
@@ -127,7 +163,8 @@ class DrawUserMap extends React.Component{
                     <Typography gutterBottom variant="headline" component="h2">
                         { this.state['map_name'] }
                     </Typography>
-                    <Button onClick={()=>drawCycle()}/>
+                    <Button primary onClick={()=>undo()}>点击撤销</Button>
+                    <Button primary onClick={()=>clearCanvas()}>清空</Button>
                 </CardContent>
                 {(this.ifSetting() &&
                     <Grid container>
