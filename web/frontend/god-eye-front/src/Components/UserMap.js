@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import '../App.css';
 import $ from "jquery";
+import { Grid, Input, InputLabel } from '../../node_modules/@material-ui/core';
+import './UserMap.css';
 
 const styles = {
     card: {
@@ -20,7 +22,7 @@ const styles = {
 };
 
 function select(){
-    document.getElementById('textField').value = document.getElementById('image').value;
+    document.getElementById('map-path').value = document.getElementById('image').value;
 }
 class UserMap extends React.Component{
     constructor(props){
@@ -115,18 +117,30 @@ class UserMap extends React.Component{
                         </Typography>
                     </CardContent>
                 </Card>
-                {(this.ifSetting() ? <div>
-                    <TextField
-                        id="mapNameHolder" class="NameHolder"
-                        label="请输入地图名称"
-                        placeholder="Placeholder"                        
-                        margin="normal"
-                    />
-                    <input class="se1" type="file"  id="image" onChange={() => select()}/>
-                    <Button class="se2" variant="contained" small>选择文件</Button>
-                    <input class="textField" id="textField" type="text" disabled={true}/>
-                    <Button class="se3" variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
-                </div> : null)}
+                {(this.ifSetting() && 
+                <Grid container>
+                    <Grid item xs={2} />
+                    <Grid item xs={2} style={{position: 'relative'}}>
+                        <TextField
+                            id="mapNameHolder" class="NameHolder"
+                            label="请输入地图名称"
+                            placeholder="请输入地图名称"                        
+                            margin="normal"
+                            style={{position: 'absolute', top: 0, left: 0}}
+                        />
+                    </Grid>
+                    <Grid id="control-grid" item xs={1} className="control-grid">
+                        <input type="file"  id="image" onChange={() => select()} />
+                        <Button variant="contained" small >选择文件</Button>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <InputLabel>文件名</InputLabel>
+                        <Input id="map-path" disabled/> 
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Button variant="contained" small onClick = {() => this.upload()}>上传地图</Button>
+                    </Grid>
+                </Grid>)}
                 </div>
         );
     }
