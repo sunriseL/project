@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import file from '../image/1.mp4';
 import '../App.css';
+import { Grid } from '../../node_modules/@material-ui/core';
 
 const camera = ['camera1', 'camera2','camera3'];
 const styles = {
@@ -82,15 +83,11 @@ class VideoPlayer extends React.Component {
             open: false,
             selectedValue: camera[1],
         };
-
         this.style = {
             height: "100%",
             width: "90%",
-            margin: "5%",
-            minHeight: "60",
-            minWidth: "80",
-            maxHeight:"600",
-            maxWidth: "1000",
+            margin: "2%",
+
         };
     }
 
@@ -115,25 +112,36 @@ class VideoPlayer extends React.Component {
     render(){
         return(
         <Paper class="fatherPaper" elevation={1} style={{margin: "1%"}}>
-            <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
-            <Button variant="contained"  style={{marginLeft:40}} onClick = {() => this.play()}>播放监控</Button>
-            <video id="video_id" style={ this.style } controls="controls" preload={false}>
-                <source src= { this.state['videoLink'] } type="video/mp4" /> 
-                <source src= { this.state['videoLink'] } type="video/ogg" /> 
-                <source src= { this.state['videoLink'] } type="video/webm" />
-                <object data = { this.state['videoLink'] } >
-                    <embed src= { this.state['videoLink'] } />
-                </object> 
-                您的环境不支持h5播放器
-            </video>
-            <div>
-                <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
-                <SimpleDialogWrapped
-                    selectedValue={this.state.selectedValue}
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                />
-            </div>
+            <Grid container spacing={24}>
+                <Grid item xs={4} />
+                <Grid item xs>
+                    <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
+                </Grid>
+                <Grid item xs={2} />
+                <Grid item xs>
+                    <Button variant="contained"  onClick = {() => this.play()}>播放监控</Button>
+                </Grid>
+                <Grid item xs={4} />
+            </Grid>
+            <Grid>
+                <video id="video_id" style={ this.style } controls="controls" preload={false}>
+                    <source src= { this.state['videoLink'] } type="video/mp4" /> 
+                    <source src= { this.state['videoLink'] } type="video/ogg" /> 
+                    <source src= { this.state['videoLink'] } type="video/webm" />
+                    <object data = { this.state['videoLink'] } >
+                        <embed src= { this.state['videoLink'] } />
+                    </object> 
+                    您的环境不支持h5播放器
+                </video>
+                <div>
+                    <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
+                    <SimpleDialogWrapped
+                        selectedValue={this.state.selectedValue}
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                    />
+                </div>
+            </Grid>
         </Paper>
         );
     }
