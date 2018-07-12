@@ -94,6 +94,19 @@ class VideoPlayer extends React.Component {
         };
     }
 
+    ifHistory(){
+        var url = document.location.toString();
+        var arrUrl = url.split("//");
+        var splitUrl = arrUrl[1].split("/");
+        var relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+
+　　　　if(relUrl.indexOf("?") !== -1){
+　　　　　　relUrl = relUrl.split("?")[0];
+　　　　}
+　　　　return (relUrl==='history-video');
+
+    }
+
     handleClickOpen = () => {
         this.setState({
             open: true,
@@ -111,8 +124,6 @@ class VideoPlayer extends React.Component {
     };
 
     play() {
-        //let file = document.getElementById('file').files[0];
-        //let url = URL.createObjectURL(file);
         let url = "http://mvpc.eastday.com/vzixun/20180330/20180330162618207325724_1_06400360.mp4";
         console.log(url);
         document.getElementById("video_id").src = url;
@@ -138,9 +149,9 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    <Grid item xs>
+                    {this.ifHistory() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={this.getCurrentTime} small>选定当前帧</Button>
-                    </Grid>
+                    </Grid>}
                 </Grid>
                     <SimpleDialogWrapped
                         selectedValue={this.state.selectedValue}
