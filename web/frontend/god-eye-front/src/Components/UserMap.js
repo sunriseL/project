@@ -24,6 +24,7 @@ const styles = {
 function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
 }
+
 class UserMap extends React.Component{
     constructor(props){
         super(props);
@@ -32,10 +33,6 @@ class UserMap extends React.Component{
             map_bin: localStorage.getItem('currentMapBin'),
         };
     };
-
-    componentDidMount(){
-
-    }
 
     getBase64(file,cb){
         if(typeof(FileReader) === 'undefined'){

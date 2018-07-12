@@ -20,6 +20,7 @@ import Settings from "./Settings";
 import CurrentVideo from "./CurrentVideo.js";
 import Test from "./Test";
 
+
 const drawerWidth = 240;
 
 const styles = theme => ({
