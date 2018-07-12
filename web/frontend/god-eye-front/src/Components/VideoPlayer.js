@@ -18,6 +18,9 @@ import file from '../image/1.mp4';
 import '../App.css';
 
 const camera = ['camera1', 'camera2','camera3'];
+const video = {'camera1':'http://mvpc.eastday.com/vzixun/20171017/20171017115054761305610_1_06400360.mp4',
+                'camera2':'http://mvpc.eastday.com/vzixun/20180330/20180330162618207325724_1_06400360.mp4',
+                'camera3':file};
 const styles = {
     avatar: {
         backgroundColor: blue[100],
@@ -77,7 +80,7 @@ class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: file,
+            videoLink: 'http://mvpc.eastday.com/vdongman/20180624/20180624143307574331215_1_06400360.mp4',
             catchTime: 0,
             open: false,
             selectedValue: camera[1],
@@ -101,15 +104,16 @@ class VideoPlayer extends React.Component {
     };
 
     handleClose = value => {
-        this.setState({ selectedValue: value, open: false });
+        this.setState({ selectedValue: value, open: false});
+        document.getElementById("video_id").src = video[value];
     };
 
     play() {
         //let file = document.getElementById('file').files[0];
         //let url = URL.createObjectURL(file);
-        let url = "";
+        let url = "http://mvpc.eastday.com/vzixun/20180330/20180330162618207325724_1_06400360.mp4";
         console.log(url);
-        document.getElementById("video_id").src = file;
+        document.getElementById("video_id").src = url;
     }
 
     render(){
@@ -122,7 +126,7 @@ class VideoPlayer extends React.Component {
                 <source src= { this.state['videoLink'] } type="video/ogg" /> 
                 <source src= { this.state['videoLink'] } type="video/webm" />
                 <object data = { this.state['videoLink'] } >
-                    <embed src= { this.state['videoLink'] } />
+                    <embed src='http://player.youku.com/player.php/sid/XMzcxNDcxNjI0OA==/v.swf' allowFullScreen='true' quality='high' width='480' height='400' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash'></embed>
                 </object> 
                 您的环境不支持h5播放器
             </video>

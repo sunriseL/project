@@ -63,7 +63,6 @@ class CurrentVideo extends React.Component {
                     </Grid>
                     <Grid item xs>
                         <video id="video" width="640" height="480" autoplay></video>
-                        <button id="snap">拍照</button>
                         <canvas id="canvas" width="640" height="480"></canvas>
                     </Grid>
                 </Grid>
