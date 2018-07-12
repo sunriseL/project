@@ -66,9 +66,6 @@ class CurrentVideo extends React.Component {
                         <canvas id="canvas" width="640" height="480"></canvas>
                     </Grid>
                 </Grid>
-                <Footer style={{ textAlign: 'center' }}>
-                    God Eye ©2018 Created by SunriseL Team
-                </Footer>
             </Layout>
         );
     }

@@ -100,6 +100,11 @@ class VideoPlayer extends React.Component {
         });
     };
 
+    getCurrentTime() {
+        var player = document.getElementById('video_id');
+        console.log(player.currentTime);
+    };
+
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
         document.getElementById("video_id").src = video[value];
@@ -115,18 +120,7 @@ class VideoPlayer extends React.Component {
 
     render(){
         return(
-        <Paper  elevation={1} style={{margin: "1%"}}>
-            <Grid container spacing={24}>
-                <Grid item xs={4} />
-                <Grid item xs={2}>
-                    <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
-                </Grid>
-                <Grid item xs={2} />
-                <Grid item xs={1}>
-                    <Button variant="contained"  onClick = {() => this.play()}>播放监控</Button>
-                </Grid>
-                <Grid item xs={4} />
-            </Grid>
+        <Paper  elevation={1} style={{margin: "1%"}} square='true'>
             <Grid>
                 <video id="video_id" style={ this.style } controls="controls" preload={false}>
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 
@@ -137,14 +131,22 @@ class VideoPlayer extends React.Component {
                     </object> 
                     您的环境不支持h5播放器
                 </video>
-                <div>
-                    <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
+                <Grid container spacing={24}>
+                    <Grid item xs>
+                        <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
+                    </Grid>
+                    <Grid item xs>
+                        <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Button variant="contained" color='primary' onClick={this.getCurrentTime} small>选定当前帧</Button>
+                    </Grid>
+                </Grid>
                     <SimpleDialogWrapped
                         selectedValue={this.state.selectedValue}
                         open={this.state.open}
                         onClose={this.handleClose}
                     />
-                </div>
             </Grid>
         </Paper>
         );
