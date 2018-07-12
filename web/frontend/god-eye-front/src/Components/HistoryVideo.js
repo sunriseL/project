@@ -12,7 +12,6 @@ class HistoryVideo extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: "https://mvpc.eastday.com/vgaoxiao/20180703/20180703175205896698808_1_06400360.mp4",
             catchTime: 0,
         };
 
