@@ -3,7 +3,6 @@ import { Layout, Breadcrumb } from 'antd';
 import UserMap from './UserMap';
 import Grid from '@material-ui/core/Grid';
 
-const { Footer } = Layout;
 let video,canvas,context;
 function getUserMediaToPhoto(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
