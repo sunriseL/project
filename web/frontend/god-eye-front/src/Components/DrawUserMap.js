@@ -60,7 +60,12 @@ class DrawUserMap extends React.Component{
         }
 
         let reader = new FileReader();
-        reader.readAsDataURL(file);
+        try{
+            reader.readAsDataURL(file);
+        }catch(e){
+            alert("请选择图片");
+            return;
+        }
 
         reader.onload = function(){
             cb(reader.result);
@@ -121,7 +126,7 @@ class DrawUserMap extends React.Component{
         }
 
         return (
-            <Card style={{margin: "1%", height:"99%"}} square='true'>
+            <Card style={{margin: "1%", height:"99%"}} square={true}>
                 {mapInstantce}
                 <CardContent>
                     <Typography gutterBottom variant="headline" component="h2">
@@ -131,7 +136,7 @@ class DrawUserMap extends React.Component{
                 </CardContent>
                 {(this.ifSetting() &&
                     <Grid container>
-                        <Grid item xs={3} />
+                        <Grid item xs={2} />
                         <Grid item xs={2} style={{position: 'relative'}}>
                             <TextField
                                 id="mapNameHolder"
@@ -142,13 +147,13 @@ class DrawUserMap extends React.Component{
                         </Grid>
                         <Grid id="control-grid" item xs={2} className="control-grid">
                             <input type="file"  id="image" onChange={() => select()} />
-                            <Button variant="contained" color="primary" small >选择文件</Button>
+                            <Button variant="contained" color="primary" >选择文件</Button>
                         </Grid>
                         <Grid item xs={2}>
                             <Input style={{top:'25%'}} id="map-path" value="文件路径" disabled/>
                         </Grid>
                         <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
-                            <Button variant="contained" color="primary" small onClick = {() => this.upload()}>上传地图</Button>
+                            <Button variant="contained" color="primary" onClick = {() => this.upload()}>上传地图</Button>
                         </Grid>
                     </Grid>)}
             </Card>
