@@ -38,14 +38,6 @@ public class IndexController {
         return mapService.getMap(name).getStr();
     }
 
-    @RequestMapping("/map/setRoad")
-    protected int addMap(@RequestParam("name") String name,
-                         @RequestParam("x") int x,
-                         @RequestParam("y") int y){
-        mapService.setRoad(name,x,y);
-        System.out.println(mapService.get(name,x,y));
-        return mapService.get(name,1,0);
-    }
 
     @RequestMapping("/get_new_map")
     protected String getNewMap(){
