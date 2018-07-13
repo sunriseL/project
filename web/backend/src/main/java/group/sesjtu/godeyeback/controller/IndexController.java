@@ -49,4 +49,11 @@ public class IndexController {
         return mapService.hasMap();
     }
 
+    @RequestMapping("/camera")
+    protected String Camera(@RequestParam("camera") String camera,
+                         @RequestParam("start") String start,
+                         @RequestParam("end") String end){
+        System.out.println("camera:"+camera+" start:"+start+" end:"+end);
+        return "select camera success!";
+    }
 }

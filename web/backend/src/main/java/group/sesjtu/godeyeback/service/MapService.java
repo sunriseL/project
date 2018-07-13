@@ -11,4 +11,6 @@ public interface MapService {
     Map getMap(String name);
 
     Map getNewestMap();
+
+    void deleteMap(String name);
 }

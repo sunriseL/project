@@ -55,6 +55,7 @@ class CurrentVideo extends React.Component {
                 </Grid>
                 <Grid container spacing={24}>
                     <Grid item xs>
+                        <canvas></canvas>
                         <UserMap />
                     </Grid>
                     <Grid item xs>
