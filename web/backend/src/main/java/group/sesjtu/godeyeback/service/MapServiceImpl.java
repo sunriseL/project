@@ -34,4 +34,9 @@ public class MapServiceImpl implements MapService {
     public int hasMap(){
         return Integer.valueOf(String.valueOf(mapRepo.count()));
     }
+
+    public void deleteMap(String name){
+        mapRepo.deleteByName(name);
+    }
+
 }
