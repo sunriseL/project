@@ -32,13 +32,23 @@ function addCamera (x,y) {
     drawCamera(x,y);
 }
 
+function svgToImg(svgTag){
+    var svg_xml = (new XMLSerializer()).serializeToString(svgTag); 
+    var img = new Image();
+    img.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
+    return img;
+}
+
 function drawCamera(x,y){
     c = document.getElementById("canvas");
     ctx = c.getContext('2d');
     ctx.beginPath();
-    ctx.arc(x,y,10,0,2*Math.PI);
-    ctx.fillStyle="red";
-    ctx.fill();
+    // ctx.arc(x,y,10,0,2*Math.PI);
+    // ctx.fillStyle="red";
+    // ctx.fill();
+    var img = svgToImg(document.getElementById('cam-icon'));
+    img.onload=function(){ctx.drawImage(img, x, y, 30, 30)};
+
 }
 
 function undo(){
@@ -53,7 +63,7 @@ function undo(){
 
 function clearCanvas () {
     ctx.clearRect(0, 0, c.width, c.height);
-    ctx.drawImage(img,0,0,c.width,c.height);
+    ctx.drawImage(img, 0, 0, c.width, c.height);
 }
 
 function getEventPosition(ev){
@@ -84,15 +94,15 @@ class DrawUserMap extends React.Component{
         ctx = c.getContext('2d');
         img = new Image();
         img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+        img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
         c.addEventListener('click', function(e){
                 let p = getEventPosition(e);
-                console.log('你点击了',p);
-                addCamera(p.x,p.y);
+                console.log('你点击了', p);
+                addCamera(p.x, p.y);
         }, false);
     }
 
-    getBase64(file,cb){
+    getBase64(file, cb){
         if(typeof(FileReader) === 'undefined'){
             alert("您的浏览器不支持FileReader,请使用Chrome访问本应用");
             return;
