@@ -27,3 +27,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+img {
+  width: 50;
+  height: 50px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.NavBarRoot {
+  background: navajowhite;
+}
+

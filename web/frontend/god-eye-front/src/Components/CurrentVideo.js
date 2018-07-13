@@ -3,8 +3,7 @@ import { Layout, Breadcrumb } from 'antd';
 import UserMap from './UserMap';
 import Grid from '@material-ui/core/Grid';
 
-const { Footer } = Layout;
-let video,canvas,context;
+let video;
 function getUserMediaToPhoto(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
         //最新标准API
@@ -20,7 +19,7 @@ function getUserMediaToPhoto(constraints,success,error) {
         navigator.getUserMedia(constraints,success,error);
     }
 }
-//成功回调函数
+
 function success(stream){
     //兼容webkit核心浏览器
     var CompatibleURL = window.URL || window.webkitURL;
@@ -28,6 +27,7 @@ function success(stream){
     video.src = CompatibleURL.createObjectURL(stream);
     video.play();//播放视频
 }
+
 function error(error) {
     console.log('访问用户媒体失败：',error.name,error.message);
 }
@@ -36,14 +36,11 @@ function error(error) {
 class CurrentVideo extends React.Component {
     componentDidMount(){
         video = document.getElementById('video');
-        canvas = document.getElementById('canvas');
-        context = canvas.getContext('2d');
         if (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia) {
             getUserMediaToPhoto({video: {width: 480, height: 320}}, success, error);
         } else {
             alert('你的浏览器不支持访问用户媒体设备');
         }
-        context.drawImage(video, 0, 0, 480, 320);
     }
     render(){
         return(
@@ -58,21 +55,14 @@ class CurrentVideo extends React.Component {
                 </Grid>
                 <Grid container spacing={24}>
                     <Grid item xs>
-                            <UserMap /> 
+                        <UserMap />
                     </Grid>
                     <Grid item xs>
-                        <video id="video" width="640" height="480" autoplay></video>
-                        <button id="snap">拍照</button>
-                        <canvas id="canvas" width="640" height="480"></canvas>
+                        <video id="video" width="640" height="480" autoplay ></video>
                     </Grid>
                 </Grid>
-                <Footer style={{ textAlign: 'center' }}>
-                    God Eye ©2018 Created by SunriseL Team
-                </Footer>
             </Layout>
         );
-        
-
     }
 }
 

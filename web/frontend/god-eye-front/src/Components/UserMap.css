@@ -1,0 +1,21 @@
+#control-grid {
+    position: relative;
+}
+.control-grid input {
+    width: 40%;
+    height: 80%;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    z-index: 2;
+    opacity: 0;
+    
+}
+
+.control-grid Button {
+    width: 40%;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    z-index: 1;
+}

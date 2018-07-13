@@ -14,3 +14,7 @@ Learn Material-ui
 Play local video
 Upload local picture
 Backend map entity&dao&service&controller
+
+### 2018/7/10
+Frontend optimized
+Backend optimized--the speed of data storing&accessing

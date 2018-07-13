@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import Grid from '@material-ui/core/Grid';
-import UserMap from './UserMap';
-
+import DrawUserMap from "./DrawUserMap";
+//import UserMap from "./UserMap";
 
 const {  Content, Footer } = Layout;
 
@@ -34,7 +34,7 @@ class Settings extends React.Component {
                     </Grid>
                 </Grid>
                 <Content>
-                    <UserMap />
+                    <DrawUserMap />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
                     God Eye ©2018 Created by SunriseL Team

@@ -18,7 +18,7 @@ class App extends Component {
                 }
             },
             error : function() {
-                alert("something went wrong");
+                console.log("something went wrong");
             }
         })
     }
