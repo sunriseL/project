@@ -6,6 +6,7 @@ tensorflow/object_detection/test_image/*
 frozen_inference_graph.pb
 *.pb
 *.proto
+tensorflow/object_detection/ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 rfcn_resnet101_coco_11_06_2017/*
 rfcn_resnet101_coco_11_06_2017.tar.gz
 faster_rcnn_inception_resnet_v2_atrous_coco_11_06_2017.tar.gz
@@ -14,6 +15,6 @@ ssd_inception_v2_coco_11_06_2017.tar.gz
 ssd_inception_v2_coco_11_06_2017/*
 ssd_mobilenet_v1_coco_11_06_2017.tar.gz
 ssd_mobilenet_v1_coco_11_06_2017/*
-ssd_mobile_net_v1_coco_2017_11_17.tar.gz
-ssd_mobile_net_v1_coco_2017_11_17/*
+ssd_mobilenet_v1_coco_2017_11_17.tar.gz
+ssd_mobilenet_v1_coco_2017_11_17/*
 
