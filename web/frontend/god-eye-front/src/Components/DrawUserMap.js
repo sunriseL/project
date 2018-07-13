@@ -10,6 +10,7 @@ import $ from "jquery";
 import { Grid, Input } from '../../node_modules/@material-ui/core';
 import './UserMap.css';
 
+
 const styles = {
     card: {
         maxWidth: 2160,
@@ -32,13 +33,23 @@ function addCamera (x,y) {
     drawCamera(x,y);
 }
 
+function svgToImg(svgTag){
+    var svg_xml = (new XMLSerializer()).serializeToString(svgTag); 
+    var img = new Image();
+    img.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
+    return img;
+}
+
 function drawCamera(x,y){
     c = document.getElementById("canvas");
     ctx = c.getContext('2d');
     ctx.beginPath();
-    ctx.arc(x,y,10,0,2*Math.PI);
-    ctx.fillStyle="red";
-    ctx.fill();
+    // ctx.arc(x,y,10,0,2*Math.PI);
+    // ctx.fillStyle="red";
+    // ctx.fill();
+    var img = svgToImg(document.getElementById('cam-icon'));
+    img.onload=function(){ctx.drawImage(img, x, y, 30, 30)};
+
 }
 
 function undo(){
@@ -53,7 +64,7 @@ function undo(){
 
 function clearCanvas () {
     ctx.clearRect(0, 0, c.width, c.height);
-    ctx.drawImage(img,0,0,c.width,c.height);
+    ctx.drawImage(img, 0, 0, c.width, c.height);
 }
 
 function getEventPosition(ev){
@@ -78,21 +89,33 @@ class DrawUserMap extends React.Component{
     };
 
     componentDidMount(){
-        let c = document.getElementById('canvas');
+        c = document.getElementById('canvas');
         c.width = 1100;
         c.height= 750;
         ctx = c.getContext('2d');
         img = new Image();
         img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+        img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
         c.addEventListener('click', function(e){
                 let p = getEventPosition(e);
-                console.log('你点击了',p);
-                addCamera(p.x,p.y);
+                console.log('你点击了', p);
+                addCamera(p.x, p.y);
         }, false);
     }
+    shouldComponentUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+    }
+    componentDidUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+    }
+    componentWillUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+    }
 
-    getBase64(file,cb){
+    getBase64(file, cb){
         if(typeof(FileReader) === 'undefined'){
             alert("您的浏览器不支持FileReader,请使用Chrome访问本应用");
             return;
@@ -130,12 +153,14 @@ class DrawUserMap extends React.Component{
                 url: "http://127.0.0.1:8081/map/add",
                 crossDomain: true,
                 data: uploadJSON,
+                async:true,
                 success: function (data) {
                     alert("地图上传成功");
-                    _this.render();
+                    _this.setState(uploadJSON);
                 },
                 error : function() {
                     alert("上传失败\n请确认网络连接正常\n请确认地图名是否重复");
+                    _this.setState(uploadJSON);
                 }
             })
         });
@@ -156,8 +181,14 @@ class DrawUserMap extends React.Component{
                     <Typography gutterBottom variant="headline" component="h2">
                         { this.state['map_name'] }
                     </Typography>
-                    <Button primary onClick={()=>undo()}>点击撤销</Button>
-                    <Button primary onClick={()=>clearCanvas()}>清空</Button>
+                    <Grid container><Grid item xs={5} />
+                        <Grid item xs={1}>
+                            <Button variant="contained"  onClick={()=>undo()}>点击撤销</Button>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Button variant="contained"  onClick={()=>clearCanvas()}>清空</Button>
+                        </Grid>
+                    </Grid>
                 </CardContent>
                 <Grid container>
                     <Grid item xs={2} />

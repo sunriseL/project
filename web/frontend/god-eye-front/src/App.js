@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MainNav from './Components/MainNav';
 import $ from 'jquery';
+import Videocam from '@material-ui/icons/Videocam';
 
 class App extends Component {
     ifDBEmpty(){
@@ -52,6 +53,7 @@ class App extends Component {
         return (
             <div className="App">
                 <MainNav />
+                <Videocam id='cam-icon' hidden/>
             </div>
         );
     }
