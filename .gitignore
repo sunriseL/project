@@ -4,6 +4,7 @@ tensorflow/object_detection/test_image/*
 *.pyc
 *.mp4
 frozen_inference_graph.pb
+*.pb
 *.proto
 rfcn_resnet101_coco_11_06_2017/*
 rfcn_resnet101_coco_11_06_2017.tar.gz
