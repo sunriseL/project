@@ -40,13 +40,13 @@ class HistoryVideoForm extends React.Component {
                 <Grid item xs={8}>
                     <FormItem>
                         {getFieldDecorator('range-time-picker', rangeConfig)(
-                            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{width:'80%'}}/>
+                            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{width:'80%', margin:"3%"}}/>
                         )}
                     </FormItem>
                 </Grid>
                 <Grid xs={3}>
                     <FormItem>
-                    <Button  variant="contained" size="small" onClick={this.handleClick} style={{width:"78%", left:"4%"}}>
+                    <Button  variant="contained" size="small" onClick={this.handleClick} style={{width:"78%", left:"4%", margin:"6%"}}>
                         <SaveIcon />
                         选定时间
                     </Button>

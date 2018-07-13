@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import UserMap from './UserMap';
 import Grid from '@material-ui/core/Grid';
+import { Paper } from '../../node_modules/@material-ui/core';
 
 let video;
 function getUserMediaToPhoto(constraints,success,error) {
@@ -58,7 +59,9 @@ class CurrentVideo extends React.Component {
                         <UserMap />
                     </Grid>
                     <Grid item xs>
-                        <video id="video" width="640" height="480" autoplay ></video>
+                        <Paper style={{margin:"1%", height:"98%"}} square={true}>
+                            <video id="video" width="640" height="480" autoplay ></video>
+                        </Paper>
                     </Grid>
                 </Grid>
             </Layout>
