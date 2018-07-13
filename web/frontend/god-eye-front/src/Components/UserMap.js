@@ -1,14 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import '../App.css';
-import $ from "jquery";
-import { Grid, Input } from '../../node_modules/@material-ui/core';
-import './UserMap.css';
 
 const styles = {
     card: {
@@ -21,9 +15,6 @@ const styles = {
     },
 };
 
-function select(){
-    document.getElementById('map-path').value = document.getElementById('image').value;
-}
 
 class UserMap extends React.Component{
     constructor(props){
@@ -33,66 +24,6 @@ class UserMap extends React.Component{
             map_bin: localStorage.getItem('currentMapBin'),
         };
     };
-
-    getBase64(file,cb){
-        if(typeof(FileReader) === 'undefined'){
-            alert("您的浏览器不支持FileReader,请使用Chrome访问本应用");
-            return;
-        }
-
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        reader.onload = function(){
-            cb(reader.result);
-        }
-
-        reader.onerror = function(error){
-            console.log('Error: ', error);
-        }
-    }
-
-    upload() {
-        let file = document.getElementById('image').files[0];
-
-        this.getBase64(file, (result) => {
-            let map_name = document.getElementById('mapNameHolder').value;
-            let uploadJSON = {
-                'map_bin': result,
-                'map_name': map_name,
-            };
-            this.setState(uploadJSON);
-            localStorage.setItem('currentMapBin',result);
-            let _this=this;
-            $.ajax({
-                type: "post",
-                url: "http://127.0.0.1:8081/map/add",
-                crossDomain: true,
-                data: uploadJSON,
-                success: function (data) {
-                    alert("地图上传成功");
-                    _this.render();
-                },
-                error : function() {
-                    alert("地图名重复，请使用其它地图名");
-                }
-            })
-        });
-        this.render();
-    }
-
-    ifSetting(){
-        var url = document.location.toString();
-        var arrUrl = url.split("//");
-        var splitUrl = arrUrl[1].split("/");
-        var relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
-
-　　　　if(relUrl.indexOf("?") !== -1){
-　　　　　　relUrl = relUrl.split("?")[0];
-　　　　}
-　　　　return (relUrl==='settings');
-
-    }
 
     render(){
         let mapInstantce = <div>Loading</div>
@@ -112,28 +43,6 @@ class UserMap extends React.Component{
                             { this.state['map_name'] }
                         </Typography>
                     </CardContent>
-                    {(this.ifSetting() && 
-                    <Grid container>
-                        <Grid item xs={3} />
-                        <Grid item xs={2} style={{position: 'relative'}}>
-                            <TextField
-                                id="mapNameHolder" 
-                                label="地图名"
-                                placeholder="请输入地图名称"                        
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid id="control-grid" item xs={2} className="control-grid">
-                            <input type="file"  id="image" onChange={() => select()} />
-                            <Button variant="contained" color="primary" small >选择文件</Button>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Input style={{top:'25%'}} id="map-path" value="文件路径" disabled/> 
-                        </Grid>
-                        <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
-                            <Button variant="contained" color="primary" small onClick = {() => this.upload()}>上传地图</Button>
-                        </Grid>
-                    </Grid>)}
                 </Card>
         );
     }
