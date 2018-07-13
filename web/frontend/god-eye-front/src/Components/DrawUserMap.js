@@ -22,7 +22,7 @@ const styles = {
     },
 };
 
-let c,ctx,img;
+let c,ctx,img,light;
 let executionArray = [];
 function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
@@ -34,7 +34,7 @@ function addCamera (x,y) {
 }
 
 function svgToImg(svgTag){
-    var svg_xml = (new XMLSerializer()).serializeToString(svgTag); 
+    var svg_xml = (new XMLSerializer()).serializeToString(svgTag);
     var img = new Image();
     img.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
     return img;
@@ -44,12 +44,9 @@ function drawCamera(x,y){
     c = document.getElementById("canvas");
     ctx = c.getContext('2d');
     ctx.beginPath();
-    // ctx.arc(x,y,10,0,2*Math.PI);
-    // ctx.fillStyle="red";
-    // ctx.fill();
-    var img = svgToImg(document.getElementById('cam-icon'));
+    var img = light===1 ? svgToImg(document.getElementById('cam-icon-light')):
+                    svgToImg(document.getElementById('cam-icon'));
     img.onload=function(){ctx.drawImage(img, x, y, 30, 30)};
-
 }
 
 function undo(){
@@ -187,6 +184,12 @@ class DrawUserMap extends React.Component{
                         </Grid>
                         <Grid item xs={1}>
                             <Button variant="contained"  onClick={()=>clearCanvas()}>清空</Button>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Button variant="contained"  onClick={()=>{light=1}}>高亮</Button>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Button variant="contained"  onClick={()=>{light=0}}>取消高亮</Button>
                         </Grid>
                     </Grid>
                 </CardContent>

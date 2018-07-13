@@ -53,7 +53,8 @@ class App extends Component {
         return (
             <div className="App">
                 <MainNav />
-                <Videocam id='cam-icon' hidden/>
+                <Videocam id='cam-icon-light' fill='red' hidden/>
+                <Videocam id='cam-icon' fill='blue' hidden/>
             </div>
         );
     }
