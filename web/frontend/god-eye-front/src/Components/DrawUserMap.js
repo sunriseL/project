@@ -112,7 +112,12 @@ class DrawUserMap extends React.Component{
         }
 
         let reader = new FileReader();
-        reader.readAsDataURL(file);
+        try{
+            reader.readAsDataURL(file);
+        }catch(e){
+            alert("请选择图片");
+            return;
+        }
 
         reader.onload = function(){
             cb(reader.result);
@@ -144,24 +149,12 @@ class DrawUserMap extends React.Component{
                     _this.setState(uploadJSON);
                 },
                 error : function() {
-                    alert("地图名重复，请使用其它地图名");
+                    alert("上传失败\n请确认网络连接正常\n请确认地图名是否重复");
                     _this.setState(uploadJSON);
                 }
             })
         });
         this.render();
-    }
-
-    ifSetting(){
-        var url = document.location.toString();
-        var arrUrl = url.split("//");
-        var splitUrl = arrUrl[1].split("/");
-        var relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
-
-        if(relUrl.indexOf("?") !== -1){
-            relUrl = relUrl.split("?")[0];
-        }
-        return (relUrl==='settings');
     }
 
     render(){
@@ -172,7 +165,7 @@ class DrawUserMap extends React.Component{
         }
 
         return (
-            <Card style={{margin: "1%", height:"99%"}} square='true'>
+            <Card style={{margin: "1%", height:"99%"}} square={true}>
                 {mapInstantce}
                 <CardContent>
                     <Typography gutterBottom variant="headline" component="h2">
@@ -181,28 +174,27 @@ class DrawUserMap extends React.Component{
                     <Button variant="contained" color="primary" onClick={()=>undo()}>点击撤销</Button>
                     <Button variant="contained" color="primary"  onClick={()=>clearCanvas()}>清空</Button>
                 </CardContent>
-                {(this.ifSetting() &&
-                    <Grid container>
-                        <Grid item xs={3} />
-                        <Grid item xs={2} style={{position: 'relative'}}>
-                            <TextField
+                <Grid container>
+                    <Grid item xs={2} />
+                    <Grid item xs={2} style={{position: 'relative'}}>
+                        <TextField
                                 id="mapNameHolder"
                                 label="地图名"
                                 placeholder="请输入地图名称"
                                 margin="normal"
-                            />
-                        </Grid>
-                        <Grid id="control-grid" item xs={2} className="control-grid">
-                            <input type="file"  id="image" onChange={() => select()} />
-                            <Button variant="contained" color="primary" small >选择文件</Button>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Input style={{top:'25%'}} id="map-path" value="文件路径" disabled/>
-                        </Grid>
-                        <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
-                            <Button variant="contained" color="primary" small onClick = {() => this.upload()}>上传地图</Button>
-                        </Grid>
-                    </Grid>)}
+                        />
+                    </Grid>
+                    <Grid id="control-grid" item xs={2} className="control-grid">
+                        <input type="file"  id="image" onChange={() => select()} />
+                        <Button variant="contained" color="primary" >选择文件</Button>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Input style={{top:'25%'}} id="map-path" value="文件路径" disabled/>
+                    </Grid>
+                    <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
+                        <Button variant="contained" color="primary" onClick = {() => this.upload()}>上传地图</Button>
+                    </Grid>
+                </Grid>
             </Card>
         );
     }

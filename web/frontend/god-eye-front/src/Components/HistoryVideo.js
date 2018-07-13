@@ -35,7 +35,7 @@ class HistoryVideo extends React.Component {
                             <UserMap />
                         </Grid>
                         <Grid xs={6} item>
-                                <Paper style={{margin: "1%"}} square='true'>
+                                <Paper style={{margin: "1%"}} square={true}>
                                     <WrappedHistoryVideoForm />
                                 </Paper>
                                 <VideoPlayer />
