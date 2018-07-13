@@ -17,4 +17,6 @@ public interface MapDao extends MongoRepository<Map, Integer> {
 
     Map save(Map p);
 
+    Map deleteByName(String name);
+
 }
