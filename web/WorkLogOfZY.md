@@ -18,3 +18,7 @@ Backend map entity&dao&service&controller
 ### 2018/7/10
 Frontend optimized
 Backend optimized--the speed of data storing&accessing
+
+### 2018/7/12
+add canvas instead of img,realize the camera adding/undo/clear
+CSS appearance

@@ -10,6 +10,7 @@ import $ from "jquery";
 import { Grid, Input } from '../../node_modules/@material-ui/core';
 import './UserMap.css';
 
+
 const styles = {
     card: {
         maxWidth: 2160,
@@ -88,7 +89,7 @@ class DrawUserMap extends React.Component{
     };
 
     componentDidMount(){
-        let c = document.getElementById('canvas');
+        c = document.getElementById('canvas');
         c.width = 1100;
         c.height= 750;
         ctx = c.getContext('2d');
@@ -100,6 +101,18 @@ class DrawUserMap extends React.Component{
                 console.log('你点击了', p);
                 addCamera(p.x, p.y);
         }, false);
+    }
+    shouldComponentUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+    }
+    componentDidUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+    }
+    componentWillUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
     }
 
     getBase64(file, cb){
@@ -140,12 +153,14 @@ class DrawUserMap extends React.Component{
                 url: "http://127.0.0.1:8081/map/add",
                 crossDomain: true,
                 data: uploadJSON,
+                async:true,
                 success: function (data) {
                     alert("地图上传成功");
-                    _this.render();
+                    _this.setState(uploadJSON);
                 },
                 error : function() {
                     alert("上传失败\n请确认网络连接正常\n请确认地图名是否重复");
+                    _this.setState(uploadJSON);
                 }
             })
         });
@@ -166,8 +181,8 @@ class DrawUserMap extends React.Component{
                     <Typography gutterBottom variant="headline" component="h2">
                         { this.state['map_name'] }
                     </Typography>
-                    <Button primary onClick={()=>undo()}>点击撤销</Button>
-                    <Button primary onClick={()=>clearCanvas()}>清空</Button>
+                    <Button variant="contained" color="primary" onClick={()=>undo()}>点击撤销</Button>
+                    <Button variant="contained" color="primary"  onClick={()=>clearCanvas()}>清空</Button>
                 </CardContent>
                 <Grid container>
                     <Grid item xs={2} />
