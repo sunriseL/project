@@ -120,6 +120,7 @@ class VideoPlayer extends React.Component {
 
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
+        localStorage.setItem("selectedCamera", String(value));
         document.getElementById("video_id").src = video[value];
     };
 
