@@ -20,7 +20,7 @@ class HistoryVideoForm extends React.Component {
         // Should format date value before submit.
         const rangeTimeValue = fieldsValue['range-time-picker'];
         const values = {
-            'camera': localStorage.getItem('selectCamera'),
+            'camera': localStorage.getItem('selectedCamera'),
             'start': rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
             'end': rangeTimeValue[1].format('YYYY-MM-DD HH:mm:ss'),
         };
