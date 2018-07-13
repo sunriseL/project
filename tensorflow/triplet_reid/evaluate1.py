@@ -145,6 +145,8 @@ def main():
                 cv2.imshow('img1',img1)
                 cv2.imshow('img2',img2)
                 cv2.waitKey(0) 
+
+
                 # Find the first true match and increment the cmc data from there on.
                 k = np.where(pid_matches[i, np.argsort(distances[i])])[0][0]
                 cmc[k:] += 1
