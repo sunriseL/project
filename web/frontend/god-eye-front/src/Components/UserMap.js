@@ -28,7 +28,7 @@ class UserMap extends React.Component{
     render(){
         let mapInstantce = <div>Loading</div>
         if(!(localStorage.getItem('ifDBEmpty')==='true')){
-            mapInstantce = <img
+            mapInstantce = <img id='mapImg'
             style={{height: '80%', width:'95%', margin:'2.5%'}}
             src={ this.state['map_bin'] }
             alt='无法显示图片'

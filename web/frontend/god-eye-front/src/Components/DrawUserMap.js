@@ -46,7 +46,7 @@ function drawCamera(x,y){
     ctx.beginPath();
     var img = light===1 ? svgToImg(document.getElementById('cam-icon-light')):
                     svgToImg(document.getElementById('cam-icon'));
-    img.onload=function(){ctx.drawImage(img, x, y, 30, 30)};
+    img.onload=function(){ctx.drawImage(img, x, y, 35, 35)};
 }
 
 function undo(){

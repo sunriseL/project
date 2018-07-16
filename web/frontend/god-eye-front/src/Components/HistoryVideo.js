@@ -17,8 +17,6 @@ class HistoryVideo extends React.Component {
 
     }
 
-
-
     render(){
         return(
             <Layout>
