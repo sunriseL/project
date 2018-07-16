@@ -182,7 +182,7 @@ class DrawUserMap extends React.Component{
                     <Typography gutterBottom variant="headline" component="h2">
                         { this.state['map_name'] }
                     </Typography>
-                    <Grid container><Grid item xs={5} />
+                    {/* <Grid container><Grid item xs={5} />
                         <Grid item xs={1}>
                             <Button variant="contained"  onClick={()=>undo()}>点击撤销</Button>
                         </Grid>
@@ -195,7 +195,7 @@ class DrawUserMap extends React.Component{
                         <Grid item xs={1}>
                             <Button variant="contained"  onClick={()=>{light=0}}>取消高亮</Button>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </CardContent>
                 <Grid container>
                     <Grid item xs={2} />
