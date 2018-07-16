@@ -30,3 +30,8 @@ md! md!
 complete map uploading  
 more md replacement  
 learn about md principle  
+
+### 2018/7/16
+complete the AddCamera to add camera and set parameters  
+change the drawer type so that the page will not change size  
+change some dangerous cross component messaging to event-based method
