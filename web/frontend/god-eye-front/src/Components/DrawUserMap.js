@@ -11,7 +11,6 @@ import { Grid, Input } from '../../node_modules/@material-ui/core';
 import './UserMap.css';
 import emitter from '../Utils/EventEmitter';
 
-
 const styles = {
     card: {
         maxWidth: 2160,
@@ -23,15 +22,9 @@ const styles = {
     },
 };
 
-let c,ctx,img,light;
-let executionArray = [];
+let c,ctx,img;
 function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
-}
-
-function addCamera (x,y) {
-    executionArray.push({_x : x, _y : y});
-    drawCamera(x,y);
 }
 
 function svgToImg(svgTag){
@@ -43,32 +36,24 @@ function svgToImg(svgTag){
 
 function drawCamera(x,y){
     clearCanvas();
-    let image = light===1 ? svgToImg(document.getElementById('cam-icon-light')):
-                    svgToImg(document.getElementById('cam-icon'));
-    image.onload=function(){ctx.drawImage(image, x, y, 35, 35)};
+    let svg = svgToImg(document.getElementById('cam-icon'));
+    svg.onload=function(){ctx.drawImage(svg, x-15, y-15, 35, 35)};
 }
 
 function drawAlpha(x,y,alpha){
     clearCanvas();
-    console.log(Math.sin(alpha),Math.cos(alpha));
+    ctx.beginPath();
+    drawCamera(x,y);
     ctx.moveTo (x,y);
     ctx.lineTo (x + 150*(Math.cos(alpha)),y + 150*Math.sin(alpha));
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "#f00000";
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#14a8f0";
     ctx.stroke();
 }
 
-function undo(){
-    if (executionArray.length > 0) {
-        clearCanvas();
-        executionArray.pop();
-        for (let exe of executionArray) {
-            drawCamera(exe._x,exe._y)
-        }
-    }
-}
-
 function clearCanvas () {
+    c = document.getElementById('canvas');
+    ctx = c.getContext('2d');
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.drawImage(img, 0, 0, c.width, c.height);
 }
@@ -110,11 +95,11 @@ class DrawUserMap extends React.Component{
             }, false);
         });
         emitter.addListener('drawCamera', argv=>{
-            console.log(argv);
+            console.log('add camera'+argv);
             drawCamera(argv.x*c.width, argv.y*c.height);
         });
         emitter.addListener('drawAlpha', argv=>{
-            console.log(argv);
+            console.log('draw alpha:'+argv);
             drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
         });
     }
@@ -198,18 +183,7 @@ class DrawUserMap extends React.Component{
                         { this.state['map_name'] }
                     </Typography>
                     <Grid container><Grid item xs={5} />
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>undo()}>点击撤销</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>clearCanvas()}>清空</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>{light=1}}>高亮</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>{light=0}}>取消高亮</Button>
-                        </Grid>
+
                     </Grid>
                 </CardContent>
                 <Grid container>

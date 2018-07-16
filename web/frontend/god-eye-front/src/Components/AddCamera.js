@@ -39,6 +39,8 @@ class AddCamera extends React.Component {
                 document.getElementById('camera-y').value = message.y * 750;
                 this.cameraStat.x = message.x;
                 this.cameraStat.y = message.y;
+                emitter.emit('drawCamera',
+                    {x:this.cameraStat.x, y:this.cameraStat.y}, false);
                 return;
             case 1:
                 var relX = (message.x - this.cameraStat.x) * 1100;
