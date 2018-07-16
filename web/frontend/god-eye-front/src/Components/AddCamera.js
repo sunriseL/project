@@ -7,7 +7,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
-
+import $ from 'jquery';
 import emitter from '../Utils/EventEmitter';
 
 
@@ -44,13 +44,15 @@ class AddCamera extends React.Component {
             case 1:
                 var relX = (message.x - this.cameraStat.x) * 1100;
                 var relY = (message.y - this.cameraStat.y) * 750;
-                this.cameraStat.alpha = Math.atan(relY / relX);
+                this.cameraStat.alpha = (relX > 0 ? 1 : -1) * Math.atan(relY / relX);
                 this.cameraStat.beta = Math.atan(Math.sqrt(Math.pow(relX, 2) + Math.pow(relY, 2)) / this.cameraStat.height);
                 document.getElementById('camera-beta').value = this.cameraStat.beta / Math.PI * 180;
                 document.getElementById('camera-alpha').value = this.cameraStat.alpha / Math.PI * 180;
                 return;
             case 2:
+                return;
             default:
+                return;
         }
     }
     
@@ -63,10 +65,24 @@ class AddCamera extends React.Component {
         switch(activeStep){
             case 0:
                 this.cameraStat.height = document.getElementById('camera-h').value;
-                console.log(this.cameraStat);
                 break;
             case 1:
+                break;
             case 2:
+                $.ajax({
+                    type: "post",
+                    url: "http://127.0.0.1:8081/map/add",
+                    crossDomain: true,
+                    data: this.cameraStat,
+                    async:true,
+                    success: function () {
+                        alert("摄像头设置成功");
+                    },
+                    error : function() {
+                        alert("上传失败\n请确认网络连接正常");
+                    }
+                });
+                break;
             default:
         }
         this.setState({
@@ -106,9 +122,9 @@ class AddCamera extends React.Component {
                 return(
                 <Grid container>
                     <Grid item xs>
-                        <Typography variant='body2'> x: 
+                        <Typography variant='body2'> X: 
                             <Input
-                                defaultValue={this.state.px}
+                                defaultValue={this.cameraStat.x}
                                 inputProps={{
                                     'aria-label': 'Description',
                                 }}
@@ -118,9 +134,9 @@ class AddCamera extends React.Component {
                         </Typography>
                     </Grid>
                     <Grid item xs>
-                        <Typography variant='body2'> y: 
+                        <Typography variant='body2'> Y: 
                             <Input
-                                defaultValue={this.state.py}
+                                defaultValue={this.cameraStat.y}
                                 inputProps={{
                                     'aria-label': 'Description',
                                 }}
@@ -132,7 +148,7 @@ class AddCamera extends React.Component {
                     <Grid item xs>
                         <Typography variant='body2'> 高度: 
                             <Input
-                                defaultValue={0}
+                                defaultValue={this.cameraStat.height}
                                 inputProps={{
                                     'aria-label': 'Description',
                                 }}
@@ -149,7 +165,7 @@ class AddCamera extends React.Component {
                         <Grid item xs>
                             <Typography variant='body2'>俯角： 
                                 <Input
-                                    defaultValue={0}
+                                    defaultValue={this.cameraStat.beta}
                                     inputProps={{
                                         'aria-label': 'Description',
                                     }}
@@ -161,7 +177,7 @@ class AddCamera extends React.Component {
                         <Grid item xs>
                             <Typography variant='body2'>方位角：
                                 <Input
-                                    defaultValue={0}
+                                    defaultValue={this.cameraStat.alpha}
                                     inputProps={{
                                         'aria-label': 'Description',
                                     }}
@@ -173,6 +189,20 @@ class AddCamera extends React.Component {
                     </Grid>
                 );
             case 2:
+                return(
+                    <Grid container row alignItems='center' alignContent='center' spacing={24}>
+                        <Grid xs={2} />
+                        <Grid item column spacing={8} xs>
+                            <Grid item xs><Typography variant='display1' align='left'> X: {Math.round(this.cameraStat.x * 1100)} </Typography></Grid>
+                            <Grid item xs><Typography variant='display1' align='left'> Y: {Math.round(this.cameraStat.y * 750)} </Typography></Grid>
+                            <Grid item xs><Typography variant='display1' align='left'> 高度: {this.cameraStat.height} </Typography></Grid>
+                        </Grid> 
+                        <Grid item column spacing={8} xs>
+                            <Grid item xs><Typography variant='display1' align='left'> 俯角: {Math.round(this.cameraStat.beta / Math.PI * 180)} </Typography></Grid>
+                            <Grid item xs><Typography variant='display1' align='left'> 方位角: {Math.round(this.cameraStat.alpha / Math.PI * 180)} </Typography></Grid>
+                        </Grid> 
+                    </Grid>
+                )
             default:
                 return 'Unknown stepIndex';
         }
