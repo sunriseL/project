@@ -42,19 +42,7 @@ const styles = theme => ({
         duration: theme.transitions.duration.leavingScreen,
         }),
     },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    'appBarShift-left': {
-        marginLeft: drawerWidth,
-    },
-    'appBarShift-right': {
-        marginRight: drawerWidth,
-    },
+
     menuButton: {
         marginLeft: 12,
         marginRight: 20,
@@ -82,24 +70,7 @@ const styles = theme => ({
         duration: theme.transitions.duration.leavingScreen,
         }),
     },
-    'content-left': {
-        marginLeft: -drawerWidth,
-    },
-    'content-right': {
-        marginRight: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    'contentShift-left': {
-        marginLeft: 0,
-    },
-    'contentShift-right': {
-        marginRight: 0,
-    },
+
 });
 
 class MainNav extends React.Component {
@@ -122,7 +93,6 @@ class MainNav extends React.Component {
 
         const drawer = (
         <Drawer
-            variant="persistent"
             anchor={anchor}
             open={open}
             classes={{
