@@ -14,37 +14,85 @@ import emitter from '../Utils/EventEmitter';
 class AddCamera extends React.Component {
     state = {
         activeStep: 0,
-        px: 0,
-        py: 0,
     };    
 
     cameraStat = {
-    
+        x: 0,
+        y: 0,
+        height: 0,
+        alpha: 0,
+        beta: 0,
+    // alpha is the horizontal angle of the camera, beta is the vertical one
+    // these parameters are independent of hardware, they are detemined by setting up
     }
 
 
     componentDidMount(){
         this.eventEmitter = emitter.addListener('canvasClick', (position)=>{
-            this.setState({
-                activeStep: this.state.activeStep,
-                px: position.x,
-                py: position.y,
-            });
-            document.getElementById('camera-x').value = position.x*1100;
-            document.getElementById('camera-y').value = position.y*750;
+            this.messageHandler(this.state.activeStep, position);
         });
     }
 
+    messageHandler(stepIndex, message){
+        switch(stepIndex) {
+            case 0:
+                document.getElementById('camera-x').value = message.x * 1100;
+                document.getElementById('camera-y').value = message.y * 750;
+                this.cameraStat.x = message.x;
+                this.cameraStat.y = message.y;
+                return;
+            case 1:
+                var relX = (message.x - this.cameraStat.x) * 1100;
+                var relY = (message.y - this.cameraStat.y) * 750;
+                this.cameraStat.alpha = Math.atan(relY / relX);
+                this.cameraStat.beta = Math.atan(Math.sqrt(Math.pow(relX, 2) + Math.pow(relY, 2)) / this.cameraStat.height);
+                document.getElementById('camera-beta').value = this.cameraStat.beta / Math.PI * 180;
+                document.getElementById('camera-alpha').value = this.cameraStat.alpha / Math.PI * 180;
+                return;
+            case 2:
+            default:
+        }
+    }
+    
     getSteps() {
         return ['选择摄像头位置', '设定摄像头参数', '确认摄像头信息'];
     }
     
+    handleNext = () => {
+        const { activeStep } = this.state;
+        switch(activeStep){
+            case 0:
+                this.cameraStat.height = document.getElementById('camera-h').value;
+                console.log(this.cameraStat);
+                break;
+            case 1:
+            case 2:
+            default:
+        }
+        this.setState({
+            activeStep: activeStep + 1,
+        });
+    };
+        
+    handleBack = () => {
+        const { activeStep } = this.state;
+        this.setState({
+            activeStep: activeStep - 1,
+        });
+    };
+
+    handleMore = () => {
+        this.setState({
+            activeStep: 0,
+        });
+    };
+
     getInstruction(stepIndex) {
         switch (stepIndex) {
         case 0:
-            return '请在地图上点击摄像头的位置';
+            return '请在地图上点击摄像头的位置，并输入高度';
         case 1:
-            return '请填写摄像头的各种参数';
+            return '请在地图上点击摄像头画面中心点在地图上的位置';
         case 2:
             return '请确认摄像头的信息';
         default:
@@ -64,7 +112,6 @@ class AddCamera extends React.Component {
                                 inputProps={{
                                     'aria-label': 'Description',
                                 }}
-                                disabled
                                 id="camera-x"
                                 style={{margin: '5%'}}
                             />
@@ -77,8 +124,19 @@ class AddCamera extends React.Component {
                                 inputProps={{
                                     'aria-label': 'Description',
                                 }}
-                                disabled
                                 id="camera-y"
+                                style={{margin: '5%'}}
+                            />
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Typography variant='body2'> 高度: 
+                            <Input
+                                defaultValue={0}
+                                inputProps={{
+                                    'aria-label': 'Description',
+                                }}
+                                id="camera-h"
                                 style={{margin: '5%'}}
                             />
                         </Typography>
@@ -87,9 +145,32 @@ class AddCamera extends React.Component {
                 );
             case 1:
                 return(
-                    <div>
-
-                    </div>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant='body2'>俯角： 
+                                <Input
+                                    defaultValue={0}
+                                    inputProps={{
+                                        'aria-label': 'Description',
+                                    }}
+                                    style={{margin: '5%'}}
+                                    id='camera-beta'
+                                />
+                            </Typography>
+                        </Grid>
+                        <Grid item xs>
+                            <Typography variant='body2'>方位角：
+                                <Input
+                                    defaultValue={0}
+                                    inputProps={{
+                                        'aria-label': 'Description',
+                                    }}
+                                    style={{margin: '5%'}}
+                                    id='camera-alpha'
+                                />
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 );
             case 2:
             default:
@@ -97,31 +178,6 @@ class AddCamera extends React.Component {
         }
     }
         
-    handleNext = () => {
-        const { activeStep } = this.state;
-        this.setState({
-            activeStep: activeStep + 1,
-            px: this.state.px,
-            py: this.state.py,
-        });
-    };
-        
-    handleBack = () => {
-        const { activeStep } = this.state;
-        this.setState({
-            activeStep: activeStep - 1,
-            px: this.state.px,
-            py: this.state.py,
-        });
-    };
-
-    handleMore = () => {
-        this.setState({
-            activeStep: 0,
-            px: 0,
-            py: 0,
-        });
-    };
 
     render(){
         const steps = this.getSteps();
