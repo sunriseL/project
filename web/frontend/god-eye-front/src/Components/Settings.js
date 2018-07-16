@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import DrawUserMap from "./DrawUserMap";
+import AddCamera from './AddCamera';
 //import UserMap from "./UserMap";
 
 const {  Content, Footer } = Layout;
@@ -35,6 +36,7 @@ class Settings extends React.Component {
                 </Grid>
                 <Content>
                     <DrawUserMap />
+                    <AddCamera />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
                     God Eye ©2018 Created by SunriseL Team
