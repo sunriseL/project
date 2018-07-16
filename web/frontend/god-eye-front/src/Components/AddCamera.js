@@ -122,7 +122,7 @@ class AddCamera extends React.Component {
         case 2:
             return '请确认摄像头的信息';
         default:
-            return 'Uknown stepIndex';
+            return;
         }
     }
     
@@ -214,7 +214,7 @@ class AddCamera extends React.Component {
                     </Grid>
                 );
             default:
-                return 'Unknown stepIndex';
+                return;
         }
     }
         
