@@ -11,6 +11,17 @@ import emitter from "../Utils/EventEmitter";
 const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
+function screenShot(){
+    let video = document.getElementById("video_id");
+    let canvas = document.getElementById('screenShot');
+    let ctx = canvas.getContext('2d');
+    canvas.width = 480;
+    canvas.height = 270;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    let image = canvas.toDataURL('image/png');
+    console.log(image);
+}
+
 class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
@@ -18,7 +29,7 @@ class VideoPlayer extends React.Component {
             videoLink: file1,
             catchTime: 0,
             open: false,
-            selectedValue: camera[1],
+            selectedValue: camera[0],
         };
         this.style = {
             height: "100%",
@@ -48,6 +59,7 @@ class VideoPlayer extends React.Component {
     getCurrentTime() {
         let player = document.getElementById('video_id');
         console.log(player.currentTime);
+        screenShot();
     };
 
     handleClose = value => {
@@ -86,6 +98,7 @@ class VideoPlayer extends React.Component {
                         open={this.state.open}
                         onClose={this.handleClose}
                     />
+                <canvas id="screenShot" width="640" height="480" hidden></canvas>
             </Grid>
         </Paper>
         );

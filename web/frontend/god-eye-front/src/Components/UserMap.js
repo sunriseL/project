@@ -81,6 +81,7 @@ class UserMap extends React.Component{
             let p = getEventPosition(e);
             console.log('click', p);
         }, false);
+        lightCamera('camera1');
     }
 
     render(){

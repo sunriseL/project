@@ -47,7 +47,7 @@ class CurrentVideo extends React.Component {
         super(props);
         this.state = {
             open: false,
-            selectedValue: camera[1],
+            selectedValue: camera[0],
         };
     }
     componentDidMount(){

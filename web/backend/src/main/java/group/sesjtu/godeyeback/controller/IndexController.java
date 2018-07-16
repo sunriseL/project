@@ -56,4 +56,12 @@ public class IndexController {
         System.out.println("camera:"+camera+" start:"+start+" end:"+end);
         return "select camera success!";
     }
+    @RequestMapping("/camera/add")
+    protected String Camera(@RequestParam("x") int x,@RequestParam("y") int y,
+                            @RequestParam("height") int height,@RequestParam("alpha") int alpha,
+                            @RequestParam("beta") int beta){
+        return "add camera\nx:" + x+"\ny:"+y+"\nh:"+height+"\na:"+alpha+"\nb:"+beta;
+    }
+
+
 }
