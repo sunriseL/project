@@ -37,7 +37,7 @@ function svgToImg(svgTag){
 function drawCamera(x,y){
     clearCanvas();
     let svg = svgToImg(document.getElementById('cam-icon'));
-    svg.onload=function(){ctx.drawImage(svg, x-15, y-15, 35, 35)};
+    svg.onload=function(){ctx.drawImage(svg, x-25, y-25, 50, 50)};
 }
 
 function drawAlpha(x,y,alpha){
@@ -95,19 +95,13 @@ class DrawUserMap extends React.Component{
             }, false);
         });
         emitter.addListener('drawCamera', argv=>{
-            console.log('add camera'+argv);
             drawCamera(argv.x*c.width, argv.y*c.height);
         });
         emitter.addListener('drawAlpha', argv=>{
-            console.log('draw alpha:'+argv);
             drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
         });
     }
     shouldComponentUpdate(){
-        img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
-    }
-    componentDidUpdate(){
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
     }
