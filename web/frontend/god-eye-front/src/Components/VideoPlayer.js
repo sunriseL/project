@@ -2,21 +2,21 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import file1 from '../image/2.mp4';
 import file from '../image/1.mp4';
 import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
+import emitter from "../Utils/EventEmitter";
 
 const camera = ['camera1', 'camera2','camera3'];
-const video = {'camera1':'http://mvpc.eastday.com/vzixun/20171017/20171017115054761305610_1_06400360.mp4',
-                'camera2':'http://mvpc.eastday.com/vzixun/20180330/20180330162618207325724_1_06400360.mp4',
-                'camera3':file};
+const video = {'camera1':file1, 'camera2':file1, 'camera3':file};
 
 class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: 'http://mvpc.eastday.com/vdongman/20180624/20180624143307574331215_1_06400360.mp4',
+            videoLink: file1,
             catchTime: 0,
             open: false,
             selectedValue: camera[1],
@@ -56,13 +56,8 @@ class VideoPlayer extends React.Component {
         this.setState({ selectedValue: value, open: false});
         localStorage.setItem("selectedCamera", String(value));
         document.getElementById("video_id").src = video[value];
+        emitter.emit('drawCamera', value, false);
     };
-
-    play() {
-        let url = "http://mvpc.eastday.com/vzixun/20180330/20180330162618207325724_1_06400360.mp4";
-        console.log(url);
-        document.getElementById("video_id").src = url;
-    }
 
     render(){
         return(

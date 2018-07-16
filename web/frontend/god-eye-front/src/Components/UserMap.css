@@ -20,7 +20,7 @@
     z-index: 1;
 }
 
-#currentVideoCanvas {
+#lightCameraCanvas {
     position: absolute;
     z-index:2;
     left:2.9%;

@@ -11,7 +11,6 @@ import { Grid, Input } from '../../node_modules/@material-ui/core';
 import './UserMap.css';
 import emitter from '../Utils/EventEmitter';
 
-
 const styles = {
     card: {
         maxWidth: 2160,
@@ -23,44 +22,38 @@ const styles = {
     },
 };
 
-let c,ctx,img,light;
-let executionArray = [];
+let c,ctx,img;
 function select(){
     document.getElementById('map-path').value = document.getElementById('image').value;
 }
 
-function addCamera (x,y) {
-    executionArray.push({_x : x, _y : y});
-    drawCamera(x,y);
-}
-
 function svgToImg(svgTag){
-    var svg_xml = (new XMLSerializer()).serializeToString(svgTag);
-    var img = new Image();
+    let svg_xml = (new XMLSerializer()).serializeToString(svgTag);
+    let img = new Image();
     img.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
     return img;
 }
 
 function drawCamera(x,y){
-    c = document.getElementById("canvas");
-    ctx = c.getContext('2d');
-    ctx.beginPath();
-    var img = light===1 ? svgToImg(document.getElementById('cam-icon-light')):
-                    svgToImg(document.getElementById('cam-icon'));
-    img.onload=function(){ctx.drawImage(img, x, y, 35, 35)};
+    clearCanvas();
+    let svg = svgToImg(document.getElementById('cam-icon'));
+    svg.onload=function(){ctx.drawImage(svg, x-25, y-25, 50, 50)};
 }
 
-function undo(){
-    if (executionArray.length > 0) {
-        clearCanvas();
-        executionArray.pop();
-        for (let exe of executionArray) {
-            drawCamera(exe._x,exe._y)
-        }
-    }
+function drawAlpha(x,y,alpha){
+    clearCanvas();
+    ctx.beginPath();
+    drawCamera(x,y);
+    ctx.moveTo (x,y);
+    ctx.lineTo (x + 150*(Math.cos(alpha)),y + 150*Math.sin(alpha));
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#14a8f0";
+    ctx.stroke();
 }
 
 function clearCanvas () {
+    c = document.getElementById('canvas');
+    ctx = c.getContext('2d');
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.drawImage(img, 0, 0, c.width, c.height);
 }
@@ -94,20 +87,21 @@ class DrawUserMap extends React.Component{
         img = new Image();
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
-        
         c.addEventListener('click', function(e){
             let p = getEventPosition(e);
             emitter.emit('canvasClick', {
                 x: p.x/1100,
                 y: p.y/750,
             }, false);
-        })
+        });
+        emitter.addListener('drawCamera', argv=>{
+            drawCamera(argv.x*c.width, argv.y*c.height);
+        });
+        emitter.addListener('drawAlpha', argv=>{
+            drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
+        });
     }
     shouldComponentUpdate(){
-        img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
-    }
-    componentDidUpdate(){
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
     }
