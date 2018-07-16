@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, ExpansionPanelActions } from '../../node_modules/@material-ui/core';
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, ExpansionPanelActions, Divider, Grid } from '../../node_modules/@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -56,32 +56,41 @@ class AddCamera extends React.Component {
         switch (stepIndex) {
             case 0:
                 return(
-                <div>
-                    <Typography> x: 
-                        <Input
-                            defaultValue={this.state.px}
-                            inputProps={{
-                                'aria-label': 'Description',
-                            }}
-                            disabled
-                            id="camera-x"
-                            style={{margin: '5%'}}
-                        />
-                    </Typography>
-                    <Typography> y: 
-                        <Input
-                            defaultValue={this.state.py}
-                            inputProps={{
-                                'aria-label': 'Description',
-                            }}
-                            disabled
-                            id="camera-y"
-                            style={{margin: '5%'}}
-                        />
-                    </Typography>
-                </div>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography variant='body2'> x: 
+                            <Input
+                                defaultValue={this.state.px}
+                                inputProps={{
+                                    'aria-label': 'Description',
+                                }}
+                                disabled
+                                id="camera-x"
+                                style={{margin: '5%'}}
+                            />
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Typography variant='body2'> y: 
+                            <Input
+                                defaultValue={this.state.py}
+                                inputProps={{
+                                    'aria-label': 'Description',
+                                }}
+                                disabled
+                                id="camera-y"
+                                style={{margin: '5%'}}
+                            />
+                        </Typography>
+                    </Grid>
+                </Grid>
                 );
             case 1:
+                return(
+                    <div>
+
+                    </div>
+                );
             case 2:
             default:
                 return 'Unknown stepIndex';
@@ -132,7 +141,8 @@ class AddCamera extends React.Component {
                             })}
                         </Stepper>
                         {this.getDetail(activeStep)}
-                        <Typography>{this.getInstruction(activeStep)}</Typography>
+                        <Divider />
+                        <Typography variant='subheading'>{this.getInstruction(activeStep)}</Typography>
                     </div>
                 </ExpansionPanelDetails>
                 <ExpansionPanelActions>

@@ -94,11 +94,7 @@ class DrawUserMap extends React.Component{
         img = new Image();
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
-        // c.addEventListener('click', function(e){
-        //         let p = getEventPosition(e);
-        //         console.log('你点击了', p);
-        //         addCamera(p.x, p.y);
-        // }, false);
+        
         c.addEventListener('click', function(e){
             let p = getEventPosition(e);
             emitter.emit('canvasClick', {
