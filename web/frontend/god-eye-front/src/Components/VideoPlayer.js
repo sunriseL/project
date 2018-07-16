@@ -3,14 +3,13 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import file1 from '../image/2.mp4';
-import file from '../image/1.mp4';
 import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 
 const camera = ['camera1', 'camera2','camera3'];
-const video = {'camera1':file1, 'camera2':file1, 'camera3':file};
+const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
 class VideoPlayer extends React.Component {
     constructor(props){
@@ -29,16 +28,15 @@ class VideoPlayer extends React.Component {
     }
 
     ifHistory(){
-        var url = document.location.toString();
-        var arrUrl = url.split("//");
-        var splitUrl = arrUrl[1].split("/");
-        var relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+        let url = document.location.toString();
+        let arrUrl = url.split("//");
+        let splitUrl = arrUrl[1].split("/");
+        let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
 
 　　　　if(relUrl.indexOf("?") !== -1){
 　　　　　　relUrl = relUrl.split("?")[0];
 　　　　}
 　　　　return (relUrl==='history-video');
-
     }
 
     handleClickOpen = () => {
@@ -48,7 +46,7 @@ class VideoPlayer extends React.Component {
     };
 
     getCurrentTime() {
-        var player = document.getElementById('video_id');
+        let player = document.getElementById('video_id');
         console.log(player.currentTime);
     };
 
@@ -56,7 +54,7 @@ class VideoPlayer extends React.Component {
         this.setState({ selectedValue: value, open: false});
         localStorage.setItem("selectedCamera", String(value));
         document.getElementById("video_id").src = video[value];
-        emitter.emit('drawCamera', value, false);
+        emitter.emit('lightCamera', value, false);
     };
 
     render(){

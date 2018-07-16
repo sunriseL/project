@@ -26,11 +26,13 @@ function initCamera() {
     cameraPosition.push({camera:'camera3',_x: 0.3, _y: 0.3});
 }
 
-function drawCamera(cameraValue){
+function lightCamera(cameraValue){
+    c = document.getElementById('lightCameraCanvas');
+    ctx = c.getContext('2d');
     ctx.clearRect(0, 0, c.width, c.height);
     c.width = document.getElementById('mapImg').width;
     c.height= document.getElementById('mapImg').height;
-    for (let i of cameraPosition){
+    for(let i of cameraPosition){
         if(i.camera === cameraValue) {
             let x = i._x * c.width;
             let y = i._y * c.height;
@@ -42,6 +44,7 @@ function drawCamera(cameraValue){
             ctx.beginPath();
             ctx.arc(x, y, 15, 0, Math.PI * 2);
             ctx.fill();
+            break;
         }
     }
 }
@@ -68,17 +71,16 @@ class UserMap extends React.Component{
     };
 
     componentDidMount(){
+        initCamera();
+        emitter.addListener('lightCamera', position=>{
+            lightCamera(position);
+        });
         c = document.getElementById('lightCameraCanvas');
         ctx = c.getContext('2d');
         c.addEventListener('click', function(e){
             let p = getEventPosition(e);
-            console.log('你点击了', p);
+            console.log('click', p);
         }, false);
-        initCamera();
-        this.eventEmitter = emitter.addListener('drawCamera', position=>{
-            drawCamera(position);
-            console.log("catch drawCamera");
-        });
     }
 
     render(){

@@ -68,7 +68,7 @@ class CurrentVideo extends React.Component {
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
         document.getElementById("currentVideo").src = videoList[value];
-        emitter.emit('drawCamera', value, false);
+        emitter.emit('lightCamera', value, false);
     };
 
     render(){
