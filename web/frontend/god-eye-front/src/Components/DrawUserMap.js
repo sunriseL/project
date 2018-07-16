@@ -9,6 +9,7 @@ import '../App.css';
 import $ from "jquery";
 import { Grid, Input } from '../../node_modules/@material-ui/core';
 import './UserMap.css';
+import emitter from '../Utils/EventEmitter';
 
 
 const styles = {
@@ -93,11 +94,18 @@ class DrawUserMap extends React.Component{
         img = new Image();
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
+        // c.addEventListener('click', function(e){
+        //         let p = getEventPosition(e);
+        //         console.log('你点击了', p);
+        //         addCamera(p.x, p.y);
+        // }, false);
         c.addEventListener('click', function(e){
-                let p = getEventPosition(e);
-                console.log('你点击了', p);
-                addCamera(p.x, p.y);
-        }, false);
+            let p = getEventPosition(e);
+            emitter.emit('canvasClick', {
+                x: p.x/1100,
+                y: p.y/750,
+            }, false);
+        })
     }
     shouldComponentUpdate(){
         img.src = this.state['map_bin'];

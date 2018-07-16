@@ -24,7 +24,7 @@ class VideoPlayer extends React.Component {
         this.style = {
             height: "100%",
             width: "90%",
-            margin: "2%",
+            margin: "5%",
         };
     }
 
@@ -54,6 +54,7 @@ class VideoPlayer extends React.Component {
 
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
+        localStorage.setItem("selectedCamera", String(value));
         document.getElementById("video_id").src = video[value];
     };
 
@@ -65,7 +66,7 @@ class VideoPlayer extends React.Component {
 
     render(){
         return(
-        <Paper  elevation={1} style={{margin: "1%"}} square='true'>
+        <Paper  elevation={1} style={{margin: "1%", height: "86%"}} square='true'>
             <Grid>
                 <video id="video_id" style={ this.style } controls="controls" preload={false}>
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 

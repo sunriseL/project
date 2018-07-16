@@ -36,7 +36,7 @@ class UserMap extends React.Component{
         }
     
         return (
-                <Card style={{margin: "1%", height:"99%"}} square={true}>
+                <Card style={{margin: "1%", height:"98%"}} square={true}>
                     {mapInstantce}
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">

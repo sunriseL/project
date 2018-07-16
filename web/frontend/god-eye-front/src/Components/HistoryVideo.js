@@ -20,7 +20,7 @@ class HistoryVideo extends React.Component {
     render(){
         return(
             <Layout>
-                    <Grid container spacing={24}>
+                    <Grid container spacing={24} alignItems="stretch">
                         <Grid item xs={2}>
                             <Breadcrumb>
                                 <Breadcrumb.Item>慧眼识踪</Breadcrumb.Item>
@@ -33,10 +33,10 @@ class HistoryVideo extends React.Component {
                             <UserMap />
                         </Grid>
                         <Grid xs={6} item>
-                                <Paper style={{margin: "1%"}} square={true}>
-                                    <WrappedHistoryVideoForm />
-                                </Paper>
-                                <VideoPlayer />
+                            <Paper style={{margin: "1%", height:"10%"}} square={true}>
+                                <WrappedHistoryVideoForm />
+                            </Paper>
+                            <VideoPlayer />
                         </Grid>
                     </Grid>
             </Layout>

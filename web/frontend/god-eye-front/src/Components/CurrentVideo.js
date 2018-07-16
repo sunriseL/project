@@ -6,6 +6,7 @@ import CameraDialog from "./CameraDialog";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import "./UserMap.css";
+import Paper from "@material-ui/core/es/Paper/Paper";
 
 let video,c,ctx;
 let cameraPosition=[];
@@ -146,7 +147,9 @@ class CurrentVideo extends React.Component {
                         <UserMap />
                     </Grid>
                     <Grid item xs>
-                        <video id="currentVideo" width="640" height="480" autoplay controls></video>
+                        <Paper style={{margin:"1%", height:"98%"}} square={true}>
+                            <video id="currentVideo" width="640" height="480" autoplay controls></video>
+                        </Paper>
                     </Grid>
                 </Grid>
                 <Grid item xs={6}>
