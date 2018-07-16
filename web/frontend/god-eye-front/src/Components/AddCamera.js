@@ -43,7 +43,7 @@ class AddCamera extends React.Component {
             case 1:
                 var relX = (message.x - this.cameraStat.x) * 1100;
                 var relY = (message.y - this.cameraStat.y) * 750;
-                this.cameraStat.alpha = (relX > 0 ? 1 : -1) * Math.atan(relY / relX);
+                this.cameraStat.alpha = Math.atan(relY / relX) + (relX > 0 ? 0 : 1) * Math.PI;
                 this.cameraStat.beta = Math.atan(Math.sqrt(Math.pow(relX, 2) + Math.pow(relY, 2)) / this.cameraStat.height);
                 document.getElementById('camera-beta').value = this.cameraStat.beta / Math.PI * 180;
                 document.getElementById('camera-alpha').value = this.cameraStat.alpha / Math.PI * 180;
@@ -102,6 +102,13 @@ class AddCamera extends React.Component {
         this.setState({
             activeStep: 0,
         });
+        this.cameraStat = {
+            x: 0,
+            y: 0,
+            height: 0,
+            alpha: 0,
+            beta: 0,
+        }
     };
 
     getInstruction(stepIndex) {
@@ -203,7 +210,7 @@ class AddCamera extends React.Component {
                             <Grid item xs><Typography variant='display1' align='left'> 方位角: {Math.round(this.cameraStat.alpha / Math.PI * 180)} </Typography></Grid>
                         </Grid> 
                     </Grid>
-                )
+                );
             default:
                 return 'Unknown stepIndex';
         }
