@@ -14,7 +14,6 @@ class HistoryVideo extends React.Component {
         this.state = {
             catchTime: 0,
         };
-
     }
 
     render(){
@@ -29,7 +28,7 @@ class HistoryVideo extends React.Component {
                         </Grid>
                     </Grid>
                     <Grid container xs={12} spacing={24}>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} style={{position:'relative'}}>
                             <UserMap />
                         </Grid>
                         <Grid xs={6} item>

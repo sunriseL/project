@@ -35,19 +35,27 @@ function addCamera (x,y) {
 }
 
 function svgToImg(svgTag){
-    var svg_xml = (new XMLSerializer()).serializeToString(svgTag);
-    var img = new Image();
+    let svg_xml = (new XMLSerializer()).serializeToString(svgTag);
+    let img = new Image();
     img.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
     return img;
 }
 
 function drawCamera(x,y){
-    c = document.getElementById("canvas");
-    ctx = c.getContext('2d');
-    ctx.beginPath();
-    var img = light===1 ? svgToImg(document.getElementById('cam-icon-light')):
+    clearCanvas();
+    let image = light===1 ? svgToImg(document.getElementById('cam-icon-light')):
                     svgToImg(document.getElementById('cam-icon'));
-    img.onload=function(){ctx.drawImage(img, x, y, 35, 35)};
+    image.onload=function(){ctx.drawImage(image, x, y, 35, 35)};
+}
+
+function drawAlpha(x,y,alpha){
+    clearCanvas();
+    console.log(Math.sin(alpha),Math.cos(alpha));
+    ctx.moveTo (x,y);
+    ctx.lineTo (x + 150*(Math.cos(alpha)),y + 150*Math.sin(alpha));
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#f00000";
+    ctx.stroke();
 }
 
 function undo(){
@@ -94,14 +102,21 @@ class DrawUserMap extends React.Component{
         img = new Image();
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
-        
         c.addEventListener('click', function(e){
             let p = getEventPosition(e);
             emitter.emit('canvasClick', {
                 x: p.x/1100,
                 y: p.y/750,
             }, false);
-        })
+        });
+        emitter.addListener('drawCamera', argv=>{
+            console.log(argv);
+            drawCamera(argv.x*c.width, argv.y*c.height);
+        });
+        emitter.addListener('drawAlpha', argv=>{
+            console.log(argv);
+            drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
+        });
     }
     shouldComponentUpdate(){
         img.src = this.state['map_bin'];

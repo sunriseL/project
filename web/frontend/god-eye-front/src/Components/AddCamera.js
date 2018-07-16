@@ -10,7 +10,6 @@ import Input from '@material-ui/core/Input';
 
 import emitter from '../Utils/EventEmitter';
 
-
 class AddCamera extends React.Component {
     state = {
         activeStep: 0,
@@ -48,6 +47,8 @@ class AddCamera extends React.Component {
                 this.cameraStat.beta = Math.atan(Math.sqrt(Math.pow(relX, 2) + Math.pow(relY, 2)) / this.cameraStat.height);
                 document.getElementById('camera-beta').value = this.cameraStat.beta / Math.PI * 180;
                 document.getElementById('camera-alpha').value = this.cameraStat.alpha / Math.PI * 180;
+                emitter.emit('drawAlpha',
+                    {x:this.cameraStat.x, y:this.cameraStat.y, alpha:this.cameraStat.alpha}, false);
                 return;
             case 2:
             default:
