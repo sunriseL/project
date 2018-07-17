@@ -74,7 +74,7 @@ class AddCamera extends React.Component {
             case 2:
                 $.ajax({
                     type: "post",
-                    url: "http://127.0.0.1:8081/map/add",
+                    url: "http://127.0.0.1:8081/camera/add",
                     crossDomain: true,
                     data: this.cameraStat,
                     async:true,
@@ -175,7 +175,7 @@ class AddCamera extends React.Component {
                         <Grid item xs>
                             <Typography variant='body2'>俯角： 
                                 <Input
-                                    defaultValue={this.cameraStat.beta}
+                                    defaultValue={this.cameraStat.beta / Math.PI * 180}
                                     inputProps={{
                                         'aria-label': 'Description',
                                     }}
@@ -187,7 +187,7 @@ class AddCamera extends React.Component {
                         <Grid item xs>
                             <Typography variant='body2'>方位角：
                                 <Input
-                                    defaultValue={this.cameraStat.alpha}
+                                    defaultValue={this.cameraStat.alpha / Math.PI * 180}
                                     inputProps={{
                                         'aria-label': 'Description',
                                     }}
