@@ -3,7 +3,6 @@ import { Layout, Breadcrumb } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import DrawUserMap from "./DrawUserMap";
 import AddCamera from './AddCamera';
-//import UserMap from "./UserMap";
 
 const {  Content, Footer } = Layout;
 

@@ -17,13 +17,13 @@ const styles = {
     },
 };
 
-let c,ctx;
+let c, ctx;
 let cameraPosition=[];
 
 function initCamera() {
-    cameraPosition.push({camera:'camera1',_x: 0.6, _y: 0.4});
-    cameraPosition.push({camera:'camera2',_x: 0.5, _y: 0.7});
-    cameraPosition.push({camera:'camera3',_x: 0.3, _y: 0.3});
+    cameraPosition.push({camera: 'camera1', _x: 0.6, _y: 0.4});
+    cameraPosition.push({camera: 'camera2', _x: 0.5, _y: 0.7});
+    cameraPosition.push({camera: 'camera3', _x: 0.3, _y: 0.3});
 }
 
 function lightCamera(cameraValue){
@@ -49,18 +49,6 @@ function lightCamera(cameraValue){
     }
 }
 
-function getEventPosition(ev){
-    let x, y;
-    if (ev.layerX || ev.layerX === 0) {
-        x = ev.layerX;
-        y = ev.layerY;
-    } else if (ev.offsetX || ev.offsetX === 0) { // Opera
-        x = ev.offsetX;
-        y = ev.offsetY;
-    }
-    return {x: x, y: y};
-}
-
 class UserMap extends React.Component{
     constructor(props){
         super(props);
@@ -72,15 +60,10 @@ class UserMap extends React.Component{
 
     componentDidMount(){
         initCamera();
-        emitter.addListener('lightCamera', position=>{
-            lightCamera(position);
-        });
         c = document.getElementById('lightCameraCanvas');
         ctx = c.getContext('2d');
-        c.addEventListener('click', function(e){
-            let p = getEventPosition(e);
-            console.log('click', p);
-        }, false);
+        emitter.removeAllListeners('lightCamera');
+        emitter.on('lightCamera', lightCamera);
         lightCamera('camera1');
     }
 

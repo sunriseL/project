@@ -6,8 +6,6 @@ import UserMap from './UserMap.js';
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import { Paper } from '../../node_modules/@material-ui/core';
 
-
-
 class HistoryVideo extends React.Component {
     constructor(props){
         super(props);

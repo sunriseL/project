@@ -13,26 +13,24 @@ let video;
 const camera = ['camera1', 'camera2','camera3'];
 const videoList = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
-function getUserMediaToPhoto(constraints,success,error) {
+function getUserMedia(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
-        //最新标准API
+        //newestAPI
         navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
     }else if (navigator.webkitGetUserMedia) {
-        //webkit核心浏览器
+        //webkit
         navigator.webkitGetUserMedia(constraints,success,error);
     }else if(navigator.mozGetUserMedia){
-        //firefox浏览器
+        //firefox
         navigator.mozGetUserMedia(constraints,success,error);
     }else if(navigator.getUserMedia){
-        //旧版API
+        //old version API
         navigator.getUserMedia(constraints,success,error);
     }
 }
 
 function success(stream){
-    //兼容webkit核心浏览器
     let CompatibleURL = window.URL || window.webkitURL;
-    //将视频流转化为video的源
     video.src = CompatibleURL.createObjectURL(stream);
     video.play();
 }
@@ -50,10 +48,11 @@ class CurrentVideo extends React.Component {
             selectedValue: camera[0],
         };
     }
+
     componentDidMount(){
         video = document.getElementById('currentVideo');
         if (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia) {
-            getUserMediaToPhoto({video: {width: 480, height: 320}}, success, error);
+            getUserMedia({video: {width: 480, height: 320}}, success, error);
         } else {
             alert('你的浏览器不支持访问用户媒体设备');
         }
@@ -98,7 +97,6 @@ class CurrentVideo extends React.Component {
                         </Paper>
                     </Grid>
                 </Grid>
-
                 <CameraDialog
                     selectedValue={this.state.selectedValue}
                     open={this.state.open}

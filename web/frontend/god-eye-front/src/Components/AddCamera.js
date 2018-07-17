@@ -10,7 +10,23 @@ import Input from '@material-ui/core/Input';
 import $ from 'jquery';
 import emitter from '../Utils/EventEmitter';
 
-let active;
+function getInstruction(stepIndex) {
+    switch (stepIndex) {
+        case 0:
+            return '请在地图上点击摄像头的位置，并输入高度';
+        case 1:
+            return '请在地图上点击摄像头画面中心点在地图上的位置';
+        case 2:
+            return '请确认摄像头的信息';
+        default:
+            return;
+    }
+}
+
+function getSteps() {
+    return ['选择摄像头位置', '设定摄像头参数', '确认摄像头信息'];
+}
+
 class AddCamera extends React.Component {
     state = {
         activeStep: 0,
@@ -28,9 +44,7 @@ class AddCamera extends React.Component {
 
     setEmitter(){
         emitter.removeAllListeners('canvasClick');
-        emitter.on('canvasClick', (position)=>{
-            this.messageHandler(this.state.activeStep, position);
-        });
+        emitter.on('canvasClick', position => this.messageHandler(this.state.activeStep, position));
     }
 
     messageHandler(stepIndex, message){
@@ -51,17 +65,13 @@ class AddCamera extends React.Component {
                 document.getElementById('camera-beta').value = this.cameraStat.beta / Math.PI * 180;
                 document.getElementById('camera-alpha').value = this.cameraStat.alpha / Math.PI * 180;
                 emitter.emit('drawAlpha',
-                    {x:this.cameraStat.x, y:this.cameraStat.y, alpha:this.cameraStat.alpha}, false);
+                    {x: this.cameraStat.x, y: this.cameraStat.y, alpha: this.cameraStat.alpha}, false);
                 return;
             case 2:
                 return;
             default:
                 return;
         }
-    }
-    
-    getSteps() {
-        return ['选择摄像头位置', '设定摄像头参数', '确认摄像头信息'];
     }
     
     handleNext = () => {
@@ -113,19 +123,6 @@ class AddCamera extends React.Component {
             beta: 0,
         }
     };
-
-    getInstruction(stepIndex) {
-        switch (stepIndex) {
-        case 0:
-            return '请在地图上点击摄像头的位置，并输入高度';
-        case 1:
-            return '请在地图上点击摄像头画面中心点在地图上的位置';
-        case 2:
-            return '请确认摄像头的信息';
-        default:
-            return;
-        }
-    }
     
     getDetail(stepIndex) {
         switch (stepIndex) {
@@ -220,7 +217,7 @@ class AddCamera extends React.Component {
     }
 
     render(){
-        const steps = this.getSteps();
+        const steps = getSteps();
         const { activeStep } = this.state;
         this.setEmitter();
         return (
@@ -239,7 +236,7 @@ class AddCamera extends React.Component {
                         </Stepper>
                         {this.getDetail(activeStep)}
                         <Divider />
-                        <Typography variant='subheading'>{this.getInstruction(activeStep)}</Typography>
+                        <Typography variant='subheading'>{getInstruction(activeStep)}</Typography>
                     </div>
                 </ExpansionPanelDetails>
                 <ExpansionPanelActions>

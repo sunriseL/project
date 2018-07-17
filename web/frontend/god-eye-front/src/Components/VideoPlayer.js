@@ -22,6 +22,23 @@ function screenShot(){
     console.log(image);
 }
 
+function restUrl(){
+    let url = document.location.toString();
+    let arrUrl = url.split("//");
+    let splitUrl = arrUrl[1].split("/");
+    let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+    if(relUrl.indexOf("?") !== -1){
+        relUrl = relUrl.split("?")[0];
+    }
+    return relUrl;
+}
+
+function getCurrentTime() {
+    let player = document.getElementById('video_id');
+    console.log(player.currentTime);
+    screenShot();
+}
+
 class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
@@ -38,35 +55,18 @@ class VideoPlayer extends React.Component {
         };
     }
 
-    ifHistory(){
-        let url = document.location.toString();
-        let arrUrl = url.split("//");
-        let splitUrl = arrUrl[1].split("/");
-        let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
-
-　　　　if(relUrl.indexOf("?") !== -1){
-　　　　　　relUrl = relUrl.split("?")[0];
-　　　　}
-　　　　return (relUrl==='history-video');
-    }
-
     handleClickOpen = () => {
         this.setState({
             open: true,
         });
     };
 
-    getCurrentTime() {
-        let player = document.getElementById('video_id');
-        console.log(player.currentTime);
-        screenShot();
-    };
-
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
         localStorage.setItem("selectedCamera", String(value));
         document.getElementById("video_id").src = video[value];
-        emitter.emit('lightCamera', value, false);
+        if(restUrl()!=='trace-target')
+            emitter.emit('lightCamera', value, false);
     };
 
     render(){
@@ -89,8 +89,8 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    {this.ifHistory() && <Grid item xs>
-                        <Button variant="contained" color='primary' onClick={this.getCurrentTime} small>选定当前帧</Button>
+                    {restUrl()==='history-video' && <Grid item xs>
+                        <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
                     </Grid>}
                 </Grid>
                     <CameraDialog

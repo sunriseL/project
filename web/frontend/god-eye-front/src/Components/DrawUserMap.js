@@ -34,18 +34,18 @@ function svgToImg(svgTag){
     return img;
 }
 
-function drawCamera(x,y){
+function drawCamera(x, y){
     clearCanvas();
     let svg = svgToImg(document.getElementById('cam-icon'));
-    svg.onload=function(){ctx.drawImage(svg, x-25, y-25, 50, 50)};
+    svg.onload = function(){ ctx.drawImage(svg, x-25, y-25, 50, 50) };
 }
 
 function drawAlpha(x,y,alpha){
     clearCanvas();
     ctx.beginPath();
-    drawCamera(x,y);
-    ctx.moveTo (x,y);
-    ctx.lineTo (x + 150*(Math.cos(alpha)),y + 150*Math.sin(alpha));
+    drawCamera(x, y);
+    ctx.moveTo (x, y);
+    ctx.lineTo (x + 200*(Math.cos(alpha)), y + 200*Math.sin(alpha));
     ctx.lineWidth = 3;
     ctx.strokeStyle = "#14a8f0";
     ctx.stroke();
@@ -70,7 +70,6 @@ function getEventPosition(ev){
     return {x: x, y: y};
 }
 
-
 function clickCanvas(e){
     let p = getEventPosition(e);
     emitter.emit('canvasClick', {
@@ -84,14 +83,8 @@ function initEmitter(){
     c.addEventListener('click', clickCanvas, false);
     emitter.removeAllListeners('drawCamera');
     emitter.removeAllListeners('drawAlpha');
-    emitter.on('drawCamera', argv=>{
-        console.log('drawCamera');
-        drawCamera(argv.x*c.width, argv.y*c.height);
-    });
-    emitter.on('drawAlpha', argv=>{
-        console.log('drawAlpha');
-        drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
-    });
+    emitter.on('drawCamera', argv => drawCamera(argv.x * c.width, argv.y * c.height));
+    emitter.on('drawAlpha', argv => drawAlpha(argv.x * c.width, argv.y * c.height, argv.alpha));
 }
 
 class DrawUserMap extends React.Component{
@@ -110,23 +103,13 @@ class DrawUserMap extends React.Component{
         ctx = c.getContext('2d');
         img = new Image();
         img.src = this.state['map_bin'];
-        img.onload = function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
+        img.onload = function(){ ctx.drawImage(img, 0, 0, c.width, c.height) };
         initEmitter();
-    }
-
-    shouldComponentUpdate(){
-        img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
-    }
-
-    componentDidUpdate(){
-        img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
     }
 
     componentWillUpdate(){
         img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+        img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
     }
 
     getBase64(file, cb){
@@ -142,10 +125,9 @@ class DrawUserMap extends React.Component{
             alert("请选择图片");
             return;
         }
-
         reader.onload = function(){
             cb(reader.result);
-        }
+        };
         reader.onerror = function(error){
             console.log('Error: ', error);
         }
@@ -195,20 +177,6 @@ class DrawUserMap extends React.Component{
                     <Typography gutterBottom variant="headline" component="h2">
                         { this.state['map_name'] }
                     </Typography>
-                    {/* <Grid container><Grid item xs={5} />
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>undo()}>点击撤销</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>clearCanvas()}>清空</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>{light=1}}>高亮</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained"  onClick={()=>{light=0}}>取消高亮</Button>
-                        </Grid>
-                    </Grid> */}
                 </CardContent>
                 <Grid container>
                     <Grid item xs={2} />
