@@ -89,13 +89,16 @@ class CurrentVideo extends React.Component {
                     <Grid item xs>
                         <Paper style={{margin:"1%", height:"98%"}} square={true}>
                             <video id="currentVideo" width="640" height="480" autoplay controls></video>
+                        <Grid container spacing={24}>
+                            <Grid item xs>
+                                <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button></Grid>
+                            <Grid item xs>
+                                <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography></Grid>
+                        </Grid>
                         </Paper>
                     </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                    <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
-                    <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
-                </Grid>
+
                 <CameraDialog
                     selectedValue={this.state.selectedValue}
                     open={this.state.open}
