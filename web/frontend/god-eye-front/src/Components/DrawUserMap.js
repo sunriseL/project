@@ -70,6 +70,30 @@ function getEventPosition(ev){
     return {x: x, y: y};
 }
 
+
+function clickCanvas(e){
+    let p = getEventPosition(e);
+    emitter.emit('canvasClick', {
+        x: p.x/1100,
+        y: p.y/750,
+    });
+}
+
+function initEmitter(){
+    c.removeEventListener('click', clickCanvas, false);
+    c.addEventListener('click', clickCanvas, false);
+    emitter.removeAllListeners('drawCamera');
+    emitter.removeAllListeners('drawAlpha');
+    emitter.on('drawCamera', argv=>{
+        console.log('drawCamera');
+        drawCamera(argv.x*c.width, argv.y*c.height);
+    });
+    emitter.on('drawAlpha', argv=>{
+        console.log('drawAlpha');
+        drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
+    });
+}
+
 class DrawUserMap extends React.Component{
     constructor(props){
         super(props);
@@ -82,29 +106,24 @@ class DrawUserMap extends React.Component{
     componentDidMount(){
         c = document.getElementById('canvas');
         c.width = 1100;
-        c.height= 750;
+        c.height = 750;
         ctx = c.getContext('2d');
         img = new Image();
         img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
-        c.addEventListener('click', function(e){
-            let p = getEventPosition(e);
-            emitter.emit('canvasClick', {
-                x: p.x/1100,
-                y: p.y/750,
-            }, false);
-        });
-        emitter.addListener('drawCamera', argv=>{
-            drawCamera(argv.x*c.width, argv.y*c.height);
-        });
-        emitter.addListener('drawAlpha', argv=>{
-            drawAlpha(argv.x*c.width, argv.y*c.height, argv.alpha);
-        });
+        img.onload = function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
+        initEmitter();
     }
+
     shouldComponentUpdate(){
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
     }
+
+    componentDidUpdate(){
+        img.src = this.state['map_bin'];
+        img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
+    }
+
     componentWillUpdate(){
         img.src = this.state['map_bin'];
         img.onload=function(){ctx.drawImage(img,0,0,c.width,c.height)};
@@ -142,7 +161,7 @@ class DrawUserMap extends React.Component{
             };
             this.setState(uploadJSON);
             localStorage.setItem('currentMapBin',result);
-            let _this=this;
+            let _this = this;
             $.ajax({
                 type: "post",
                 url: "http://127.0.0.1:8081/map/add",
@@ -163,7 +182,7 @@ class DrawUserMap extends React.Component{
     }
 
     render(){
-        let mapInstantce = <div>Loading</div>
+        let mapInstantce = <div>Loading</div>;
 
         if(!(localStorage.getItem('ifDBEmpty')==='true')){
             mapInstantce = <canvas id="canvas" ></canvas>

@@ -27,3 +27,6 @@ CSS appearance
 realize :screenshot of video(generate the base64 png image)
 highlight the chosen camera
 add camera & argv
+
+### 2018/7/17
+debug:the bug of event emitter & canvas painting 

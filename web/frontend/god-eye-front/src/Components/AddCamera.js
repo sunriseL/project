@@ -10,6 +10,7 @@ import Input from '@material-ui/core/Input';
 import $ from 'jquery';
 import emitter from '../Utils/EventEmitter';
 
+let active;
 class AddCamera extends React.Component {
     state = {
         activeStep: 0,
@@ -23,11 +24,11 @@ class AddCamera extends React.Component {
         beta: 0,
     // alpha is the horizontal angle of the camera, beta is the vertical one
     // these parameters are independent of hardware, they are detemined by setting up
-    }
+    };
 
-
-    componentDidMount(){
-        this.eventEmitter = emitter.addListener('canvasClick', (position)=>{
+    setEmitter(){
+        emitter.removeAllListeners('canvasClick');
+        emitter.on('canvasClick', (position)=>{
             this.messageHandler(this.state.activeStep, position);
         });
     }
@@ -86,7 +87,7 @@ class AddCamera extends React.Component {
                     }
                 });
                 break;
-            default:
+            default:break;
         }
         this.setState({
             activeStep: activeStep + 1,
@@ -217,11 +218,11 @@ class AddCamera extends React.Component {
                 return;
         }
     }
-        
 
     render(){
         const steps = this.getSteps();
         const { activeStep } = this.state;
+        this.setEmitter();
         return (
             <ExpansionPanel style={{marginLeft: '1%', marginRight:'1%'}}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>添加摄像头</ExpansionPanelSummary>
