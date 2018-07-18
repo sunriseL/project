@@ -14,8 +14,8 @@
       <file leaf-file-name="UserMap.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/UserMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="2257">
+              <caret line="89" column="61" lean-forward="true" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="61" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -33,11 +33,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CurrentVideo.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CurrentVideo.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Components/CurrentVideo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2283">
-              <caret line="17" column="19" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+            <state relative-caret-position="270">
+              <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TraceTarget.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Components/TraceTarget.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="4" column="32" lean-forward="false" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -48,20 +60,8 @@
       <file leaf-file-name="HistoryVideo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/HistoryVideo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-481">
-              <caret line="6" column="61" lean-forward="false" selection-start-line="6" selection-start-column="61" selection-end-line="6" selection-end-column="61" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainNav.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/MainNav.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1084">
-              <caret line="178" column="54" lean-forward="false" selection-start-line="178" selection-start-column="54" selection-end-line="178" selection-end-column="54" />
+            <state relative-caret-position="851">
+              <caret line="29" column="32" lean-forward="false" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -77,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VideoPlayer.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="VideoPlayer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/VideoPlayer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="28" column="21" lean-forward="false" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+            <state relative-caret-position="555">
+              <caret line="75" column="65" lean-forward="false" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="65" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -92,8 +92,8 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1184">
-              <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+            <state relative-caret-position="481">
+              <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -112,7 +112,7 @@
       <file leaf-file-name="DrawUserMap.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Components/DrawUserMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="740">
+            <state relative-caret-position="1480">
               <caret line="109" column="30" lean-forward="false" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -164,7 +164,6 @@
         <option value="$PROJECT_DIR$/src/Components/Camera.js" />
         <option value="$PROJECT_DIR$/public/video.html" />
         <option value="$PROJECT_DIR$/src/Components/NavBar.css" />
-        <option value="$PROJECT_DIR$/src/Components/TraceTarget.js" />
         <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/Components/Draw.js" />
         <option value="$PROJECT_DIR$/src/Components/DrawUsermap.js" />
@@ -172,15 +171,16 @@
         <option value="$PROJECT_DIR$/src/Components/CameraDialog.js" />
         <option value="$PROJECT_DIR$/src/Components/Test.js" />
         <option value="$PROJECT_DIR$/src/Components/HistoryVideo.js" />
-        <option value="$PROJECT_DIR$/src/Components/CurrentVideo.js" />
         <option value="$PROJECT_DIR$/src/Components/Settings.js" />
         <option value="$PROJECT_DIR$/src/Components/AddCamera.js" />
         <option value="$PROJECT_DIR$/src/Components/DrawUserMap.js" />
         <option value="$PROJECT_DIR$/src/Components/UserMap.css" />
         <option value="$PROJECT_DIR$/src/Utils/Resize.js" />
-        <option value="$PROJECT_DIR$/src/Components/UserMap.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/Components/TraceTarget.js" />
+        <option value="$PROJECT_DIR$/src/Components/UserMap.js" />
         <option value="$PROJECT_DIR$/src/Components/VideoPlayer.js" />
+        <option value="$PROJECT_DIR$/src/Components/CurrentVideo.js" />
       </list>
     </option>
   </component>
@@ -419,12 +419,12 @@
       <workItem from="1531719351580" duration="10635000" />
       <workItem from="1531790130064" duration="1081000" />
       <workItem from="1531805704508" duration="12128000" />
-      <workItem from="1531875283704" duration="5143000" />
+      <workItem from="1531875283704" duration="9023000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142064000" />
+    <option name="totallyTimeSpent" value="145944000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-13" y="-13" width="2514" height="1850" extended-state="6" />
@@ -645,29 +645,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/TraceTarget.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/node-libs-browser/node_modules/events/events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2257">
           <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/HistoryVideo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-481">
-          <caret line="6" column="61" lean-forward="false" selection-start-line="6" selection-start-column="61" selection-end-line="6" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -683,24 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/CurrentVideo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2283">
-          <caret line="17" column="19" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/AddCamera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -721,9 +685,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/TraceTarget.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="4" column="32" lean-forward="false" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/DrawUserMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
+        <state relative-caret-position="1480">
           <caret line="109" column="30" lean-forward="false" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -731,28 +713,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/AddCamera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/UserMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="2257">
+          <caret line="89" column="61" lean-forward="true" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="61" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/Components/HistoryVideo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1184">
-          <caret line="36" column="51" lean-forward="false" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+        <state relative-caret-position="851">
+          <caret line="29" column="32" lean-forward="false" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Components/VideoPlayer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="28" column="21" lean-forward="false" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+        <state relative-caret-position="555">
+          <caret line="75" column="65" lean-forward="false" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Components/CurrentVideo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

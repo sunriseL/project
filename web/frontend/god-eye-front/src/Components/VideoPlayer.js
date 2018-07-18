@@ -20,23 +20,24 @@ function screenShot(){
     canvas.height = 270;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     let image = canvas.toDataURL('image/png');
-    console.log(image);
     $.ajax({
         type: "post",
         url: "http://192.168.1.147:8000/api/uploadImg",
         crossDomain: true,
-        data: {imgStream: image},
         async: false,
+        dataType:"json",
+        data: {imgStream: image},
         success: function (data) {
-            alert(data);
+            console.log(data);
+            alert(data.message);
         },
-        error : function() {
-            alert("上传失败\n请确认网络连接正常\n");
+        error : function(data) {
+            console.log(data);
         }
     })
 }
 
-function restUrl(){
+function ifTarget(){
     let url = document.location.toString();
     let arrUrl = url.split("//");
     let splitUrl = arrUrl[1].split("/");
@@ -44,7 +45,19 @@ function restUrl(){
     if(relUrl.indexOf("?") !== -1){
         relUrl = relUrl.split("?")[0];
     }
-    return relUrl;
+    return (relUrl==='trace-target');
+}
+
+function ifHistory(){
+    let url = document.location.toString();
+    let arrUrl = url.split("//");
+    let splitUrl = arrUrl[1].split("/");
+    let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+
+    if(relUrl.indexOf("?") !== -1){
+        relUrl = relUrl.split("?")[0];
+    }
+    return (relUrl==='history-video');
 }
 
 function getCurrentTime() {
@@ -60,12 +73,12 @@ class VideoPlayer extends React.Component {
             videoLink: file1,
             catchTime: 0,
             open: false,
-            selectedValue: camera[0],
+            selectedValue: localStorage.getItem('selectedCamera'),
         };
         this.style = {
-            height: "100%",
-            width: "90%",
-            margin: "5%",
+            height: "94%",
+            width: "94%",
+            margin: "3%",
         };
     }
 
@@ -75,17 +88,28 @@ class VideoPlayer extends React.Component {
         });
     };
 
+    getCurrentTime() {
+        let player = document.getElementById('video_id');
+        console.log(player.currentTime);
+        screenShot();
+        alert("已截取一帧上传\n请至查看追踪结果界面选取追踪对象");
+    };
+
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
-        localStorage.setItem("selectedCamera", String(value));
+        localStorage.setItem("selectedCamera", value);
         document.getElementById("video_id").src = video[value];
-        if(restUrl()!=='trace-target')
+        if(!ifTarget())
             emitter.emit('lightCamera', value, false);
     };
 
+    chooseTarget(){
+        return;
+    }
+
     render(){
         return(
-        <Paper  elevation={1} style={{margin: "1%", height: "86%"}} square='true'>
+        <Paper  elevation={1} style={{margin: "1%"}} square='true'>
             <Grid>
                 <video id="video_id" style={ this.style } controls="controls" preload={false}>
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 
@@ -103,16 +127,21 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    {restUrl()==='history-video' && <Grid item xs>
+                    {ifHistory() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
                     </Grid>}
+
+                    {ifTarget() && 
+                    <Grid item xs>
+                        <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
+                    </Grid> }
                 </Grid>
                     <CameraDialog
                         selectedValue={this.state.selectedValue}
                         open={this.state.open}
                         onClose={this.handleClose}
                     />
-                <canvas id="screenShot" width="640" height="480" hidden></canvas>
+                {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>
         </Paper>
         );
