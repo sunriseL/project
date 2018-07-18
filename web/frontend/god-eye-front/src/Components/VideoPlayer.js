@@ -74,7 +74,6 @@ class VideoPlayer extends React.Component {
             videoLink: file1,
             catchTime: 0,
             cameraOpen: false,
-            targetOpen: false,
             selectedValue: localStorage.getItem('selectedCamera'),
         };
         this.style = {
@@ -105,14 +104,11 @@ class VideoPlayer extends React.Component {
             emitter.emit('lightCamera', value, false);
     };
 
-    handleTargetClose(){
-        this.setState({targetOpen: false});
-    }
 
     chooseTarget(){
-        this.setState({targetOpen: true});
+        return;
     }
-
+    
     render(){
         return(
         <Paper  elevation={1} style={{margin: "1%"}} square='true'>
@@ -146,10 +142,6 @@ class VideoPlayer extends React.Component {
                         selectedValue={this.state.selectedValue}
                         open={this.state.cameraOpen}
                         onClose={this.handleClose}
-                    />
-                    <TargetDialog 
-                        open={this.state.targetOpen}
-                        onClose={this.handleTargetClose} 
                     />
                 {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>

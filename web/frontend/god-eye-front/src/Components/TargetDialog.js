@@ -18,36 +18,31 @@ class TargetDialog extends React.Component{
             crossDomain: true,
             async:true,
             success: function (data) {
-                resultList = data;
-                return resultList;
+                this.setState({targetList: data});
             },
             error : function() {
                 alert("请确认网络连接正常");
-                return resultList;
             }
         });
     }
 
     componentWillMount(){
-        this.setState({
-            targetList: this.getTargetList(),
-        })
-
-        console.log(this.state);
+        this.getTargetList();
     }
 
 
     render(){
         let items = null;
+        console.log(this.state.targetList);
 
-        if(this.state.targetList === []){
-            items = <Typography variant='display1'>尚未处理完成，请耐心等待</Typography>;
-            console.log("true");
-        }else{
-            items = <Grid container spacing={8}>{this.state.targetList.map(i => (
-                <Grid item xs><img src={i} /></Grid>
-            ))}</Grid>
-        }
+        // if(this.state.targetList === []){
+        //     items = <Typography variant='display1'>尚未处理完成，请耐心等待</Typography>;
+        //     console.log("true");
+        // }else{
+        //     items = <Grid container spacing={8}>{this.state.targetList.map(i => (
+        //         <Grid item xs><img src={i} alt='无法显示图片' /></Grid>
+        //     ))}</Grid>
+        // }
 
         return(
             <Dialog>
