@@ -7,6 +7,7 @@ import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
+import TargetDialog from './TargetDialog';
 
 const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
@@ -31,7 +32,7 @@ function ifTarget(){
     if(relUrl.indexOf("?") !== -1){
         relUrl = relUrl.split("?")[0];
     }
-    return relUrl;
+    return (relUrl==='trace-target');
 }
 
 function getCurrentTime() {
@@ -46,8 +47,9 @@ class VideoPlayer extends React.Component {
         this.state = {
             videoLink: file1,
             catchTime: 0,
-            open: false,
+            cameraOpen: false,
             selectedValue: camera[0],
+            targetOpen: false,
         };
         this.style = {
             height: "94%",
@@ -71,7 +73,7 @@ class VideoPlayer extends React.Component {
 
     handleClickOpen = () => {
         this.setState({
-            open: true,
+            cameraOpen: true,
         });
     };
 
@@ -83,15 +85,19 @@ class VideoPlayer extends React.Component {
     };
 
     handleClose = value => {
-        this.setState({ selectedValue: value, open: false});
+        this.setState({ selectedValue: value, cameraOpen: false});
         localStorage.setItem("selectedCamera", String(value));
         document.getElementById("video_id").src = video[value];
         if(!ifTarget())
             emitter.emit('lightCamera', value, false);
     };
 
+    handleTargetClose(){
+        this.setState({targetOpen: false});
+    }
+
     chooseTarget(){
-        return;
+        this.setState({targetOpen: true});
     }
 
     render(){
@@ -125,8 +131,12 @@ class VideoPlayer extends React.Component {
                 </Grid>
                     <CameraDialog
                         selectedValue={this.state.selectedValue}
-                        open={this.state.open}
+                        open={this.state.cameraOpen}
                         onClose={this.handleClose}
+                    />
+                    <TargetDialog 
+                        open={this.state.targetOpen}
+                        onClose={this.handleTargetClose} 
                     />
                 {this.ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>
