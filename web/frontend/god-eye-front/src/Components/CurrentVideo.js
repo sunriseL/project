@@ -45,7 +45,7 @@ class CurrentVideo extends React.Component {
         super(props);
         this.state = {
             open: false,
-            selectedValue: camera[0],
+            selectedValue: localStorage.getItem('selectedCamera'),
         };
     }
 
@@ -67,6 +67,7 @@ class CurrentVideo extends React.Component {
     handleClose = value => {
         this.setState({ selectedValue: value, open: false});
         document.getElementById("currentVideo").src = videoList[value];
+        localStorage.setItem('selectedCamera',value);
         emitter.emit('lightCamera', value, false);
     };
 

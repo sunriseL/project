@@ -3,7 +3,6 @@ import { Breadcrumb } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import VideoPlayer from './VideoPlayer';
 import UserMap from './UserMap';
-import { Paper } from '../../node_modules/@material-ui/core';
 
 
 class TraceTarget extends React.Component {

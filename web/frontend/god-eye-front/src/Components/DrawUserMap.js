@@ -36,6 +36,8 @@ function svgToImg(svgTag){
 
 function drawCamera(x, y){
     clearCanvas();
+    x *= c.width;
+    y *= c.height;
     let svg = svgToImg(document.getElementById('cam-icon'));
     svg.onload = function(){ ctx.drawImage(svg, x-25, y-25, 50, 50) };
 }
@@ -44,6 +46,8 @@ function drawAlpha(x,y,alpha){
     clearCanvas();
     ctx.beginPath();
     drawCamera(x, y);
+    x *= c.width;
+    y *= c.height;
     ctx.moveTo (x, y);
     ctx.lineTo (x + 200*(Math.cos(alpha)), y + 200*Math.sin(alpha));
     ctx.lineWidth = 3;
@@ -83,8 +87,8 @@ function initEmitter(){
     c.addEventListener('click', clickCanvas, false);
     emitter.removeAllListeners('drawCamera');
     emitter.removeAllListeners('drawAlpha');
-    emitter.on('drawCamera', argv => drawCamera(argv.x * c.width, argv.y * c.height));
-    emitter.on('drawAlpha', argv => drawAlpha(argv.x * c.width, argv.y * c.height, argv.alpha));
+    emitter.on('drawCamera', drawCamera);
+    emitter.on('drawAlpha', drawAlpha);
 }
 
 class DrawUserMap extends React.Component{

@@ -8,6 +8,7 @@ import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
+import $ from "jquery";
 
 const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
@@ -20,9 +21,22 @@ function screenShot(){
     canvas.height = 270;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     let image = canvas.toDataURL('image/png');
-    console.log(image);
+    $.ajax({
+        type: "post",
+        url: "http://192.168.1.147:8000/api/uploadImg",
+        crossDomain: true,
+        async: false,
+        dataType:"json",
+        data: {imgStream: image},
+        success: function (data) {
+            console.log(data);
+            alert(data.message);
+        },
+        error : function(data) {
+            console.log(data);
+        }
+    })
 }
-
 
 function ifTarget(){
     let url = document.location.toString();
@@ -33,6 +47,18 @@ function ifTarget(){
         relUrl = relUrl.split("?")[0];
     }
     return (relUrl==='trace-target');
+}
+
+function ifHistory(){
+    let url = document.location.toString();
+    let arrUrl = url.split("//");
+    let splitUrl = arrUrl[1].split("/");
+    let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+
+    if(relUrl.indexOf("?") !== -1){
+        relUrl = relUrl.split("?")[0];
+    }
+    return (relUrl==='history-video');
 }
 
 function getCurrentTime() {
@@ -48,8 +74,8 @@ class VideoPlayer extends React.Component {
             videoLink: file1,
             catchTime: 0,
             cameraOpen: false,
-            selectedValue: camera[0],
             targetOpen: false,
+            selectedValue: localStorage.getItem('selectedCamera'),
         };
         this.style = {
             height: "94%",
@@ -57,19 +83,6 @@ class VideoPlayer extends React.Component {
             margin: "3%",
         };
     }
-
-    ifHistory(){
-        let url = document.location.toString();
-        let arrUrl = url.split("//");
-        let splitUrl = arrUrl[1].split("/");
-        let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
-
-　　　　if(relUrl.indexOf("?") !== -1){
-　　　　　　relUrl = relUrl.split("?")[0];
-　　　　}
-　　　　return (relUrl==='history-video');
-    }
-    
 
     handleClickOpen = () => {
         this.setState({
@@ -85,8 +98,8 @@ class VideoPlayer extends React.Component {
     };
 
     handleClose = value => {
-        this.setState({ selectedValue: value, cameraOpen: false});
-        localStorage.setItem("selectedCamera", String(value));
+        this.setState({ selectedValue: value, open: false});
+        localStorage.setItem("selectedCamera", value);
         document.getElementById("video_id").src = video[value];
         if(!ifTarget())
             emitter.emit('lightCamera', value, false);
@@ -120,7 +133,7 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    {this.ifHistory() && <Grid item xs>
+                    {ifHistory() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
                     </Grid>}
 
@@ -138,7 +151,7 @@ class VideoPlayer extends React.Component {
                         open={this.state.targetOpen}
                         onClose={this.handleTargetClose} 
                     />
-                {this.ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
+                {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>
         </Paper>
         );
