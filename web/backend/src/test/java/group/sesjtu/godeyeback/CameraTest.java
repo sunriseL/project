@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class CameraTest {
     @Test
     public void testCoordinateChange(){
-        Camera testCamera = new Camera(1,0,0,1,1, Math.PI / 3, Math.PI / 3 );
+        Camera testCamera = new Camera(1,0,0,0,Math.PI * 0.5, Math.PI / 4, Math.PI /4);
         System.out.println(testCamera.getP1().getX());
         System.out.println(testCamera.getP1().getY());
         System.out.println(testCamera.getP2().getX());
