@@ -7,6 +7,7 @@ import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
+import $ from "jquery";
 
 const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
@@ -20,6 +21,19 @@ function screenShot(){
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     let image = canvas.toDataURL('image/png');
     console.log(image);
+    $.ajax({
+        type: "post",
+        url: "http://192.168.1.147:8000/api/uploadImg",
+        crossDomain: true,
+        data: {imgStream: image},
+        async: false,
+        success: function (data) {
+            alert(data);
+        },
+        error : function() {
+            alert("上传失败\n请确认网络连接正常\n");
+        }
+    })
 }
 
 function restUrl(){

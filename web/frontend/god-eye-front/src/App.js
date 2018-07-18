@@ -44,6 +44,7 @@ class App extends Component {
         if(localStorage.getItem('ifDBEmpty')==='false')
             this.getDefaultMap();
         console.log("ifDBEmpty:"+localStorage.getItem('ifDBEmpty'));
+        localStorage.setItem('selectedCamera','camera1');
     }   
 
     componentWillUnmount(){

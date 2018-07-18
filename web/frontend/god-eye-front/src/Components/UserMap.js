@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import "./UserMap.css";
 import emitter from "../Utils/EventEmitter";
+import $ from 'jquery';
 
 const styles = {
     card: {
@@ -31,9 +32,9 @@ function lightCamera(cameraValue){
     ctx = c.getContext('2d');
     ctx.clearRect(0, 0, c.width, c.height);
     c.width = document.getElementById('mapImg').width;
-    c.height= document.getElementById('mapImg').height;
+    c.height = document.getElementById('mapImg').height;
     for(let i of cameraPosition){
-        if(i.camera === cameraValue) {
+        if(i.camera === cameraValue){
             let x = i._x * c.width;
             let y = i._y * c.height;
             let grd = ctx.createRadialGradient(x, y, 5, x, y, 20);
@@ -64,25 +65,33 @@ class UserMap extends React.Component{
         ctx = c.getContext('2d');
         emitter.removeAllListeners('lightCamera');
         emitter.on('lightCamera', lightCamera);
-        lightCamera('camera1');
+        lightCamera(localStorage.getItem('selectedCamera'));
+        $(window).resize(function() {
+           console.log('resize');
+           c.width = document.getElementById('mapImg').width;
+           c.height = document.getElementById('mapImg').height;
+           c.margin = document.getElementById('mapImg').margin;
+           lightCamera(localStorage.getItem('selectedCamera'));
+        });
     }
 
     render(){
-        let mapInstantce = <div>Loading</div>;
+        let mapInstance = <div>Loading</div>;
         let mapCanvas;
         if(!(localStorage.getItem('ifDBEmpty')==='true')){
-            mapInstantce = <img id='mapImg'
+            mapInstance = <img id='mapImg'
             style={{height: '80%', width:'95%', margin:'2.5%'}}
             src={ this.state['map_bin'] }
             alt='无法显示图片'
             />;
-            mapCanvas = <canvas id="lightCameraCanvas"></canvas>;
+            mapCanvas = <canvas id="lightCameraCanvas" width={mapInstance.width}
+                        height={mapInstance.height} margin={mapInstance.margin}></canvas>;
         }
     
         return (
                 <Card style={{margin: "1%", height:"98%"}} square={true}>
                     {mapCanvas}
-                    {mapInstantce}
+                    {mapInstance}
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
                             { this.state['map_name'] }

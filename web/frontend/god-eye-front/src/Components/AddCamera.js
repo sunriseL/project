@@ -54,8 +54,7 @@ class AddCamera extends React.Component {
                 document.getElementById('camera-y').value = message.y * 750;
                 this.cameraStat.x = message.x;
                 this.cameraStat.y = message.y;
-                emitter.emit('drawCamera',
-                    {x:this.cameraStat.x, y:this.cameraStat.y}, false);
+                emitter.emit('drawCamera', this.cameraStat.x, this.cameraStat.y);
                 return;
             case 1:
                 let relX = (message.x - this.cameraStat.x) * 1100;
@@ -64,8 +63,7 @@ class AddCamera extends React.Component {
                 this.cameraStat.beta = Math.atan(Math.sqrt(Math.pow(relX, 2) + Math.pow(relY, 2)) / this.cameraStat.height);
                 document.getElementById('camera-beta').value = this.cameraStat.beta / Math.PI * 180;
                 document.getElementById('camera-alpha').value = this.cameraStat.alpha / Math.PI * 180;
-                emitter.emit('drawAlpha',
-                    {x: this.cameraStat.x, y: this.cameraStat.y, alpha: this.cameraStat.alpha}, false);
+                emitter.emit('drawAlpha', this.cameraStat.x, this.cameraStat.y, this.cameraStat.alpha);
                 return;
             case 2:
                 return;
