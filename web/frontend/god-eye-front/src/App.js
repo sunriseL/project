@@ -31,7 +31,7 @@ class App extends Component {
             async: false,
             crossDomain: true,
             success: function (data) {
-                localStorage.setItem('currentMapBin', data);
+                localStorage.setItem('currentMapBin', data.str);
             },
             error : function() {
                 console.log("something went wrong");

@@ -139,10 +139,9 @@ class DrawUserMap extends React.Component{
 
     upload() {
         let file = document.getElementById('image').files[0];
-        let uploadJSON = this.state;
         this.getBase64(file, (result) => {
             let map_name = document.getElementById('mapNameHolder').value;
-            uploadJSON = {
+            let uploadJSON = {
                 'map_bin': result,
                 'map_name': map_name,
             };
@@ -153,9 +152,8 @@ class DrawUserMap extends React.Component{
                 data: uploadJSON,
                 success: function () {
                     alert("地图上传成功");
-                    console.log("success"+uploadJSON.map_name);
                     localStorage.setItem('currentMapBin',result);
-                    //this.setState(uploadJSON);
+                    this.setState(uploadJSON);
                 }.bind(this),
                 error: function() {
                     alert("上传失败\n请确认网络连接正常\n请确认地图名是否重复");
@@ -163,10 +161,10 @@ class DrawUserMap extends React.Component{
                         'map_bin': localStorage.getItem('currentMapBin'),
                         'map_name': '用户地图'
                     };
-                    },
+                    this.setState(uploadJSON);
+                }.bind(this),
                 complete: function() {
                     this.setState(uploadJSON);
-                    console.log('complete');
                 }.bind(this),
             });
         });
