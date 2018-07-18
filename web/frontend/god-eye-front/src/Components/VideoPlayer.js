@@ -98,7 +98,7 @@ class VideoPlayer extends React.Component {
     };
 
     handleClose = value => {
-        this.setState({ selectedValue: value, open: false});
+        this.setState({ selectedValue: value, cameraOpen: false});
         localStorage.setItem("selectedCamera", value);
         document.getElementById("video_id").src = video[value];
         if(!ifTarget())
@@ -110,7 +110,7 @@ class VideoPlayer extends React.Component {
         this.setState({targetOpen: true});
     }
 
-    closeTarget = () =>{
+    targetClose = () =>{
         this.setState({targetOpen: false});
     }
     
@@ -143,12 +143,15 @@ class VideoPlayer extends React.Component {
                         <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
                     </Grid> }
                 </Grid>
-                    <CameraDialog
-                        selectedValue={this.state.selectedValue}
-                        open={this.state.cameraOpen}
-                        onClose={this.handleClose}
-                    />
-                    <TargetDialog open={this.state.targetOpen} onClose={this.targetClose}/>
+                <CameraDialog
+                    selectedValue={this.state.selectedValue}
+                    open={this.state.cameraOpen}
+                    onClose={this.handleClose}
+                />
+                <TargetDialog 
+                    open={this.state.targetOpen} 
+                    onClose={this.targetClose}
+                />
                 {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>
         </Paper>

@@ -29,15 +29,21 @@ class TargetDialog extends React.Component{
         this.getTargetList();
     }
 
-    handleSelect(){
-        
+    handleSelect = () =>{
+        this.props.onClose();
+    }
+
+    handleClose = () =>{
+        this.props.onClose();
     }
 
 
     render(){
+        const { onClose, ...other } = this.props;
+
         let items = null;
         if(this.state.targetList.length === 0){
-            items = <Typography variant='display1'>尚未处理完成，请耐心等待</Typography>;
+            items = <Typography variant='display1' style={{margin: "5%"}}>尚未处理完成，请耐心等待</Typography>;
         }else{
             items = <Grid container spacing={8}>{this.state.targetList.map(i => (
                 <Grid item xs onClick={this.handleSelect}><img src={i.imgsrc} alt='无法显示图片' /></Grid>
@@ -45,7 +51,7 @@ class TargetDialog extends React.Component{
         }
 
         return(
-            <Dialog open={this.props.open}>
+            <Dialog onClose={this.handleClose} {...other}>
                 {items}
             </Dialog>
         )
