@@ -106,9 +106,9 @@ class VideoPlayer extends React.Component {
 
 
     chooseTarget(){
-        return ;
+        return;
     }
-
+    
     render(){
         return(
         <Paper  elevation={1} style={{margin: "1%"}} square='true'>
