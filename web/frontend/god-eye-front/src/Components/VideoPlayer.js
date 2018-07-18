@@ -24,7 +24,6 @@ function screenShot(){
         type: "post",
         url: "http://192.168.1.147:8000/api/uploadImg",
         crossDomain: true,
-        async: false,
         dataType:"json",
         data: {imgStream: image},
         success: function (data) {
@@ -131,8 +130,7 @@ class VideoPlayer extends React.Component {
                         <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
                     </Grid>}
 
-                    {ifTarget() && 
-                    <Grid item xs>
+                    {ifTarget() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
                     </Grid> }
                 </Grid>

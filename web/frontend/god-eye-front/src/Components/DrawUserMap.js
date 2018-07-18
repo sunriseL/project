@@ -139,32 +139,38 @@ class DrawUserMap extends React.Component{
 
     upload() {
         let file = document.getElementById('image').files[0];
+        let uploadJSON = this.state;
         this.getBase64(file, (result) => {
             let map_name = document.getElementById('mapNameHolder').value;
-            let uploadJSON = {
+            uploadJSON = {
                 'map_bin': result,
                 'map_name': map_name,
             };
-            this.setState(uploadJSON);
-            localStorage.setItem('currentMapBin',result);
-            let _this = this;
             $.ajax({
                 type: "post",
                 url: "http://127.0.0.1:8081/map/add",
                 crossDomain: true,
                 data: uploadJSON,
-                async:true,
-                success: function (data) {
+                success: function () {
                     alert("地图上传成功");
-                    _this.setState(uploadJSON);
-                },
-                error : function() {
+                    console.log("success"+uploadJSON.map_name);
+                    localStorage.setItem('currentMapBin',result);
+                    //this.setState(uploadJSON);
+                }.bind(this),
+                error: function() {
                     alert("上传失败\n请确认网络连接正常\n请确认地图名是否重复");
-                    _this.setState(uploadJSON);
-                }
-            })
+                    uploadJSON = {
+                        'map_bin': localStorage.getItem('currentMapBin'),
+                        'map_name': '用户地图'
+                    };
+                    },
+                complete: function() {
+                    this.setState(uploadJSON);
+                    console.log('complete');
+                }.bind(this),
+            });
         });
-        this.render();
+
     }
 
     render(){
