@@ -87,8 +87,9 @@ class AddCamera extends React.Component {
                     crossDomain: true,
                     data: this.cameraStat,
                     async:true,
-                    success: function () {
+                    success: function (data) {
                         alert("摄像头设置成功");
+                        console.log(data);
                     },
                     error : function() {
                         alert("上传失败\n请确认网络连接正常");

@@ -33,6 +33,7 @@ function lightCamera(cameraValue){
     ctx.clearRect(0, 0, c.width, c.height);
     c.width = document.getElementById('mapImg').width;
     c.height = document.getElementById('mapImg').height;
+    c.margin = document.getElementById('mapImg').margin;
     for(let i of cameraPosition){
         if(i.camera === cameraValue){
             let x = i._x * c.width;
@@ -55,11 +56,10 @@ function ifTarget(){
     let arrUrl = url.split("//");
     let splitUrl = arrUrl[1].split("/");
     let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
-
-　　　　if(relUrl.indexOf("?") !== -1){
-　　　　　　relUrl = relUrl.split("?")[0];
-　　　　}
-　　　　return (relUrl==='trace-target');
+　　if(relUrl.indexOf("?") !== -1){
+        relUrl = relUrl.split("?")[0];
+　　}
+　　return (relUrl==='trace-target');
 }
 
 class UserMap extends React.Component{
@@ -69,7 +69,6 @@ class UserMap extends React.Component{
             map_name: "用户地图",
             map_bin: localStorage.getItem('currentMapBin'),
         };
-        this.curCam = 'camera1';
     };
 
     componentDidMount(){
@@ -106,9 +105,7 @@ class UserMap extends React.Component{
     
         return (
                 <Card style={{margin: "1%", height:"98%"}} square={true}>
-                    {ifTarget() ? null :
-                        mapCanvas
-                    }
+                    {ifTarget() ? null : mapCanvas}
                     {mapInstance}
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
