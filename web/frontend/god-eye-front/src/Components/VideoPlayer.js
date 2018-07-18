@@ -74,6 +74,7 @@ class VideoPlayer extends React.Component {
             videoLink: file1,
             catchTime: 0,
             cameraOpen: false,
+            targetOpen: false,
             selectedValue: localStorage.getItem('selectedCamera'),
         };
         this.style = {
@@ -105,8 +106,12 @@ class VideoPlayer extends React.Component {
     };
 
 
-    chooseTarget(){
-        return;
+    chooseTarget = () =>{
+        this.setState({targetOpen: true});
+    }
+
+    targetClose = () =>{
+        this.setState({targetOpen: false});
     }
     
     render(){
@@ -138,11 +143,15 @@ class VideoPlayer extends React.Component {
                         <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
                     </Grid> }
                 </Grid>
-                    <CameraDialog
-                        selectedValue={this.state.selectedValue}
-                        open={this.state.cameraOpen}
-                        onClose={this.handleClose}
-                    />
+                <CameraDialog
+                    selectedValue={this.state.selectedValue}
+                    open={this.state.cameraOpen}
+                    onClose={this.handleClose}
+                />
+                <TargetDialog 
+                    open={this.state.targetOpen} 
+                    onClose={this.targetClose}
+                />
                 {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>
         </Paper>
