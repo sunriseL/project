@@ -43,7 +43,6 @@ class App extends Component {
         this.ifDBEmpty();
         if(localStorage.getItem('ifDBEmpty')==='false')
             this.getDefaultMap();
-        console.log("ifDBEmpty:"+localStorage.getItem('ifDBEmpty'));
     }   
 
     componentWillUnmount(){

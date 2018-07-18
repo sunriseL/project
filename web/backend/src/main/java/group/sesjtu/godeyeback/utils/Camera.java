@@ -1,39 +1,55 @@
 package group.sesjtu.godeyeback.utils;
-import java.lang.Math;
+
+import static java.lang.StrictMath.*;
 
 
 public class Camera {
-    private double height, cameraX, cameraY, centerX, centerY, horizontalAngle, verticalAngle;
+    private double height, cameraX, cameraY, alpha, beta, horizontalAngle, verticalAngle;
     private double relX, relY;
     private Point P1 = new Point(0,0);
     private Point P2 = new Point(0,0);
     private Point P3 = new Point(0,0);
     private Point P4 = new Point(0,0);
     // P1 is the left-down point of the shape, and points are numbered clock-wise
-    public Camera(double height, double cameraX, double cameraY, double centerX, double centerY, double horizontalAngle, double verticalAngle){
+    public Camera(double height, double cameraX, double cameraY, double alpha, double beta, double horizontalAngle, double verticalAngle){
         // get parameters from user setting and initialize the camera
         this.height = height;
         this.cameraX = cameraX;
         this.cameraY = cameraY;
-        this.centerX = centerX;
-        this.centerY = centerY;
+        this.alpha = alpha;
+        this.beta = beta;
         this.horizontalAngle = horizontalAngle;
         this.verticalAngle = verticalAngle;
-        this.relX = centerX - cameraX;
-        this.relY = centerY - cameraY;
 
-        double centerAngle = Math.atan(Math.sqrt(Math.pow(relX, 2) + Math.pow(relY, 2)) / height);
+        double a = sqrt(1 / (1 - pow(sin(horizontalAngle), 2) - pow(sin(verticalAngle), 2)) - 1);
+        double centerAngle = atan(sqrt(pow(relX, 2) + pow(relY, 2)) / height);
         // initialize the 4 point coordinate on the 2-D map
-        double betaDown = height * Math.tan(centerAngle - 0.5 * verticalAngle);
-        double betaUp = height * Math.tan(centerAngle + 0.5 * verticalAngle);
-        P2.setX(Math.cos(Math.atan(relY / relX)) * betaDown + Math.sin(Math.atan(relY / relX)) * height / Math.cos(centerAngle - verticalAngle / 2));
-        P2.setY(Math.sin(Math.atan(relY / relX)) * betaDown - Math.cos(Math.atan(relY / relX)) * height / Math.cos(centerAngle - verticalAngle / 2));
-        P1.setX(Math.cos(Math.atan(relY / relX)) * betaDown - Math.sin(Math.atan(relY / relX)) * height / Math.cos(centerAngle - verticalAngle / 2));
-        P1.setY(Math.sin(Math.atan(relY / relX)) * betaDown + Math.cos(Math.atan(relY / relX)) * height / Math.cos(centerAngle - verticalAngle / 2));
-        P3.setX(Math.cos(Math.atan(relY / relX)) * betaUp + Math.sin(Math.atan(relY / relX)) * height / Math.cos(centerAngle + verticalAngle / 2));
-        P3.setY(Math.sin(Math.atan(relY / relX)) * betaUp - Math.cos(Math.atan(relY / relX)) * height / Math.cos(centerAngle + verticalAngle / 2));
-        P4.setX(Math.cos(Math.atan(relY / relX)) * betaUp - Math.sin(Math.atan(relY / relX)) * height / Math.cos(centerAngle + verticalAngle / 2));
-        P4.setY(Math.sin(Math.atan(relY / relX)) * betaUp + Math.cos(Math.atan(relY / relX)) * height / Math.cos(centerAngle + verticalAngle / 2));
+//        P1.setX(cameraX + ((((pow(a, 2) + 1) * cos(horizontalAngle / 2) * pow(tan(horizontalAngle / 2), 2) * cos(alpha) * sin(alpha) * pow(sin(beta), 3)) +
+//                ((sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * pow(cos(alpha), 2) - sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * pow(sin(alpha), 2)) * pow(sin(beta), 2)) +
+//                (((pow(a, 2) + 1) * sin(horizontalAngle / 2) * tan(horizontalAngle / 2) * sin(alpha) * cos(alpha) * pow(cos(beta), 2) + (-pow(a, 2) - 1) * tan(horizontalAngle / 2) * sin(verticalAngle / 2) * pow(cos(alpha), 2) * cos(beta) - cos(horizontalAngle / 2) * cos(alpha) * sin(horizontalAngle)) * sin(beta)) -
+//                (sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * pow(sin(alpha), 2) * pow(cos(beta), 2)) +
+//                (sqrt(pow(a, 2) + 1) * sin(verticalAngle / 2) * cos(alpha) * sin(alpha) * cos(beta))) * height) /
+//                ((sqrt(pow(a, 2) + 1) * sin(verticalAngle / 2) * pow(sin(alpha), 2) + sqrt(pow(a, 2) + 1) * sin(verticalAngle / 2) * pow(cos(alpha), 2)) * sin(beta) +
+//                (cos(horizontalAngle / 2) * pow(sin(alpha), 2) + cos(horizontalAngle / 2) * pow(cos(alpha), 2)) * cos(beta)));
+//        P1.setY(cameraY + (sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * cos(alpha) * pow(sin(beta), 2) - (cos(horizontalAngle / 2) * sin(alpha) * sin(beta)) + sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * cos(alpha) * pow(cos(beta), 2) + sqrt(pow(a, 2) + 1) * sin(verticalAngle / 2) * sin(alpha) * cos(beta)) * height /
+//                (sqrt(pow(a, 2) + 1) * sin(verticalAngle / 2) * sin(beta) + (cos(horizontalAngle / 2)) * cos(beta)));
+//        P2.setX(((pow(a, 2) + 1) * sin(horizontalAngle / 2) * cos(horizontalAngle / 2) * cos(alpha) * sin(alpha) * pow(sin(beta), 3)+
+//                (sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * pow(cos(alpha), 2) - sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * pow(sin(alpha), 2)) * pow(sin(beta), 2)+
+//                ((pow(a, 2) + 1) * sin(horizontalAngle / 2) * cos(horizontalAngle / 2) * cos(alpha) * sin(alpha) * pow(cos(beta), 2) + (pow(a, 2) + 1) * tan(horizontalAngle / 2) * sin(verticalAngle / 2) * pow(cos(alpha), 2) * cos(beta) - cos(horizontalAngle / 2) * sin(alpha) * cos(alpha)) * sin(beta)-
+//                sqrt(pow(a, 2) + 1) * sin(horizontalAngle / 2) * pow(sin(alpha), 2) * pow(cos(beta), 2)-
+//                sqrt(pow(a,2) + 1) * sin(verticalAngle / 2) * cos(alpha) * sin(alpha) * cos(beta)) * height /
+//                (sqrt(pow(a, 2) + 1) * sin(verticalAngle / 2) * sin(beta) - cos(horizontalAngle / 2) * cos(beta)));
+//        P2.setY((sqrt(pow(a,2) + 1) * sin(horizontalAngle / 2) * cos(alpha) - cos(horizontalAngle / 2) * sin(alpha) * sin(beta) - sqrt(pow(a,2) + 1) * sin(verticalAngle / 2) * sin(alpha) * cos(beta)) * height /
+//                (sqrt(pow(a,2) + 1) * sin(verticalAngle / 2) * sin(beta) - cos(horizontalAngle / 2) * cos(beta)));
+        P1.setX(cameraX - 0.1);
+        P1.setY(cameraY - 0.1);
+        P2.setX(cameraX + 0.1);
+        P2.setY(cameraY - 0.1);
+        P3.setX(cameraX + 0.1);
+        P3.setY(cameraY + 0.1);
+        P4.setX(cameraX - 0.1);
+        P4.setY(cameraY + 0.1);
+
 
 
     }

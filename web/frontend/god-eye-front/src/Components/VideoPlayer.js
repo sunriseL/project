@@ -22,6 +22,19 @@ function screenShot(){
     console.log(image);
 }
 
+
+function ifTarget(){
+    let url = document.location.toString();
+    let arrUrl = url.split("//");
+    let splitUrl = arrUrl[1].split("/");
+    let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+
+　　　　if(relUrl.indexOf("?") !== -1){
+　　　　　　relUrl = relUrl.split("?")[0];
+　　　　}
+　　　　return (relUrl==='trace-target');
+}
+
 class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
@@ -32,9 +45,9 @@ class VideoPlayer extends React.Component {
             selectedValue: camera[0],
         };
         this.style = {
-            height: "100%",
-            width: "90%",
-            margin: "5%",
+            height: "94%",
+            width: "94%",
+            margin: "3%",
         };
     }
 
@@ -49,6 +62,7 @@ class VideoPlayer extends React.Component {
 　　　　}
 　　　　return (relUrl==='history-video');
     }
+    
 
     handleClickOpen = () => {
         this.setState({
@@ -60,6 +74,7 @@ class VideoPlayer extends React.Component {
         let player = document.getElementById('video_id');
         console.log(player.currentTime);
         screenShot();
+        alert("已截取一帧上传\n请至查看追踪结果界面选取追踪对象");
     };
 
     handleClose = value => {
@@ -69,9 +84,13 @@ class VideoPlayer extends React.Component {
         emitter.emit('lightCamera', value, false);
     };
 
+    chooseTarget(){
+        return;
+    }
+
     render(){
         return(
-        <Paper  elevation={1} style={{margin: "1%", height: "86%"}} square='true'>
+        <Paper  elevation={1} style={{margin: "1%"}} square='true'>
             <Grid>
                 <video id="video_id" style={ this.style } controls="controls" preload={false}>
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 
@@ -92,13 +111,18 @@ class VideoPlayer extends React.Component {
                     {this.ifHistory() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={this.getCurrentTime} small>选定当前帧</Button>
                     </Grid>}
+
+                    {ifTarget() && 
+                    <Grid item xs>
+                        <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
+                    </Grid> }
                 </Grid>
                     <CameraDialog
                         selectedValue={this.state.selectedValue}
                         open={this.state.open}
                         onClose={this.handleClose}
                     />
-                <canvas id="screenShot" width="640" height="480" hidden></canvas>
+                {this.ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
             </Grid>
         </Paper>
         );
