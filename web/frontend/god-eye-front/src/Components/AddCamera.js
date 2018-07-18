@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import $ from 'jquery';
 import emitter from '../Utils/EventEmitter';
+import axios from 'axios';
 
 function getInstruction(stepIndex) {
     switch (stepIndex) {
@@ -81,19 +82,27 @@ class AddCamera extends React.Component {
             case 1:
                 break;
             case 2:
-                $.ajax({
-                    type: "post",
-                    url: "http://127.0.0.1:8081/camera/add",
-                    crossDomain: true,
-                    data: this.cameraStat,
-                    async:true,
-                    success: function () {
+                // $.ajax({
+                //     type: "post",
+                //     url: "http://127.0.0.1:8081/camera/add",
+                //     crossDomain: true,
+                //     data: this.cameraStat,
+                //     async:true,
+                //     success: function () {
+                //         alert("摄像头设置成功");
+                //     },
+                //     error : function() {
+                //         alert("上传失败\n请确认网络连接正常");
+                //     }
+                // });
+                axios.post("http://127.0.0.1:8081/camera/add", this.cameraStat)
+                    .then(function(data){
                         alert("摄像头设置成功");
-                    },
-                    error : function() {
+                        console.log(data);
+                    })
+                    .catch(function(){
                         alert("上传失败\n请确认网络连接正常");
-                    }
-                });
+                    })
                 break;
             default:break;
         }
