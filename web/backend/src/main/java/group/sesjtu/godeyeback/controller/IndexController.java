@@ -40,8 +40,9 @@ public class IndexController {
 
 
     @RequestMapping("/get_new_map")
-    protected JSONArray getNewMap(){
-        return JSONArray.fromObject(mapService.getNewestMap());
+    protected String getNewMap(){
+        System.out.println("get new map");
+        return mapService.getNewestMap().getStr();
     }
 
     @RequestMapping("/has_map")
