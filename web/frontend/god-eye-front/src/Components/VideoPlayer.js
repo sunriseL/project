@@ -97,7 +97,7 @@ class VideoPlayer extends React.Component {
     };
 
     handleClose = value => {
-        this.setState({ selectedValue: value, open: false});
+        this.setState({ selectedValue: value, cameraOpen: false});
         localStorage.setItem("selectedCamera", value);
         document.getElementById("video_id").src = video[value];
         if(!ifTarget())
