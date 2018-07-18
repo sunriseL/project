@@ -7,6 +7,7 @@ import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
+import TargetDialog from './TargetDialog';
 import $ from "jquery";
 
 const camera = ['camera1', 'camera2','camera3'];
@@ -71,7 +72,7 @@ class VideoPlayer extends React.Component {
         this.state = {
             videoLink: file1,
             catchTime: 0,
-            open: false,
+            cameraOpen: false,
             selectedValue: localStorage.getItem('selectedCamera'),
         };
         this.style = {
@@ -83,7 +84,7 @@ class VideoPlayer extends React.Component {
 
     handleClickOpen = () => {
         this.setState({
-            open: true,
+            cameraOpen: true,
         });
     };
 
@@ -102,10 +103,11 @@ class VideoPlayer extends React.Component {
             emitter.emit('lightCamera', value, false);
     };
 
+
     chooseTarget(){
         return;
     }
-
+    
     render(){
         return(
         <Paper  elevation={1} style={{margin: "1%"}} square='true'>
@@ -136,7 +138,7 @@ class VideoPlayer extends React.Component {
                 </Grid>
                     <CameraDialog
                         selectedValue={this.state.selectedValue}
-                        open={this.state.open}
+                        open={this.state.cameraOpen}
                         onClose={this.handleClose}
                     />
                 {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
