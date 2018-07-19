@@ -75,5 +75,13 @@ public class IndexController {
         return request.post("http://192.168.1.147:8000/api/uploadImg", data);
     }
 
+    @RequestMapping("/target/trace")
+    protected String traceTarget(@RequestParam("imgStream") String imgStream) {
+        HttpRequest request = new HttpRequest();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("imgStream", imgStream);
+        return request.post("http://192.168.1.147:8000/api/xxx", new Gson().toJson(map));
+    }
+
 
 }
