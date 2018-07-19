@@ -5,11 +5,32 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GlobalConfig {
-    @Value("${ml.server.uploadImg}")
-    private String uploadImg;
+    @Value("${ml.server}")
+    private String MachineLearningServer;
 
-    public String getUploadImg(){
-        return uploadImg;
+    @Value("${ml.choose}")
+    private String ChooseApi;
+
+    @Value("${ml.trace}")
+    private String TraceApi;
+
+    @Value("${ml.test}")
+    private String TestApi;
+
+    public String getMachineLearningServer(){
+        return MachineLearningServer;
+    }
+
+    public String getChooseApi(){
+        return ChooseApi;
+    }
+
+    public String getTraceApi(){
+        return TraceApi;
+    }
+
+    public String getTestApi(){
+        return TestApi;
     }
 
 }

@@ -75,8 +75,17 @@ public class IndexController {
         HttpRequest request = new HttpRequest();
         HashMap<String, String> map = new HashMap<>();
         map.put("imgStream", imgStream);
-        String data = new Gson().toJson(map);
-        return request.post("http://192.168.1.147:8000/api/uploadImg", data);
+        String url = config.getMachineLearningServer() + config.getChooseApi();
+        return request.post(url, new Gson().toJson(map));
+    }
+
+    @RequestMapping("/target/trace")
+    protected String traceTarget(@RequestParam("imgStream") String imgStream) {
+        HttpRequest request = new HttpRequest();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("imgStream", imgStream);
+        String url = config.getMachineLearningServer() + config.getTraceApi();
+        return request.post(url, new Gson().toJson(map));
     }
 
 }
