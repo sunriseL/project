@@ -72,7 +72,7 @@ public class IndexController {
         HashMap<String, String> map = new HashMap<>();
         map.put("imgStream", imgStream);
         String data = new Gson().toJson(map);
-        return request.post("http://192.168.1.147:8000/api/uploadImg", data);
+        return request.post("http://192.168.1.147:8000/api/choose", data);
     }
 
     @RequestMapping("/target/trace")
@@ -80,7 +80,7 @@ public class IndexController {
         HttpRequest request = new HttpRequest();
         HashMap<String, String> map = new HashMap<>();
         map.put("imgStream", imgStream);
-        return request.post("http://192.168.1.147:8000/api/xxx", new Gson().toJson(map));
+        return request.post("http://192.168.1.147:8000/api/trace", new Gson().toJson(map));
     }
 
 
