@@ -5,8 +5,6 @@ import group.sesjtu.godeyeback.entity.Map;
 import group.sesjtu.godeyeback.service.MapService;
 import group.sesjtu.godeyeback.service.VideoService;
 import group.sesjtu.godeyeback.utils.HttpRequest;
-import net.sf.json.JSONArray;
-import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
