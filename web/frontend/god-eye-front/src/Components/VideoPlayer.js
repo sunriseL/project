@@ -9,22 +9,25 @@ import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
 import $ from "jquery";
-//import {Link} from 'react-router-dom';
 
-//const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
-let canvas,time,x1,y1,x2,y2;
+let canvas,time,x1,y1,x2,y2,imgUrl;
 
 function generateSelectedImg(){
-    let canvasShot = document.getElementById("selectedPart");
-    let ctxShot = canvasShot.getContext('2d');
-    canvasShot.width = Math.abs(x2-x1);
-    canvasShot.height = Math.abs(y2-y1);
-    ctxShot.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
-    let image = canvasShot.toDataURL('image/png');
-    canvasShot.hidden = false;
-    console.log(image);
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8081/target/choose",
+        crossDomain: true,
+        dataType:"json",
+        data: {imgStream: imgUrl},
+        success: function (data) {
+            console.log(data);
+        },
+        error : function(data) {
+            console.log('error');
+        }
+    })
 }
 
 function select(x1,y1,x2,y2){
@@ -38,7 +41,13 @@ function select(x1,y1,x2,y2){
     ctx.lineWidth = 3;
     ctx.rect(x1,y1,x2-x1,y2-y1);
     ctx.stroke();
-    generateSelectedImg();
+    let selectedPart = document.getElementById("selectedPart");
+    let selectedPartCtx = selectedPart.getContext('2d');
+    selectedPart.width = Math.abs(x2-x1);
+    selectedPart.height = Math.abs(y2-y1);
+    selectedPartCtx.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
+    imgUrl = selectedPart.toDataURL('image/png');
+    selectedPart.hidden = false;
 }
 
 function getEventPosition(ev){
@@ -59,8 +68,7 @@ function selectObj(e){
         x1 = p.x;
         y1 = p.y;
         time++;
-    }
-    else{
+    } else{
         let p = getEventPosition(e);
         x2 = p.x;
         y2 = p.y;
@@ -74,14 +82,14 @@ function screenShot(){
     let canvas = document.getElementById('screenShot');
     canvas.hidden = false;
     let ctx = canvas.getContext('2d');
-    canvas.width = 800;
+    canvas.width = 900;
     canvas.height = 600;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     let image = canvas.toDataURL('image/png');
     console.log(image);
     $.ajax({
         type: "post",
-        url: "http://59.78.46.173:8000/api/uploadImg",
+        url: "http://localhost:8081/target/choose",
         crossDomain: true,
         dataType:"json",
         data: {imgStream: image},
@@ -92,7 +100,7 @@ function screenShot(){
             }
         },
         error : function(data) {
-            console.log('error');
+            console.log('error'+data);
         }
     })
 }

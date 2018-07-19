@@ -1,16 +1,14 @@
 package group.sesjtu.godeyeback.utils;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import okhttp3.*;
-import org.json.JSONObject;
+
 
 import java.io.IOException;
 
 public class HttpRequest {
     OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
-
-
 
     public String get(String url){
         Request request = new Request.Builder().url(url).build();

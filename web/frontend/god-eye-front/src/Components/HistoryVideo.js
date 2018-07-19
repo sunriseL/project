@@ -37,9 +37,7 @@ class HistoryVideo extends React.Component {
                             <VideoPlayer />
                         </Grid>
                     </Grid>
-                    <Grid container>
-                        <SelectObject/>
-                    </Grid>
+                    <SelectObject/>
             </Layout>
         );
     }
