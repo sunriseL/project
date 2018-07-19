@@ -7,10 +7,10 @@ class SelectObject extends React.Component {
     render(){
         return(
             <Grid  container xs={12} spacing={16}>
-                <Grid item xs={6} alignItems={"center"}>
+                <Grid item xs  alignItems={"center"}>
                     <canvas id="screenShot" hidden/>
                 </Grid>
-                <Grid item xs={6} spacing={16}>
+                <Grid item xs spacing={16}>
                     <canvas id = "selectedPart" hidden/>
                 </Grid>
             </Grid>

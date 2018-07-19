@@ -100,7 +100,8 @@ function screenShot(){
             }
         },
         error : function(data) {
-            console.log('error'+data);
+            console.log('error');
+            console.log(data);
         }
     })
 }
