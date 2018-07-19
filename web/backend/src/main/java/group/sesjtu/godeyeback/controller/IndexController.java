@@ -1,6 +1,7 @@
 package group.sesjtu.godeyeback.controller;
 
 import com.google.gson.Gson;
+import group.sesjtu.godeyeback.config.GlobalConfig;
 import group.sesjtu.godeyeback.entity.Map;
 import group.sesjtu.godeyeback.service.MapService;
 import group.sesjtu.godeyeback.service.VideoService;
@@ -17,6 +18,8 @@ public class IndexController {
     private VideoService videoService;
     @Autowired
     private MapService mapService;
+    @Autowired
+    GlobalConfig config;
 
     /* search the video by time.. */
     @RequestMapping("/video/search")
@@ -39,7 +42,6 @@ public class IndexController {
     protected String getMap(@RequestParam("name") String name){
         return mapService.getMap(name).getStr();
     }
-
 
     @RequestMapping("/get_new_map")
     protected String getNewMap(){
@@ -66,6 +68,8 @@ public class IndexController {
         return "add camera\nx:" + x+"\ny:"+y+"\nh:"+height+"\na:"+alpha+"\nb:"+beta;
     }
 
+
+
     @RequestMapping("/target/choose")
     protected  String chooseTarget(@RequestParam("imgStream") String imgStream){
         HttpRequest request = new HttpRequest();
@@ -74,6 +78,5 @@ public class IndexController {
         String data = new Gson().toJson(map);
         return request.post("http://192.168.1.147:8000/api/uploadImg", data);
     }
-
 
 }
