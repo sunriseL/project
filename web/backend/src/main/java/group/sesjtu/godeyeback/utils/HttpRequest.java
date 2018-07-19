@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class HttpRequest {
     OkHttpClient client = new OkHttpClient();
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final MediaType JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
 
 
 
@@ -19,7 +19,7 @@ public class HttpRequest {
     }
 
     public String post(String url, String data) throws IOException{
-        RequestBody body = FormBody.create(JSON, data);
+        RequestBody body = RequestBody.create(JSON, data);
 
         Request request = new Request.Builder().url(url).post(body).build();
 
