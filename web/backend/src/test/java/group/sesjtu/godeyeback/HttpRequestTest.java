@@ -16,7 +16,6 @@ public class HttpRequestTest {
     HashMap<String, Object> map = new HashMap();
     Object o = map.put("test", "test");
     final String jsonString = new Gson().toJson(map);
-    JSONObject obj = new JSONObject().fromObject(jsonString);
 
     @Test
     public void testGet(){

@@ -9,7 +9,7 @@ import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
 import $ from "jquery";
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
 
 //const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
@@ -21,14 +21,16 @@ function generateSelectedImg(){
     let ctxShot = canvasShot.getContext('2d');
     canvasShot.width = Math.abs(x2-x1);
     canvasShot.height = Math.abs(y2-y1);
-    ctxShot.drawImage(canvas,x1,y1,Math.abs(x2-x1),Math.abs(y2-y1),0,0,Math.abs(x2-x1),Math.abs(y2-y1));
+    ctxShot.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
     let image = canvasShot.toDataURL('image/png');
+    canvasShot.hidden = false;
     console.log(image);
 }
 
 function select(x1,y1,x2,y2){
     let video = document.getElementById("video_id");
     let ctx = canvas.getContext('2d');
+    canvas.hidden = false;
     canvas.width = 800;
     canvas.height = 600;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -70,6 +72,7 @@ function selectObj(e){
 function screenShot(){
     let video = document.getElementById("video_id");
     let canvas = document.getElementById('screenShot');
+    canvas.hidden = false;
     let ctx = canvas.getContext('2d');
     canvas.width = 800;
     canvas.height = 600;
@@ -121,7 +124,6 @@ function getCurrentTime() {
     let player = document.getElementById('video_id');
     console.log(player.currentTime);
     screenShot();
-    //alert("已截取一帧上传\n请至查看追踪结果界面选取追踪对象");
 }
 
 class VideoPlayer extends React.Component {
@@ -195,9 +197,9 @@ class VideoPlayer extends React.Component {
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
                     {ifHistory() && <Grid item xs>
-<Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
-                        <Button variant="contained" color='primary' onClick={select} small>画框</Button>
-
+                        <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
+                        <Button variant="contained" color='primary' onClick={select} small>放大并框选</Button>
+                        <Button variant="contained" color='primary' onClick={generateSelectedImg} small>确定</Button>
                     </Grid>}
 
                     {ifTarget() && <Grid item xs>
@@ -214,7 +216,7 @@ class VideoPlayer extends React.Component {
                     onClose={this.targetClose}
                 />
                 {/*{ifHistory() && <canvas id="screenShot" width="800" height="600" hidden/>}*/}
-                <canvas id = "selectedPart" hidden/>
+                {/*<canvas id = "selectedPart" hidden/>*/}
             </Grid>
         </Paper>
         );

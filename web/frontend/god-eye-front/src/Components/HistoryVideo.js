@@ -37,7 +37,7 @@ class HistoryVideo extends React.Component {
                             <VideoPlayer />
                         </Grid>
                     </Grid>
-                    <Grid container xs={12} spacing={24}>
+                    <Grid container>
                         <SelectObject/>
                     </Grid>
             </Layout>
