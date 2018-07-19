@@ -1,5 +1,6 @@
 package group.sesjtu.godeyeback.utils;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import okhttp3.*;
 import org.json.JSONObject;
 
@@ -11,21 +12,31 @@ public class HttpRequest {
 
 
 
-    public String get(String url) throws IOException {
+    public String get(String url){
         Request request = new Request.Builder().url(url).build();
 
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        try{
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }catch (IOException e){
+            System.out.println(e.toString());
+        }
+
+        return "error occurs when processing get method";
     }
 
-    public String post(String url, String data) throws IOException{
+    public String post(String url, String data){
         RequestBody body = RequestBody.create(JSON, data);
 
         Request request = new Request.Builder().url(url).post(body).build();
+        try{
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }catch (IOException e){
+            System.out.println(e.toString());
+        }
 
-        Response response = client.newCall(request).execute();
-
-        return response.body().string();
+        return "error occurs when processing post method with " + data;
     }
 
 }

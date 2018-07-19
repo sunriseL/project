@@ -19,23 +19,13 @@ public class HttpRequestTest {
 
     @Test
     public void testGet(){
-        try{
             String result = request.get(testURL);
             assertEquals("get failed with " + result, "get success", result);
-        }catch (IOException e){
-            System.out.println(e.toString());
-        }
-
     }
 
     @Test
     public void testPost(){
-        try{;
             String result = request.post(testURL, jsonString);
             assertEquals("post failed with "+result, jsonString, result);
-        }catch (IOException e){
-            System.out.println(e.toString());
-        }
     }
-
 }
