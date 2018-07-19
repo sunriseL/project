@@ -14,7 +14,7 @@ const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 
-function generateSelectedImg(){
+function sendSelectedImg(){
     $.ajax({
         type: "post",
         url: "http://localhost:8081/target/choose",
@@ -30,13 +30,18 @@ function generateSelectedImg(){
     })
 }
 
-function select(x1,y1,x2,y2){
+function getCurrentFrame(){
     let video = document.getElementById("video_id");
     let ctx = canvas.getContext('2d');
     canvas.hidden = false;
-    canvas.width = 800;
+    canvas.width = 900;
     canvas.height = 600;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+}
+
+function select(x1,y1,x2,y2){
+    getCurrentFrame();
+    let ctx = canvas.getContext('2d');
     ctx.strokeStyle="#0000ff";
     ctx.lineWidth = 3;
     ctx.rect(x1,y1,x2-x1,y2-y1);
@@ -78,13 +83,9 @@ function selectObj(e){
 }
 
 function screenShot(){
-    let video = document.getElementById("video_id");
-    let canvas = document.getElementById('screenShot');
+    canvas = document.getElementById('screenShot');
     canvas.hidden = false;
-    let ctx = canvas.getContext('2d');
-    canvas.width = 900;
-    canvas.height = 600;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    getCurrentFrame();
     let image = canvas.toDataURL('image/png');
     console.log(image);
     $.ajax({
@@ -207,8 +208,8 @@ class VideoPlayer extends React.Component {
                     </Grid>
                     {ifHistory() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
-                        <Button variant="contained" color='primary' onClick={select} small>放大并框选</Button>
-                        <Button variant="contained" color='primary' onClick={generateSelectedImg} small>确定</Button>
+                        <Button variant="contained" color='primary' onClick={getCurrentFrame} small>放大并框选</Button>
+                        <Button variant="contained" color='primary' onClick={sendSelectedImg} small>确定</Button>
                     </Grid>}
 
                     {ifTarget() && <Grid item xs>

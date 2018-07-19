@@ -7,8 +7,12 @@ import group.sesjtu.godeyeback.config.GlobalConfig;
 import group.sesjtu.godeyeback.utils.HttpRequest;
 import net.sf.json.JSONObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -16,6 +20,8 @@ import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@TestPropertySource("classpath:application.properties")
 public class HttpRequestTest {
     @Autowired
     GlobalConfig config;
