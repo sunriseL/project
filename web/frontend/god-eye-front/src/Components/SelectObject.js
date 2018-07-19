@@ -1,17 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import file1 from '../image/2.mp4';
+
 import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
-import CameraDialog from "./CameraDialog";
-import emitter from "../Utils/EventEmitter";
-import TargetDialog from './TargetDialog';
-import $ from "jquery";
 
-//const camera = ['camera1', 'camera2','camera3'];
-const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
 let canvas,time,x1,y1,x2,y2;
 
