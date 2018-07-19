@@ -9,6 +9,7 @@ import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
 import $ from "jquery";
+import {Link} from 'react-router-dom';
 
 const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
@@ -21,6 +22,7 @@ function screenShot(){
     canvas.height = 270;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     let image = canvas.toDataURL('image/png');
+    console.log(image);
     $.ajax({
         type: "post",
         url: "http://192.168.1.147:8000/api/uploadImg",
@@ -134,7 +136,7 @@ class VideoPlayer extends React.Component {
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
                     {ifHistory() && <Grid item xs>
-                        <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
+                        <Link to='trace-target'><Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button></Link>
                     </Grid>}
 
                     {ifTarget() && <Grid item xs>
