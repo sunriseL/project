@@ -3,6 +3,7 @@ package group.sesjtu.godeyeback.controller;
 import group.sesjtu.godeyeback.entity.Map;
 import group.sesjtu.godeyeback.service.MapService;
 import group.sesjtu.godeyeback.service.VideoService;
+import group.sesjtu.godeyeback.utils.HttpRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,12 @@ public class IndexController {
                             @RequestParam("height") String height,@RequestParam("alpha") String alpha,
                             @RequestParam("beta") String beta){
         return "add camera\nx:" + x+"\ny:"+y+"\nh:"+height+"\na:"+alpha+"\nb:"+beta;
+    }
+
+    @RequestMapping("/target/choose")
+    protected  String chooseTarget(@RequestParam("imgStream") String imgStream){
+        HttpRequest request = new HttpRequest();
+        return request.post("http://192.168.1.147:8000/api/uploadImg", imgStream);
     }
 
 
