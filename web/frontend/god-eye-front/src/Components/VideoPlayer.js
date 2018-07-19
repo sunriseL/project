@@ -10,15 +10,68 @@ import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
 import $ from "jquery";
 
-const camera = ['camera1', 'camera2','camera3'];
+//const camera = ['camera1', 'camera2','camera3'];
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
+
+let canvas,time,x1,y1,x2,y2;
+
+function generateSelectedImg(){
+    let canvasShot = document.getElementById("selectedPart");
+    let ctxShot = canvasShot.getContext('2d');
+    canvasShot.width = Math.abs(x2-x1);
+    canvasShot.height = Math.abs(y2-y1);
+    ctxShot.drawImage(canvas,x1,y1,Math.abs(x2-x1),Math.abs(y2-y1),0,0,Math.abs(x2-x1),Math.abs(y2-y1));
+    let image = canvasShot.toDataURL('image/png');
+    console.log(image);
+}
+
+function select(x1,y1,x2,y2){
+    let video = document.getElementById("video_id");
+    let ctx = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 600;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle="#0000ff";
+    ctx.lineWidth = 3;
+    ctx.rect(x1,y1,x2-x1,y2-y1);
+    ctx.stroke();
+    generateSelectedImg();
+}
+
+function getEventPosition(ev){
+    let x, y;
+    if (ev.layerX || ev.layerX === 0) {
+        x = ev.layerX;
+        y = ev.layerY;
+    } else if (ev.offsetX || ev.offsetX === 0) {
+        x = ev.offsetX;
+        y = ev.offsetY;
+    }
+    return {x: x, y: y};
+}
+
+function selectObj(e){
+    if(time === 0) {
+        let p = getEventPosition(e);
+        x1 = p.x;
+        y1 = p.y;
+        time++;
+    }
+    else{
+        let p = getEventPosition(e);
+        x2 = p.x;
+        y2 = p.y;
+        select(x1,y1,x2,y2);
+        time = 0;
+    }
+}
 
 function screenShot(){
     let video = document.getElementById("video_id");
     let canvas = document.getElementById('screenShot');
     let ctx = canvas.getContext('2d');
-    canvas.width = 480;
-    canvas.height = 270;
+    canvas.width = 800;
+    canvas.height = 600;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     let image = canvas.toDataURL('image/png');
     $.ajax({
@@ -29,10 +82,12 @@ function screenShot(){
         data: {imgStream: image},
         success: function (data) {
             console.log(data);
-            alert(data.message);
+            for(let i in data.pictures) {
+                console.log(data.pictures[i].data);
+            }
         },
         error : function(data) {
-            console.log(data);
+            console.log('error');
         }
     })
 }
@@ -41,7 +96,7 @@ function ifTarget(){
     let url = document.location.toString();
     let arrUrl = url.split("//");
     let splitUrl = arrUrl[1].split("/");
-    let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+    let relUrl = splitUrl[1];
     if(relUrl.indexOf("?") !== -1){
         relUrl = relUrl.split("?")[0];
     }
@@ -52,7 +107,7 @@ function ifHistory(){
     let url = document.location.toString();
     let arrUrl = url.split("//");
     let splitUrl = arrUrl[1].split("/");
-    let relUrl = splitUrl[1];//stop省略，截取从start开始到结尾的所有字符
+    let relUrl = splitUrl[1];
 
     if(relUrl.indexOf("?") !== -1){
         relUrl = relUrl.split("?")[0];
@@ -64,6 +119,7 @@ function getCurrentTime() {
     let player = document.getElementById('video_id');
     console.log(player.currentTime);
     screenShot();
+    //alert("已截取一帧上传\n请至查看追踪结果界面选取追踪对象");
 }
 
 class VideoPlayer extends React.Component {
@@ -83,17 +139,21 @@ class VideoPlayer extends React.Component {
         };
     }
 
+    componentDidMount(){
+        if(ifHistory()) {
+            canvas = document.getElementById('screenShot');
+            time = 0;
+            window.setTimeout(function () {
+                canvas.removeEventListener('click', selectObj, false);
+                canvas.addEventListener('click', selectObj, false);
+            }, 500);
+        }
+    }
+
     handleClickOpen = () => {
         this.setState({
             cameraOpen: true,
         });
-    };
-
-    getCurrentTime() {
-        let player = document.getElementById('video_id');
-        console.log(player.currentTime);
-        screenShot();
-        alert("已截取一帧上传\n请至查看追踪结果界面选取追踪对象");
     };
 
     handleClose = value => {
@@ -104,14 +164,13 @@ class VideoPlayer extends React.Component {
             emitter.emit('lightCamera', value, false);
     };
 
-
     chooseTarget = () =>{
         this.setState({targetOpen: true});
-    }
+    };
 
     targetClose = () =>{
         this.setState({targetOpen: false});
-    }
+    };
     
     render(){
         return(
@@ -135,6 +194,8 @@ class VideoPlayer extends React.Component {
                     </Grid>
                     {ifHistory() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
+                        <Button variant="contained" color='primary' onClick={select} small>画框</Button>
+
                     </Grid>}
 
                     {ifTarget() && <Grid item xs>
@@ -150,7 +211,8 @@ class VideoPlayer extends React.Component {
                     open={this.state.targetOpen} 
                     onClose={this.targetClose}
                 />
-                {ifHistory() && <canvas id="screenShot" width="640" height="480" hidden></canvas>}
+                {/*{ifHistory() && <canvas id="screenShot" width="800" height="600" hidden/>}*/}
+                <canvas id = "selectedPart" hidden/>
             </Grid>
         </Paper>
         );
