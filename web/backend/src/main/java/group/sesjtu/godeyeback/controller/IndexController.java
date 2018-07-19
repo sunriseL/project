@@ -1,5 +1,6 @@
 package group.sesjtu.godeyeback.controller;
 
+import com.google.gson.Gson;
 import group.sesjtu.godeyeback.entity.Map;
 import group.sesjtu.godeyeback.service.MapService;
 import group.sesjtu.godeyeback.service.VideoService;
@@ -8,6 +9,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -68,6 +71,9 @@ public class IndexController {
     @RequestMapping("/target/choose")
     protected  String chooseTarget(@RequestParam("imgStream") String imgStream){
         HttpRequest request = new HttpRequest();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("imgStream", imgStream);
+        imgStream = new Gson().toJson(imgStream);
         return request.post("http://192.168.1.147:8000/api/uploadImg", imgStream);
     }
 
