@@ -37,15 +37,18 @@ class ConfirmDialog extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false });
-        emitter.emit('sendSelectedImg');
     };
 
+    handleConfirm = () => {
+        this.setState({ open: false });
+        emitter.emit('sendSelectedImg');
+    };
 
     render() {
         const { classes } = this.props;
         return (
             <div>
-                <Button variant="contained" color='primary' onClick={this.handleClickOpen}>确定框选对象</Button>
+                <Button variant="contained" color='primary' onClick={this.handleClickOpen}>选定追踪对象</Button>
                 <Dialog
                     fullScreen
                     open={this.state.open}
@@ -60,7 +63,7 @@ class ConfirmDialog extends React.Component {
                             <Typography variant="title" color="inherit" className={classes.flex}>
                                 请点击框选希望追踪的对象
                             </Typography>
-                            <Button color="inherit" onClick={this.handleClose}>
+                            <Button color="inherit" onClick={this.handleConfirm}>
                                 确定追踪
                             </Button>
                         </Toolbar>

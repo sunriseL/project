@@ -6,6 +6,7 @@ import emitter from "../Utils/EventEmitter";
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 function sendSelectedImg(){
+    console.log('sendSelectObject');
     $.ajax({
         type: "post",
         url: "http://localhost:8081/target/choose",
@@ -55,6 +56,7 @@ function screenShot(){
     canvas = document.getElementById('screenShot');
     currentFrameCanvas();
     let image = canvas.toDataURL('image/png');
+    console.log('send screenshot');
     $.ajax({
         type: "post",
         url: "http://localhost:8081/target/choose",
