@@ -26,7 +26,7 @@ import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
 import { Divider } from '../../node_modules/@material-ui/core/es';
 
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const styles = theme => ({
     root: {
