@@ -5,7 +5,6 @@ import VideoPlayer from './VideoPlayer.js';
 import UserMap from './UserMap.js';
 import WrappedHistoryVideoForm from './HistoryVideoForm.js';
 import { Paper } from '../../node_modules/@material-ui/core';
-import SelectObject from "./SelectObject";
 
 class HistoryVideo extends React.Component {
     constructor(props){
@@ -30,14 +29,13 @@ class HistoryVideo extends React.Component {
                         <Grid item xs={6} style={{position:'relative'}}>
                             <UserMap />
                         </Grid>
-                        <Grid xs={6} item>
+                        <Grid item xs={6} >
                             <Paper style={{margin: "1%", height:"10%"}} square={true}>
                                 <WrappedHistoryVideoForm />
                             </Paper>
                             <VideoPlayer />
                         </Grid>
                     </Grid>
-                    <SelectObject/>
             </Layout>
         );
     }

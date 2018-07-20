@@ -9,6 +9,7 @@ import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
 import $ from "jquery";
+import ConfirmDialog from "./ConfirmDialog";
 
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 
@@ -30,29 +31,55 @@ function sendSelectedImg(){
     })
 }
 
-function getCurrentFrame(){
+function currentFrameCanvas(){
     let video = document.getElementById("video_id");
     let ctx = canvas.getContext('2d');
-    canvas.hidden = false;
     canvas.width = 900;
     canvas.height = 600;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 }
 
 function select(x1,y1,x2,y2){
-    getCurrentFrame();
+    currentFrameCanvas();
     let ctx = canvas.getContext('2d');
     ctx.strokeStyle="#0000ff";
     ctx.lineWidth = 3;
     ctx.rect(x1,y1,x2-x1,y2-y1);
     ctx.stroke();
-    let selectedPart = document.getElementById("selectedPart");
-    let selectedPartCtx = selectedPart.getContext('2d');
-    selectedPart.width = Math.abs(x2-x1);
-    selectedPart.height = Math.abs(y2-y1);
-    selectedPartCtx.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
-    imgUrl = selectedPart.toDataURL('image/png');
-    selectedPart.hidden = false;
+    let cut = document.getElementById("canvasCut");
+    let cutContext = cut.getContext('2d');
+    cut.width = Math.abs(x2-x1);
+    cut.height = Math.abs(y2-y1);
+    cutContext.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
+    imgUrl = cut.toDataURL('image/png');
+}
+
+function getCurrentFrame() {
+    let player = document.getElementById('video_id');
+    console.log(player.currentTime);
+    screenShot();
+}
+
+function screenShot(){
+    canvas = document.getElementById('screenShot');
+    currentFrameCanvas();
+    let image = canvas.toDataURL('image/png');
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8081/target/choose",
+        crossDomain: true,
+        dataType:"json",
+        data: {imgStream: image},
+        success: function (data) {
+            console.log(data);
+            for(let i in data.pictures) {
+                console.log(data.pictures[i].data);
+            }
+        },
+        error : function(data) {
+            console.log('error'+data);
+        }
+    })
 }
 
 function getEventPosition(ev){
@@ -73,38 +100,13 @@ function selectObj(e){
         x1 = p.x;
         y1 = p.y;
         time++;
-    } else{
+    } else {
         let p = getEventPosition(e);
         x2 = p.x;
         y2 = p.y;
         select(x1,y1,x2,y2);
         time = 0;
     }
-}
-
-function screenShot(){
-    canvas = document.getElementById('screenShot');
-    canvas.hidden = false;
-    getCurrentFrame();
-    let image = canvas.toDataURL('image/png');
-    console.log(image);
-    $.ajax({
-        type: "post",
-        url: "http://localhost:8081/target/choose",
-        crossDomain: true,
-        dataType:"json",
-        data: {imgStream: image},
-        success: function (data) {
-            console.log(data);
-            for(let i in data.pictures) {
-                console.log(data.pictures[i].data);
-            }
-        },
-        error : function(data) {
-            console.log('error');
-            console.log(data);
-        }
-    })
 }
 
 function ifTarget(){
@@ -130,11 +132,6 @@ function ifHistory(){
     return (relUrl==='history-video');
 }
 
-function getCurrentTime() {
-    let player = document.getElementById('video_id');
-    console.log(player.currentTime);
-    screenShot();
-}
 
 class VideoPlayer extends React.Component {
     constructor(props){
@@ -153,17 +150,6 @@ class VideoPlayer extends React.Component {
         };
     }
 
-    componentDidMount(){
-        if(ifHistory()) {
-            canvas = document.getElementById('screenShot');
-            time = 0;
-            window.setTimeout(function () {
-                canvas.removeEventListener('click', selectObj, false);
-                canvas.addEventListener('click', selectObj, false);
-            }, 500);
-        }
-    }
-
     handleClickOpen = () => {
         this.setState({
             cameraOpen: true,
@@ -175,7 +161,7 @@ class VideoPlayer extends React.Component {
         localStorage.setItem("selectedCamera", value);
         document.getElementById("video_id").src = video[value];
         if(!ifTarget())
-            emitter.emit('lightCamera', value, false);
+            emitter.emit('lightCamera', value);
     };
 
     chooseTarget = () =>{
@@ -206,12 +192,9 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    {ifHistory() && <Grid item xs>
-                        <Button variant="contained" color='primary' onClick={getCurrentTime} small>选定当前帧</Button>
-                        <Button variant="contained" color='primary' onClick={getCurrentFrame} small>放大并框选</Button>
-                        <Button variant="contained" color='primary' onClick={sendSelectedImg} small>确定</Button>
-                    </Grid>}
-
+                    <Grid item xs>
+                        <ConfirmDialog />
+                    </Grid>
                     {ifTarget() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
                     </Grid> }
@@ -225,8 +208,6 @@ class VideoPlayer extends React.Component {
                     open={this.state.targetOpen} 
                     onClose={this.targetClose}
                 />
-                {/*{ifHistory() && <canvas id="screenShot" width="800" height="600" hidden/>}*/}
-                {/*<canvas id = "selectedPart" hidden/>*/}
             </Grid>
         </Paper>
         );

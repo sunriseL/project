@@ -39,3 +39,8 @@ img {
   background: navajowhite;
 }
 
+.centerDiv{
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
