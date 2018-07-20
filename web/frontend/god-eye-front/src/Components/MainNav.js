@@ -19,9 +19,14 @@ import HistoryVideo from "./HistoryVideo";
 import Settings from "./Settings";
 import CurrentVideo from "./CurrentVideo.js";
 import Test from "./Test";
+import Restore from '../../node_modules/@material-ui/icons/Restore';
+import Videocam from '@material-ui/icons/Videocam';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
+import { Divider } from '../../node_modules/@material-ui/core/es';
 
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const styles = theme => ({
     root: {
@@ -100,22 +105,24 @@ class MainNav extends React.Component {
             }}
         >
             <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
+                <IconButton onClick={this.handleDrawerClose}>
+                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
             </div>
+            <Divider />
             <List>
                 <ListItem button component={ Link } to='current-video'>
-                    <ListItemText primary="查看当前监控" />
+                    <Videocam /><ListItemText primary="查看当前监控" />
                 </ListItem>
                 <ListItem button component={ Link } to='history-video'>
-                    <ListItemText primary="查看历史监控" />
+                    <Restore /><ListItemText primary="查看历史监控" />
                 </ListItem>
                 <ListItem button component={ Link } to='trace-target'>
-                    <ListItemText primary="查看追踪结果" />
+                    <ZoomOutMap /><ListItemText primary="查看追踪结果" />
                 </ListItem>
+                <Divider />
                 <ListItem button component={ Link } to='settings'>
-                    <ListItemText primary="添加地图与摄像头" />
+                    <SettingsIcon /><ListItemText primary="添加地图与摄像头" />
                 </ListItem>
             </List>
         </Drawer>

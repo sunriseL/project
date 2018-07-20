@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog, Grid, Typography } from '../../node_modules/@material-ui/core/es';
 import $ from 'jquery';
+import { DialogContent } from '../../node_modules/@material-ui/core';
 
 class TargetDialog extends React.Component{
     constructor(props){
@@ -29,12 +30,35 @@ class TargetDialog extends React.Component{
         this.getTargetList();
     }
 
-    handleSelect = () =>{
+    handleSelect = (imgSrc) =>{
         this.props.onClose();
+        let picJson = {
+            imgStream: imgSrc,
+        };
+        $.ajax({
+            type: 'post',
+            url: 'http://127.0.0.1:8081/target/choose',
+            crossDomain: true,
+            async: true,
+            data: picJson,
+            success: function(data) {
+                this.drawRoute(data);
+            },
+            error: function (error){
+                console.log(error);               
+            },
+        })
     }
 
     handleClose = () =>{
         this.props.onClose();
+    }
+
+    drawRoute(data){
+        // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
+        for(let i=0; i<data.length; i++){
+            console.log(i);
+        }
     }
 
 
@@ -43,16 +67,18 @@ class TargetDialog extends React.Component{
 
         let items = null;
         if(this.state.targetList.length === 0){
-            items = <Typography variant='display1' style={{margin: "5%"}}>尚未处理完成，请耐心等待</Typography>;
+            items = <Typography variant='headline' style={{margin: "5%"}}>尚未处理完成，请耐心等待</Typography>;
         }else{
             items = <Grid container spacing={8}>{this.state.targetList.map(i => (
-                <Grid item xs onClick={this.handleSelect}><img src={i.imgsrc} alt='无法显示图片' /></Grid>
+                <Grid item xs onClick={this.handleSelect(i.imgsrc)}><img src={i.imgsrc} alt='无法显示图片' /></Grid>
             ))}</Grid>
         }
 
         return(
             <Dialog onClose={this.handleClose} {...other}>
-                {items}
+                <DialogContent>
+                    {items}
+                </DialogContent>
             </Dialog>
         )
     }
