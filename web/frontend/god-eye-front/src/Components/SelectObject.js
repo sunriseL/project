@@ -1,8 +1,9 @@
 import React from 'react';
 import '../App.css';
-import { Grid } from '../../node_modules/@material-ui/core';
+import { Typography } from '../../node_modules/@material-ui/core';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
+import { Divider } from '../../node_modules/@material-ui/core/es';
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 function sendSelectedImg(){
@@ -115,18 +116,18 @@ class SelectObject extends React.Component {
 
     render(){
         return(
-            <Grid  container xs={12} spacing={16} >
+            <div>
                 <div className="centerDiv">
-                <Grid item xs >
-                    <canvas id="screenShot"  />
-                </Grid>
+                        <canvas id="screenShot" style={{margin: '1%'}} />
                 </div>
-                <div className="centerDiv">
-                <Grid item xs >
+                <div className="centerDiv" style={{alignContent: 'center'}}>
+                    <Divider />
+                    <div className='centerDiv'>
+                        <Typography variant='display1'>截取图像如下</Typography>
+                    </div>
                     <canvas id = "canvasCut" />
-                </Grid>
                 </div>
-            </Grid>
+            </div>
         );
     }
 }
