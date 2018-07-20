@@ -6,7 +6,17 @@ import okhttp3.*;
 
 
 import java.io.IOException;
-
+/*
+ * This is a utility to process http request
+ * Based on OkHttp3,
+ * Wrapped it with some exception handler and add request builder
+ *
+ * Usage:
+ * get:
+ * String result = new HttpRequest().get(String destinationUrl);
+ * post:
+ * String result = new HttpRequest().post(String destinationUrl, String JsonString);
+ */
 public class HttpRequest {
     OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
