@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import group.sesjtu.godeyeback.utils.HttpRequest;
 import org.junit.Test;
+
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
