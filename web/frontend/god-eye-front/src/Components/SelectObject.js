@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { Grid } from '../../node_modules/@material-ui/core';
 import $ from "jquery";
+import emitter from "../Utils/EventEmitter";
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 function sendSelectedImg(){
@@ -108,6 +109,8 @@ class SelectObject extends React.Component {
             canvas.addEventListener('click', selectObj, false);
             }, 500);
         getCurrentFrame();
+        emitter.removeAllListeners('sendSelectedImg');
+        emitter.on('sendSelectedImg',sendSelectedImg);
     }
 
     render(){
@@ -124,7 +127,6 @@ class SelectObject extends React.Component {
                 </Grid>
                 </div>
             </Grid>
-
         );
     }
 }

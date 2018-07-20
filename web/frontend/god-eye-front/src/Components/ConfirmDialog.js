@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import List from '@material-ui/core/List';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import SelectObject from "./SelectObject";
 import '../App.css';
+import emitter from "../Utils/EventEmitter";
 
 const styles = {
     appBar: {
@@ -37,7 +37,9 @@ class ConfirmDialog extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        emitter.emit('sendSelectedImg');
     };
+
 
     render() {
         const { classes } = this.props;

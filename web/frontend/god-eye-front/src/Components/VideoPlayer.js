@@ -8,106 +8,9 @@ import { Grid } from '../../node_modules/@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
-import $ from "jquery";
 import ConfirmDialog from "./ConfirmDialog";
 
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
-
-let canvas,time,x1,y1,x2,y2,imgUrl;
-
-function sendSelectedImg(){
-    $.ajax({
-        type: "post",
-        url: "http://localhost:8081/target/choose",
-        crossDomain: true,
-        dataType:"json",
-        data: {imgStream: imgUrl},
-        success: function (data) {
-            console.log(data);
-        },
-        error : function(data) {
-            console.log('error');
-        }
-    })
-}
-
-function currentFrameCanvas(){
-    let video = document.getElementById("video_id");
-    let ctx = canvas.getContext('2d');
-    canvas.width = 900;
-    canvas.height = 600;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-}
-
-function select(x1,y1,x2,y2){
-    currentFrameCanvas();
-    let ctx = canvas.getContext('2d');
-    ctx.strokeStyle="#0000ff";
-    ctx.lineWidth = 3;
-    ctx.rect(x1,y1,x2-x1,y2-y1);
-    ctx.stroke();
-    let cut = document.getElementById("canvasCut");
-    let cutContext = cut.getContext('2d');
-    cut.width = Math.abs(x2-x1);
-    cut.height = Math.abs(y2-y1);
-    cutContext.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
-    imgUrl = cut.toDataURL('image/png');
-}
-
-function getCurrentFrame() {
-    let player = document.getElementById('video_id');
-    console.log(player.currentTime);
-    screenShot();
-}
-
-function screenShot(){
-    canvas = document.getElementById('screenShot');
-    currentFrameCanvas();
-    let image = canvas.toDataURL('image/png');
-    $.ajax({
-        type: "post",
-        url: "http://localhost:8081/target/choose",
-        crossDomain: true,
-        dataType:"json",
-        data: {imgStream: image},
-        success: function (data) {
-            console.log(data);
-            for(let i in data.pictures) {
-                console.log(data.pictures[i].data);
-            }
-        },
-        error : function(data) {
-            console.log('error'+data);
-        }
-    })
-}
-
-function getEventPosition(ev){
-    let x, y;
-    if (ev.layerX || ev.layerX === 0) {
-        x = ev.layerX;
-        y = ev.layerY;
-    } else if (ev.offsetX || ev.offsetX === 0) {
-        x = ev.offsetX;
-        y = ev.offsetY;
-    }
-    return {x: x, y: y};
-}
-
-function selectObj(e){
-    if(time === 0) {
-        let p = getEventPosition(e);
-        x1 = p.x;
-        y1 = p.y;
-        time++;
-    } else {
-        let p = getEventPosition(e);
-        x2 = p.x;
-        y2 = p.y;
-        select(x1,y1,x2,y2);
-        time = 0;
-    }
-}
 
 function ifTarget(){
     let url = document.location.toString();
@@ -119,19 +22,6 @@ function ifTarget(){
     }
     return (relUrl==='trace-target');
 }
-
-function ifHistory(){
-    let url = document.location.toString();
-    let arrUrl = url.split("//");
-    let splitUrl = arrUrl[1].split("/");
-    let relUrl = splitUrl[1];
-
-    if(relUrl.indexOf("?") !== -1){
-        relUrl = relUrl.split("?")[0];
-    }
-    return (relUrl==='history-video');
-}
-
 
 class VideoPlayer extends React.Component {
     constructor(props){
