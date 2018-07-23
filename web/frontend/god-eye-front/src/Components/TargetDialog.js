@@ -1,7 +1,10 @@
 import React from 'react';
-import { Dialog, Grid, Typography } from '../../node_modules/@material-ui/core/es';
+//import { Dialog, Grid, Typography } from '@material-ui/core/es';
+import Dialog from '@material-ui/core/Dialog';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import $ from 'jquery';
-import { DialogContent } from '../../node_modules/@material-ui/core';
+import { DialogContent } from '@material-ui/core';
 
 class TargetDialog extends React.Component{
     constructor(props){

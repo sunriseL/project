@@ -79,10 +79,17 @@ const styles = theme => ({
 });
 
 class MainNav extends React.Component {
-    state = {
-        open: false,
-        anchor: 'left',
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            anchor: 'left',
+        };
+    }
+    // state = {
+    //     open: false,
+    //     anchor: 'left',
+    // };
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
