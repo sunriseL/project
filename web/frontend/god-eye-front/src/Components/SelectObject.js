@@ -15,13 +15,26 @@ function sendSelectedImg(){
         dataType:"json",
         data: {imgStream: imgUrl},
         success: function (data) {
-            console.log(data);
+            drawRoute(data);
         },
-        error : function(data) {
-            console.log('error');
+        error: function(err) {
+            console.log(err);
         }
     })
 }
+
+function drawRoute(data){
+    // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
+    // backend should return only (x, y) or similar array
+    let ctx = document.getElementById('lightCameraCanvas');
+    let ctxL = ctx.height;
+    let ctxW = ctx.width;
+    for(let i=0; i<data.length; i++){
+        ctx.arc(int(data[i].x), int(data[i].y), 1, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
 
 function currentFrameCanvas(){
     let video = document.getElementById("video_id");

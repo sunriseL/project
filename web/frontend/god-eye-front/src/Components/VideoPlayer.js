@@ -7,7 +7,7 @@ import '../App.css';
 import { Grid } from '@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
-import TargetDialog from './TargetDialog';
+// import TargetDialog from './TargetDialog';
 import ConfirmDialog from "./ConfirmDialog";
 
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
@@ -82,22 +82,22 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    <Grid item xs>
-                        <ConfirmDialog />
-                    </Grid>
                     {ifTarget() && <Grid item xs>
+                        <ConfirmDialog />
+                    </Grid>}
+                    {/* {ifTarget() && <Grid item xs>
                         <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
-                    </Grid> }
+                    </Grid> } */}
                 </Grid>
                 <CameraDialog
                     selectedValue={this.state.selectedValue}
                     open={this.state.cameraOpen}
                     onClose={this.handleClose}
                 />
-                <TargetDialog 
+                {/* <TargetDialog 
                     open={this.state.targetOpen} 
                     onClose={this.targetClose}
-                />
+                /> */}
             </Grid>
         </Paper>
         );

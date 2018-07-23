@@ -59,8 +59,12 @@ class TargetDialog extends React.Component{
 
     drawRoute(data){
         // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
+        let ctx = document.getElementById('lightCameraCanvas');
+        let ctxL = ctx.height;
+        let ctxW = ctx.width;
         for(let i=0; i<data.length; i++){
-            console.log(i);
+            ctx.arc(i.x * ctxW, i.y * ctxL, 1, 0, 2 * Math.PI);
+            ctx();
         }
     }
 
