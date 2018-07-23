@@ -29,4 +29,9 @@ highlight the chosen camera
 add camera & argv
 
 ### 2018/7/17
-debug:the bug of event emitter & canvas painting 
+debug:the bug of event emitter & canvas painting
+
+
+### 2018/7/20
+realize: cut the screenshot & communicate between frontend-backend-machineLearning server
+ready: test 

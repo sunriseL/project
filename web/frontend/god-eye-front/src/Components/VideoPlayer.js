@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import file1 from '../image/2.mp4';
 import '../App.css';
-import { Grid } from '../../node_modules/@material-ui/core';
+import { Grid } from '@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import TargetDialog from './TargetDialog';
