@@ -25,9 +25,13 @@ function sendSelectedImg(){
 
 function drawRoute(data){
     // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
-    
+    // backend should return only (x, y) or similar array
+    let ctx = document.getElementById('lightCameraCanvas');
+    let ctxL = ctx.height;
+    let ctxW = ctx.width;
     for(let i=0; i<data.length; i++){
-        console.log(i);
+        ctx.arc(int(data[i].x), int(data[i].y), 1, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 

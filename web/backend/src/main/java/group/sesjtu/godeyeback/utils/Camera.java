@@ -43,12 +43,12 @@ public class Camera {
 //                (sqrt(pow(a,2) + 1) * sin(verticalAngle / 2) * sin(beta) - cos(horizontalAngle / 2) * cos(beta)));
         P1.setX(cameraX - 0.1);
         P1.setY(cameraY - 0.1);
-        P2.setX(cameraX + 0.1);
-        P2.setY(cameraY - 0.1);
+        P2.setX(cameraX - 0.1);
+        P2.setY(cameraY + 0.1);
         P3.setX(cameraX + 0.1);
         P3.setY(cameraY + 0.1);
-        P4.setX(cameraX - 0.1);
-        P4.setY(cameraY + 0.1);
+        P4.setX(cameraX + 0.1);
+        P4.setY(cameraY - 0.1);
 
 
 
