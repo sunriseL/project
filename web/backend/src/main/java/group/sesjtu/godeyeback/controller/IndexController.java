@@ -1,15 +1,21 @@
 package group.sesjtu.godeyeback.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import group.sesjtu.godeyeback.config.GlobalConfig;
 import group.sesjtu.godeyeback.entity.Map;
 import group.sesjtu.godeyeback.service.MapService;
 import group.sesjtu.godeyeback.service.VideoService;
+import group.sesjtu.godeyeback.utils.Camera;
 import group.sesjtu.godeyeback.utils.HttpRequest;
+import group.sesjtu.godeyeback.utils.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -68,15 +74,18 @@ public class IndexController {
         return "add camera\nx:" + x+"\ny:"+y+"\nh:"+height+"\na:"+alpha+"\nb:"+beta;
     }
 
-
-
     @RequestMapping("/target/choose")
-    protected  String chooseTarget(@RequestParam("imgStream") String imgStream){
+    public  String chooseTarget(@RequestParam("imgStream") String imgStream){
         HttpRequest request = new HttpRequest();
         HashMap<String, String> map = new HashMap<>();
         map.put("imgStream", imgStream);
         String url = config.getMachineLearningServer() + config.getChooseApi();
-        return request.post(url, new Gson().toJson(map));
+        String ans = request.post(url, new Gson().toJson(map));
+        System.out.println(ans);
+        String camera = parseJsonByParam("camera",ans);
+        String x = parseJsonByParam("x",ans);
+        String y = parseJsonByParam("y",ans);
+        return generateTargetJson(camera,x,y);
     }
 
     @RequestMapping("/target/trace")
@@ -88,4 +97,18 @@ public class IndexController {
         return request.post(url, new Gson().toJson(map));
     }
 
+    public String parseJsonByParam(String para, String jsonStr){
+        JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();
+        return jsonObject.get(para).getAsString();
+    }
+
+    public String generateTargetJson(String camera, String x, String y){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("camera", camera);
+        Camera resultCamera = new Camera(0,0,0,0,0,0,0);
+        Point p = resultCamera.coordinateChange(new Point(Double.valueOf(x),Double.valueOf(y)));
+        map.put("x", Double.toString(p.getX()));
+        map.put("y", Double.toString(p.getY()));
+        return new Gson().toJson(map);
+    }
 }
