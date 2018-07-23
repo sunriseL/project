@@ -14,7 +14,7 @@ public class HttpRequestTest {
 
     HttpRequest request = new HttpRequest();
     final String testURL = "http://192.168.1.147:8000/api/test";
-    final String testURL1 = "http://59.78.46.173:8000/api/target/choose";
+    final String testURL1 = "http://59.78.46.173:8000/api/trace";
 
     @Test
     public void testGet(){

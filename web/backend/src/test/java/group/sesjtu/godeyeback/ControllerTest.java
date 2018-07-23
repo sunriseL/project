@@ -1,11 +1,7 @@
 package group.sesjtu.godeyeback;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import group.sesjtu.godeyeback.controller.IndexController;
-import group.sesjtu.godeyeback.utils.Camera;
-import group.sesjtu.godeyeback.utils.Point;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -28,16 +24,8 @@ public class ControllerTest {
     }
 
     @Test
-    public void testPointChange(){
-        Camera c = new Camera(0,0,0,0,0,0,0);
-      //  assertEquals(-0.1,c.coordinateChange(new Point(0,0)).getX());
-        assertSame(new Point(0.1,0.1), c.coordinateChange(new Point(1,1)));
-        assertEquals(new Point(0.0,0.0), c.coordinateChange(new Point(0.5,0.5)));
-    }
-
-    @Test
     public void testGenerateJson(){
-        String leftDown = con.generateTargetJson("camera1","0.3","0.7");
+        String leftDown = con.generateTargetJson("camera1","0.0","0.0");
         assertEquals("{\"x\":\"-0.1\",\"y\":\"-0.1\",\"camera\":\"camera1\"}",leftDown);
     }
 

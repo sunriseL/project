@@ -49,12 +49,7 @@ public class Camera {
         P3.setY(cameraY + 0.1);
         P4.setX(cameraX + 0.1);
         P4.setY(cameraY - 0.1);
-
-
-
     }
-
-
 
     // get a point from the ML part and change it into a point on the map
     public Point coordinateChange(Point MLPoint) {
