@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectObject/> SelectObject Component should be render 1`] = `"SelectObject"`;

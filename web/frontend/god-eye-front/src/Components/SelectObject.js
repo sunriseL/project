@@ -3,7 +3,7 @@ import '../App.css';
 import { Typography } from '../../node_modules/@material-ui/core';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
-import { Divider } from '../../node_modules/@material-ui/core/es';
+import { Divider } from '../../node_modules/@material-ui/core/Divider';
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 function sendSelectedImg(){
@@ -62,7 +62,6 @@ function select(x1,y1,x2,y2){
 
 function getCurrentFrame() {
     let player = document.getElementById('video_id');
-    console.log(player.currentTime);
     screenShot();
 }
 
