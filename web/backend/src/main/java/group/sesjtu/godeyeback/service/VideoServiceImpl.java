@@ -5,6 +5,7 @@ import group.sesjtu.godeyeback.dao.VideoDao;
 import group.sesjtu.godeyeback.entity.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -21,6 +22,10 @@ public class VideoServiceImpl implements VideoService {
 
     public String getVideo(String name){
         return videoRepo.findByName(name).getStr();
+    }
+
+    public long deleteVideo(String name){
+        return videoRepo.deleteByName(name);
     }
 
 }

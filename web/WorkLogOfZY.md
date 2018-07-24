@@ -35,3 +35,7 @@ debug:the bug of event emitter & canvas painting
 ### 2018/7/20
 realize: cut the screenshot & communicate between frontend-backend-machineLearning server
 ready: test 
+
+### 2018/7/23
+jest for react frontend 
+tests of backend's camera &point &json parser

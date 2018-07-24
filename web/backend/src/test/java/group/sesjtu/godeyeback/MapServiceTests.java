@@ -13,12 +13,9 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ApplicationTests {
+public class MapServiceTests {
     @Autowired
     MapService mapService ;
-	@Test
-	public void contextLoads() {
-	}
 
 	@Test
     public void hasMapTest(){
