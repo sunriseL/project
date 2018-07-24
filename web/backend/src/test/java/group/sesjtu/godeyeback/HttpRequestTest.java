@@ -1,27 +1,19 @@
 package group.sesjtu.godeyeback;
 
 import com.google.gson.Gson;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import group.sesjtu.godeyeback.controller.IndexController;
 import group.sesjtu.godeyeback.utils.HttpRequest;
 import org.junit.Test;
-
 import java.util.HashMap;
-
 import static org.junit.Assert.*;
 
 public class HttpRequestTest {
-    IndexController con  = new IndexController();
     HttpRequest request = new HttpRequest();
     final String testURL = "http://192.168.1.147:8000/api/test";
     final String testURL1 = "http://59.78.46.173:8000/api/trace";
 
     @Test
     public void testGet(){
-            String result = request.get(testURL);
+            String result = request.get(testURL1);
             assertEquals("get failed with " + result, "get success", result);
     }
 
@@ -30,18 +22,8 @@ public class HttpRequestTest {
             HashMap<String, Object> map = new HashMap();
             Object o = map.put("test", "test");
             final String jsonString = new Gson().toJson(map);
-            String result = request.post(testURL, jsonString);
-            assertEquals("post failed with "+result, jsonString, result);
-    }
-
-    @Test
-    public void testParseJsonArray(){
-        HashMap<String, Object> map = new HashMap();
-        Object o = map.put("imgStream", "data:base64,123");
-        final String jsonString = new Gson().toJson(map);
-        String response = request.post(testURL1, jsonString);
-        String parsedStr = con.parseJsonArray(response);
-        assertEquals("response", parsedStr, response);
+            String result = request.post(testURL1, jsonString);
+            assertNotNull("post", result);
     }
 
 }

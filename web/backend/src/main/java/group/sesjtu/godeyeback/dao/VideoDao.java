@@ -8,4 +8,6 @@ public interface VideoDao extends MongoRepository<Video, Integer> {
     Video findByName(String name);
 
     Video insert(Video p);
+
+    long deleteByName(String name);
 }
