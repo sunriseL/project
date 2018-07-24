@@ -32,6 +32,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.4.1",
     "jquery": "^3.3.1",
+    "react-addons-test-utils": "^15.6.2",
     "react-app-rewired": "^1.5.2",
     "react-test-renderer": "^16.4.1"
   },
@@ -40,5 +41,15 @@
     "plugins": [
       "transform-class-properties"
     ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/test/config/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   }
 }
