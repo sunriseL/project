@@ -3,6 +3,7 @@ package group.sesjtu.godeyeback.utils;
 import static java.lang.StrictMath.*;
 
 
+
 public class Camera {
     private double height, cameraX, cameraY, alpha, beta, horizontalAngle, verticalAngle;
     private double relX, relY;
@@ -49,12 +50,33 @@ public class Camera {
         P3.setY(cameraY + 0.1);
         P4.setX(cameraX + 0.1);
         P4.setY(cameraY - 0.1);
-
-
-
     }
 
+    public Camera(double height, double cameraX, double cameraY, double alpha, double beta){
+        // get parameters from user setting and initialize the camera
+        // this is method set hardware params to default ones
+        this.height = height;
+        this.cameraX = cameraX;
+        this.cameraY = cameraY;
+        this.alpha = alpha;
+        this.beta = beta;
+        this.horizontalAngle = PI / 3;
+        this.verticalAngle = PI / 4;
 
+        double a = sqrt(1 / (1 - pow(sin(horizontalAngle), 2) - pow(sin(verticalAngle), 2)) - 1);
+        double centerAngle = atan(sqrt(pow(relX, 2) + pow(relY, 2)) / height);
+    }
+
+    public Camera(){
+        // just for test
+        this.height = 10;
+        this.cameraX = 0;
+        this.cameraY = 0;
+        this.alpha = 0;
+        this.beta = 0;
+        this.horizontalAngle = PI / 4;
+        this.verticalAngle = PI / 4;
+    }
 
     // get a point from the ML part and change it into a point on the map
     public Point coordinateChange(Point MLPoint) {
