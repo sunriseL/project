@@ -4,13 +4,15 @@ import Typography from '../../node_modules/@material-ui/core/Typography';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
 import Divider from '../../node_modules/@material-ui/core/Divider';
+import VideoPlayer from "./VideoPlayer";
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
+
 function sendSelectedImg(){
-    console.log('sendSelectObject');
+    console.log('sendSelectedImg');
     $.ajax({
         type: "post",
-        url: "http://localhost:8081/target/choose",
+        url: "http://localhost:8081/target/trace",
         crossDomain: true,
         dataType:"json",
         data: {imgStream: imgUrl},
@@ -26,15 +28,30 @@ function sendSelectedImg(){
 function drawRoute(data){
     // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
     // backend should return only (x, y) or similar array
-    let ctx = document.getElementById('lightCameraCanvas');
-    let ctxL = ctx.height;
-    let ctxW = ctx.width;
-    for(let i = 0; i<data.length; i++){
-        ctx.arc((data[i].x)*ctxL, (data[i].y)*ctxW, 1, 0, Math.PI * 2);
-        ctx.fill();
+    console.log(data);
+    let c = document.getElementById('screenShot');
+    let ctx = c.getContext('2d');
+    let h = c.height;
+    let w = c.width;
+    for(let i = 0; i < data.length; i++){
+        console.log(data[i].x,data[i].y,data[i].time);
+        drawPoint(ctx, i, +data[i].x*w, +data[i].y*h,data[i].time);
     }
 }
 
+function drawPoint(ctx,i,x,y,time) {
+    setTimeout(function() {
+        ctx.beginPath();
+        ctx.arc(x, y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = 'red';
+        ctx.globalAlpha = 0.7;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.font = "10px Courier New";
+        ctx.fillText(time, x + 5, y);
+        ctx.fill();
+     }, 400 * i);
+}
 
 function currentFrameCanvas(){
     let video = document.getElementById("video_id");
@@ -58,34 +75,6 @@ function select(x1,y1,x2,y2){
     cut.height = Math.abs(y2-y1);
     cutContext.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
     imgUrl = cut.toDataURL('image/png');
-}
-
-// function getCurrentFrame() {
-//     let player = document.getElementById('video_id');
-//     screenShot();
-// }
-
-function getCurrentFrame(){
-    canvas = document.getElementById('screenShot');
-    currentFrameCanvas();
-    let image = canvas.toDataURL('image/png');
-    console.log('send screenshot');
-    $.ajax({
-        type: "post",
-        url: "http://localhost:8081/target/choose",
-        crossDomain: true,
-        dataType:"json",
-        data: {imgStream: image},
-        success: function (data) {
-            console.log(data);
-            for(let i in data.pictures) {
-                console.log(data.pictures[i].data);
-            }
-        },
-        error : function(data) {
-            console.log('error'+data);
-        }
-    })
 }
 
 function getEventPosition(ev){
@@ -123,7 +112,7 @@ class SelectObject extends React.Component {
             canvas.removeEventListener('click', selectObj, false);
             canvas.addEventListener('click', selectObj, false);
             }, 500);
-        getCurrentFrame();
+        currentFrameCanvas();
         emitter.removeAllListeners('sendSelectedImg');
         emitter.on('sendSelectedImg',sendSelectedImg);
     }
@@ -140,9 +129,11 @@ class SelectObject extends React.Component {
                         <Typography variant='display1'>截取图像如下</Typography>
                     </div>
                     <canvas id = "canvasCut" />
+                    <canvas id = "searchResult" />
+                    <VideoPlayer id = "checkVideo" />
                 </div>
             </div>
-        );
+        )
     }
 }
 

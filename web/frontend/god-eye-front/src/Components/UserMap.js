@@ -54,9 +54,9 @@ function lightCamera(cameraValue){
 function ifTarget(){
     let url = document.location.toString();
     let arrUrl = url.split("//");
-    let splitUrl = arrUrl[1].split("/");
+    let splitUrl = (arrUrl[1]||"").split("/");
     let relUrl = splitUrl[1];
-　　if(relUrl.indexOf("?") !== -1){
+　　if((relUrl||"").indexOf("?") !== -1){
         relUrl = relUrl.split("?")[0];
 　　}
 　　return (relUrl==='trace-target');

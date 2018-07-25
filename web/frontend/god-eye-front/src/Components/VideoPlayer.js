@@ -14,9 +14,9 @@ const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
 function ifTarget(){
     let url = document.location.toString();
     let arrUrl = url.split("//");
-    let splitUrl = arrUrl[1].split("/");
+    let splitUrl = (arrUrl[1]||"").split("/");
     let relUrl = splitUrl[1];
-    if(relUrl.indexOf("?") !== -1){
+    if((relUrl||"").indexOf("?") !== -1){
         relUrl = relUrl.split("?")[0];
     }
     return (relUrl==='trace-target');
@@ -81,12 +81,9 @@ class VideoPlayer extends React.Component {
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>
                     </Grid>
-                    {ifTarget() && <Grid item xs>
+                    {!ifTarget() && <Grid item xs>
                         <ConfirmDialog />
                     </Grid>}
-                    {/* {ifTarget() && <Grid item xs>
-                        <Button variant="contained" color='primary' onClick={this.chooseTarget} small>选定追踪对象</Button>
-                    </Grid> } */}
                 </Grid>
                 <CameraDialog
                     selectedValue={this.state.selectedValue}

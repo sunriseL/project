@@ -6,10 +6,8 @@ import HistoryVideoForm from "../Components/HistoryVideoForm"
 import TargetDialog from "../Components/TargetDialog";
 import DrawUserMap from "../Components/DrawUserMap";
 import Settings from "../Components/Settings";
-import renderer from 'react-test-renderer';
 import MainNav from "../Components/MainNav";
 import HistoryVideo from "../Components/HistoryVideo";
-import VideoPlayer from "../Components/VideoPlayer";
 import AddCamera from "../Components/AddCamera";
 import ConfirmDialog from "../Components/ConfirmDialog";
 import CurrentVideo from "../Components/CurrentVideo";
@@ -20,14 +18,59 @@ import EventEmitter from "../Utils/EventEmitter";
 import TestUtils from 'react-dom/test-utils';
 import jsdom from 'jsdom';
 import SelectObject from "../Components/SelectObject";
+import App from "../App";
+import {Canvas} from "jsdom/lib/jsdom/utils";
 
 if (typeof document === 'undefined') {
     global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
     global.window = document.defaultView;
     global.navigator = global.window.navigator;
+    global.localStorage = global.window.localStorage;
 }
 
 configure({ adapter: new Adapter() });
+
+let mock = (function() {
+    let store = {};
+    return {
+        getItem: function(key) {
+            return store[key];
+        },
+        setItem: function(key, value) {
+            store[key] = value.toString();
+        },
+        clear: function() {
+            store = {};
+        }
+    };
+})();
+
+Object.defineProperty(window, 'localStorage', {
+    value: mock,
+});
+
+const setupApp = () => {
+    const props = {
+        onAddClick: jest.fn()
+    };
+    const wrapper = shallow(<App {...props} />)
+    return {
+        props,
+        wrapper
+    }
+};
+
+describe('<App />', () => {
+    const { wrapper, props } = setupApp();
+    it('Component should be render', () => {
+        expect(wrapper.find('MainNav').exists());
+    });
+    it('render', () => {
+        const wrapper = render(<App />);
+        expect(wrapper.find('div')).toHaveLength(5);
+    });
+});
+
 
 describe('<HistoryVideoForm />', () => {
     it('Component should be render', () => {
@@ -98,6 +141,9 @@ describe('<HistoryVideo />', () => {
     it('Component should be render', () => {
         expect(shallow(<HistoryVideo />).find('Grid').exists());
     });
+    it('allows us to set props', () => {
+        const wrapper = mount(<HistoryVideo />);
+    });
    //mount
 });
 
@@ -130,8 +176,9 @@ describe('<ConfirmDialog />', () => {
 });
 
 // describe('<CurrentVideo />', () => {
-//    //mount
-//    //render
+//     it('allows us to set props', () => {
+//         const wrapper = mount(<CurrentVideo />);
+//     });
 // });
 
 describe('<TraceTarget />', () => {
@@ -145,7 +192,14 @@ describe('<UserMap />', () => {
     it('Component should be render', () => {
         expect(shallow(<UserMap />).find('Grid').exists());
     });
-    //mount render
+    it('allows us to set props', () => {
+        //const wrapperRender = render(<Canvas id="lightCameraCanvas" />);
+        const wrapperMount = mount(<Canvas id="lightCameraCanvas" />);
+        const wrapper = mount(<UserMap bar="baz"/>);
+        expect(wrapper.props().bar).toBe('baz');
+        wrapper.setProps({ bar: 'foo' });
+        expect(wrapper.props().bar).toBe('foo');
+    });
 });
 
 describe('<CameraDialog />', () => {
@@ -158,29 +212,16 @@ describe('<CameraDialog />', () => {
         wrapper.setProps({ bar: 'foo' });
         expect(wrapper.props().bar).toBe('foo');
     });
-    it('renders 1 title', () => {
+    it('render', () => {
         const wrapper = render(<CameraDialog />);
         expect(wrapper.find('ListItem')).toHaveLength(0);
     });
 });
 
-// describe('<SelectObject />', () => {
-//     it('renders ', () => {
-//         const wrapper = render(<SelectObject />);
-//         expect(wrapper.find('div')).toHaveLength(0);
-//     });
-// });
-
 describe('<SelectObject />', () => {
     it('render', () => {
         const wrapper = render(<SelectObject/>);
-        expect(wrapper.find('div')).toHaveLength(3);
+        expect(wrapper.find('div')).toHaveLength(10);
     });
-});
-
-describe('<EventEmitter />', () => {
-    it('renders ', () => {
-        const wrapper = render('EventEmitter');
-        expect(wrapper.find('div')).toHaveLength(0);
-    });
+   //mount getContext
 });

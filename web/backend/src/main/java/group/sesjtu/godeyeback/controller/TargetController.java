@@ -35,6 +35,7 @@ public class TargetController {
         map.put("imgStream", imgStream);
         String url = config.getMachineLearningServer() + config.getTraceApi();
         String response = request.post(url, new Gson().toJson(map));
+        System.out.println(response);
         return parseJsonArray(response);
     }
 
@@ -44,13 +45,15 @@ public class TargetController {
         JsonArray jsonAry = jsonObj.get("data").getAsJsonArray();
         for(JsonElement ele: jsonAry){
             JsonObject obj = ele.getAsJsonObject();
-            Camera resultCamera = new Camera(0,0,0,0,0,0,0);
-            Point p = resultCamera.coordinateChange(
-                    new Point(obj.get("x").getAsDouble(), obj.get("y").getAsDouble()));
+//            Camera resultCamera = new Camera(0,0,0,0,0,0,0);
+//            Point p = resultCamera.coordinateChange(
+//                    new Point(obj.get("x").getAsDouble(), obj.get("y").getAsDouble()));
             HashMap<String, String> map = new HashMap<>();
-            map.put("cameraid",obj.get("cameraid").toString());
-            map.put("x",Double.toString(p.getX()));
-            map.put("y",Double.toString(p.getY()));
+            map.put("x",obj.get("x").toString());
+            map.put("y",obj.get("y").toString());
+            map.put("time",Double.toString(obj.get("relative_time").getAsDouble()/1000));
+//            map.put("x",Double.toString(p.getX()));
+//            map.put("y",Double.toString(p.getY()));
             ansAry.add(new Gson().fromJson(new Gson().toJson(map),JsonObject.class));
         }
         return new Gson().toJson(ansAry);

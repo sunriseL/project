@@ -40,7 +40,7 @@ class ConfirmDialog extends React.Component {
     };
 
     handleConfirm = () => {
-        this.setState({ open: false });
+        //this.setState({ open: false });
         emitter.emit('sendSelectedImg');
     };
 
