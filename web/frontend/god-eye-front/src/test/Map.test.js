@@ -141,8 +141,9 @@ describe('<HistoryVideo />', () => {
     it('Component should be render', () => {
         expect(shallow(<HistoryVideo />).find('Grid').exists());
     });
-    it('allows us to set props', () => {
-        const wrapper = mount(<HistoryVideo />);
+    it('renders', () => {
+        const wrapper = render(<HistoryVideo />);
+        expect(wrapper.find('ListItem')).toHaveLength(0);
     });
    //mount
 });
@@ -157,7 +158,7 @@ describe('<AddCamera />', () => {
         wrapper.setProps({ bar: 'foo' });
         expect(wrapper.props().bar).toBe('foo');
     });
-    it('renders 1 title', () => {
+    it('renders', () => {
         const wrapper = render(<AddCamera />);
         expect(wrapper.find('ListItem')).toHaveLength(0);
     });
@@ -175,11 +176,13 @@ describe('<ConfirmDialog />', () => {
     });
 });
 
-// describe('<CurrentVideo />', () => {
-//     it('allows us to set props', () => {
-//         const wrapper = mount(<CurrentVideo />);
-//     });
-// });
+describe('<CurrentVideo />', () => {
+    it('render', () => {
+        const wrapper = render(<CurrentVideo/>);
+        expect(wrapper.find('div')).toHaveLength(12);
+    });
+
+});
 
 describe('<TraceTarget />', () => {
     it('Component should be render', () => {
@@ -192,14 +195,7 @@ describe('<UserMap />', () => {
     it('Component should be render', () => {
         expect(shallow(<UserMap />).find('Grid').exists());
     });
-    it('allows us to set props', () => {
-        //const wrapperRender = render(<Canvas id="lightCameraCanvas" />);
-        const wrapperMount = mount(<Canvas id="lightCameraCanvas" />);
-        const wrapper = mount(<UserMap bar="baz"/>);
-        expect(wrapper.props().bar).toBe('baz');
-        wrapper.setProps({ bar: 'foo' });
-        expect(wrapper.props().bar).toBe('foo');
-    });
+   //mount
 });
 
 describe('<CameraDialog />', () => {
@@ -225,3 +221,5 @@ describe('<SelectObject />', () => {
     });
    //mount getContext
 });
+
+

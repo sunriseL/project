@@ -18,13 +18,11 @@ import TraceTarget from "./TraceTarget";
 import HistoryVideo from "./HistoryVideo";
 import Settings from "./Settings";
 import CurrentVideo from "./CurrentVideo.js";
-import Test from "./Test";
 import Restore from '../../node_modules/@material-ui/icons/Restore';
 import Videocam from '@material-ui/icons/Videocam';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
 import Divider from '../../node_modules/@material-ui/core/Divider';
-
 
 const drawerWidth = 300;
 
@@ -174,7 +172,6 @@ class MainNav extends React.Component {
                             <Route exact path="/history-video" component={ HistoryVideo } />
                             <Route exact path="/trace-target"  component={ TraceTarget } />
                             <Route exact path="/settings"  component={ Settings } />
-                            <Route exact path="/test"  component={ Test } />
                         </Switch>
                         </div>
                     </main>
