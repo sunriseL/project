@@ -9,9 +9,9 @@ import json
 import numpy as np
 import tensorflow as tf
 from sklearn.metrics import average_precision_score
-from aggregators import AGGREGATORS
-import common
-import loss
+from triplet_reid.aggregators import AGGREGATORS
+import triplet_reid.common
+import triplet_reid.loss
 
 def flip_augment(image, fid, pid):
     """ Returns both the original and the horizontal flip of an image. """
@@ -206,7 +206,7 @@ def main(dataset='data/query.csv',image_root=None,experiment_root='/home/sunrise
     '''
     with h5py.File(args.gallery_embeddings, 'r') as f_gallery:
         gallery_embs = np.array(f_gallery['emb'])
-    
+
     query_embs = emb_storage
     # Just a quick sanity check that both have the same embedding dimension!
     query_dim = query_embs.shape[1]
@@ -269,6 +269,6 @@ def main(dataset='data/query.csv',image_root=None,experiment_root='/home/sunrise
                 print(distances[i])
                 print(np.argsort(distances[i]))
                 print(gallery_fids[np.argsort(distances[i])[0]])
- 
+
 
 main()

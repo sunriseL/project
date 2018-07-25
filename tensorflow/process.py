@@ -18,7 +18,7 @@ import random
 
 
 
-def main(video_name="1.mp4",image_root="object_detection/test_image",query_num=50,csv_path='triplet_reid/data'):
+def main(video_name="3.mp4",image_root="object_detection/test_image",query_num=50,csv_path='triplet_reid/data'):
     files = os.walk(image_root)
     for f in files:
         if f[0] == image_root:

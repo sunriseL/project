@@ -1,7 +1,7 @@
 #coding:utf-8
 import numpy as np
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import six.moves.urllib as urllib
 import sys
 import tarfile
@@ -19,9 +19,9 @@ from PIL import Image
 # This is needed since the notebook is stored in the object_detection folder.
 sys.path.append("..")
 
-from utils import label_map_util
+from object_detection.utils import label_map_util
 
-from utils import visualization_utils as vis_util
+from object_detection.utils import visualization_utils as vis_util
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
@@ -46,7 +46,7 @@ for file in tar_file.getmembers():
   if 'frozen_inference_graph.pb' in file_name:
     tar_file.extract(file, os.getcwd())
 
-#Load a (frozen) Tensorflow model into memory.    
+#Load a (frozen) Tensorflow model into memory.
 detection_graph = tf.Graph()
 with detection_graph.as_default():
   od_graph_def = tf.GraphDef()
@@ -54,7 +54,7 @@ with detection_graph.as_default():
     serialized_graph = fid.read()
     od_graph_def.ParseFromString(serialized_graph)
     tf.import_graph_def(od_graph_def, name='')
-#Loading label map    
+#Loading label map
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
 category_index = label_map_util.create_category_index(categories)
@@ -124,8 +124,8 @@ with detection_graph.as_default():
       plt.show()
       print "picture"
 '''
-
-cap = cv2.VideoCapture('3.mp4')
+video_name = "4.mp4"
+cap = cv2.VideoCapture(video_name)
 with detection_graph.as_default():
      with tf.Session(graph=detection_graph) as sess:
            i = 0
@@ -133,15 +133,16 @@ with detection_graph.as_default():
               start = time.clock()
               # 按帧读视
               ret, frame = cap.read()
+              #print(cap.get(0),cap.get(1),cap.get(2))
               if cv2.waitKey(1) & 0xFF == ord('q'):
                  break
               image_np = frame
               height = len(image_np)
               width = len(image_np[0])
               #print height, width
-              if i % 4 != 0:
-                  i += 1
-                  continue
+              #if i % 4 != 0:
+              #    i += 1
+              #    continue
               image_np_expanded = np.expand_dims(image_np, axis=0)
               image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
               boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
@@ -153,7 +154,7 @@ with detection_graph.as_default():
                 [boxes, scores, classes, num_detections],
                 feed_dict={image_tensor: image_np_expanded})
               ymin, xmin, ymax, xmax = boxes[0][0]
-              ymin = int(ymin * height) 
+              ymin = int(ymin * height)
               xmin = int(xmin * width)
               ymax = int(ymax * height)
               xmax = int(xmax * width)
@@ -167,12 +168,12 @@ with detection_graph.as_default():
                       #print class_name
                       if class_name == 'person':
                           ymin, xmin, ymax, xmax = boxes[0][index]
-                          ymin = int(ymin * height) 
+                          ymin = int(ymin * height)
                           xmin = int(xmin * width)
                           ymax = int(ymax * height)
                           xmax = int(xmax * width)
                           out_image = image_np[ymin:ymax, xmin:xmax]
-                          cv2.imwrite('test_image/' + str(i) + '-' + str(j) + '.jpg',out_image)
+                          cv2.imwrite('test_image/' + video_name.replace('.','_') + '-' + str(int(cap.get(0))) + '-' + str(j) + '.jpg',out_image)
                           j += 1
               # print boxes
               # vis_util.visualize_boxes_and_labels_on_image_array(
@@ -196,4 +197,3 @@ with detection_graph.as_default():
 # 释放捕捉的对象和内存
 cap.release()
 cv2.destroyAllWindows()
-

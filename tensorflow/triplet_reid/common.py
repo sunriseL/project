@@ -117,7 +117,7 @@ def load_dataset(csv_file, image_root, fail_on_missing=True):
         IOError if any one file is missing and `fail_on_missing` is True.
     """
     dataset = np.genfromtxt(csv_file, delimiter=',', dtype='|U')
-    pids, fids = dataset.T
+    pids, fids,ms,xmins,xmaxs,ymins,ymaxs = dataset.T
     #print(fids)
     #print(type(fids))
     if type(fids) == np.str_:
@@ -125,7 +125,7 @@ def load_dataset(csv_file, image_root, fail_on_missing=True):
         fids = [fids,]
     #print(fids)
     #print(pids)
-    
+
 
     # Possibly check if all files exist
     if image_root is not None:
@@ -146,13 +146,15 @@ def load_dataset(csv_file, image_root, fail_on_missing=True):
                 fids = fids[np.logical_not(missing)]
                 pids = pids[np.logical_not(missing)]
 
-    return pids, fids
+    return pids, fids,ms,xmins,xmaxs,ymins,ymaxs
 
 
 def fid_to_image(fid, pid, image_root, image_size):
     """ Loads and resizes an image given by FID. Pass-through the PID. """
     # Since there is no symbolic path.join, we just add a '/' to be sure.
     image_encoded = tf.read_file(tf.reduce_join([image_root, '/', fid]))
+    print(image_encoded)
+    print(type(image_encoded))
 
     # tf.image.decode_image doesn't set the shape, not even the dimensionality,
     # because it potentially loads animated .gif files. Instead, we use either
@@ -164,6 +166,22 @@ def fid_to_image(fid, pid, image_root, image_size):
 
     return image_resized, fid, pid
 
+def byte_to_image(image, image_size,pid="1",fid="1.jpg"):
+    """ Loads and resizes an image given by FID. Pass-through the PID. """
+    # Since there is no symbolic path.join, we just add a '/' to be sure.
+    #image_encoded = tf.read_file(tf.reduce_join([image_root, '/', fid]))
+    #print(image_encoded)
+    #print(type(image_encoded))
+
+    # tf.image.decode_image doesn't set the shape, not even the dimensionality,
+    # because it potentially loads animated .gif files. Instead, we use either
+    # decode_jpeg or decode_png, each of which can decode both.
+    # Sounds ridiculous, but is true:
+    # https://github.com/tensorflow/tensorflow/issues/9356#issuecomment-309144064
+    image_decoded = tf.image.decode_jpeg(image, channels=3)
+    image_resized = tf.image.resize_images(image_decoded, image_size)
+
+    return image_resized, fid, pid
 
 def get_logging_dict(name):
     return {
