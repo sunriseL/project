@@ -58,7 +58,7 @@ class HistoryVideoForm extends React.Component {
                         )}
                     </FormItem>
                 </Grid>
-                <Grid xs={3}>
+                <Grid item xs={3}>
                     <FormItem>
                     <Button  variant="contained" size="small" onClick={this.handleClick} style={{width:"78%", left:"4%", margin:"6%"}}>
                         <SaveIcon />

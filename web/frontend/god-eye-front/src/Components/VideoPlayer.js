@@ -7,7 +7,6 @@ import '../App.css';
 import { Grid } from '@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
-// import TargetDialog from './TargetDialog';
 import ConfirmDialog from "./ConfirmDialog";
 
 const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import CameraDialog from "./CameraDialog";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Paper from "@material-ui/core/es/Paper/Paper";
+import Paper from "@material-ui/core/Paper";
 import file1 from '../image/2.mp4';
 import emitter from "../Utils/EventEmitter";
 

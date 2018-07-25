@@ -23,7 +23,7 @@ import Restore from '../../node_modules/@material-ui/icons/Restore';
 import Videocam from '@material-ui/icons/Videocam';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
-import { Divider } from '../../node_modules/@material-ui/core/es';
+import Divider from '../../node_modules/@material-ui/core/Divider';
 
 
 const drawerWidth = 300;

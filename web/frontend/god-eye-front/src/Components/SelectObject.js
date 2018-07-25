@@ -1,9 +1,9 @@
 import React from 'react';
 import '../App.css';
-import { Typography } from '../../node_modules/@material-ui/core';
+import Typography from '../../node_modules/@material-ui/core/Typography';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
-import { Divider } from '../../node_modules/@material-ui/core/Divider';
+import Divider from '../../node_modules/@material-ui/core/Divider';
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 function sendSelectedImg(){
@@ -29,8 +29,8 @@ function drawRoute(data){
     let ctx = document.getElementById('lightCameraCanvas');
     let ctxL = ctx.height;
     let ctxW = ctx.width;
-    for(let i=0; i<data.length; i++){
-        ctx.arc(int(data[i].x), int(data[i].y), 1, 0, Math.PI * 2);
+    for(let i = 0; i<data.length; i++){
+        ctx.arc((data[i].x)*ctxL, (data[i].y)*ctxW, 1, 0, Math.PI * 2);
         ctx.fill();
     }
 }
@@ -60,12 +60,12 @@ function select(x1,y1,x2,y2){
     imgUrl = cut.toDataURL('image/png');
 }
 
-function getCurrentFrame() {
-    let player = document.getElementById('video_id');
-    screenShot();
-}
+// function getCurrentFrame() {
+//     let player = document.getElementById('video_id');
+//     screenShot();
+// }
 
-function screenShot(){
+function getCurrentFrame(){
     canvas = document.getElementById('screenShot');
     currentFrameCanvas();
     let image = canvas.toDataURL('image/png');
