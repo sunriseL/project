@@ -1,5 +1,4 @@
 import React from 'react';
-//import { Dialog, Grid, Typography } from '@material-ui/core/es';
 import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
