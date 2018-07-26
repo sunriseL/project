@@ -4,7 +4,7 @@ import Typography from '../../node_modules/@material-ui/core/Typography';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
 import Divider from '../../node_modules/@material-ui/core/Divider';
-import file from '../image/2.mp4';
+// import file from '../image/2.mp4';
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 
@@ -114,7 +114,7 @@ class SelectObject extends React.Component {
     componentDidMount(){
         canvas = document.getElementById('screenShot');
         let video = document.getElementById('checkVideo');
-        video.src = file;
+        video.src = '';
         time = 0;
         window.setTimeout(function () {
             canvas.removeEventListener('click', selectObj, false);

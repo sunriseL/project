@@ -5,10 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-// import '../App.css';
 import $ from "jquery";
 import { Grid, Input } from '../../node_modules/@material-ui/core';
-// import './UserMap.css';
 import emitter from '../Utils/EventEmitter';
 
 const styles = {
