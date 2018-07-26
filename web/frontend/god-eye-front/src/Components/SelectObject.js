@@ -6,15 +6,15 @@ import emitter from "../Utils/EventEmitter";
 import Divider from '../../node_modules/@material-ui/core/Divider';
 import file from '../image/2.mp4';
 
-
-let canvas,time,x1,y1,x2,y2,imgUrl,interval;
+let canvas,time,x1,y1,x2,y2,imgUrl;
 
 function sendSelectedImg(){
-    console.log(imgUrl);
+    console.log('sendSelectedImg');
     $.ajax({
         type: "post",
         url: "http://localhost:8081/target/trace",
         crossDomain: true,
+        async: false,
         dataType:"json",
         data: {imgStream: imgUrl},
         success: function (data) {
@@ -37,21 +37,26 @@ function drawRoute(data){
     for(let i = 0; i < data.length; i++){
         drawPoint(ctx, i, +data[i].x*w, +data[i].y*h,data[i].time);
     }
-    window.clearInterval(interval);
 }
 
 function drawPoint(ctx,i,x,y,time) {
-    let t = setTimeout(function() {
-        let v = document.getElementById("checkVideo");
+    setTimeout(function() {
+        let video = document.getElementById("checkVideo");
         canvas = document.getElementById('screenShot');
-        v.currentTime = time;
-        ctx.drawImage(v, 0, 0, 900, 600);
-        ctx.strokeStyle="#0000ff";
-        ctx.lineWidth = 3;
-        ctx.rect(x,y-240,160,240);
-        ctx.stroke();
-        }, 500 * i);
-    clearTimeout(t);
+        video.currentTime = time;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+     }, 1200 * i);
+    setTimeout(function() {
+        // let video = document.getElementById("checkVideo");
+        // canvas = document.getElementById('screenShot');
+        // video.currentTime = time;
+        // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // ctx.beginPath();
+        // ctx.strokeStyle="#0000ff";
+        // ctx.lineWidth = 3;
+        // ctx.rect(x,y-240,160,240);
+        // ctx.stroke();
+    }, 660 * i);
 }
 
 function currentFrameCanvas(){

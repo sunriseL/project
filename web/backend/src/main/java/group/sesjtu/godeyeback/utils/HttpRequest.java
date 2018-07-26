@@ -6,6 +6,8 @@ import okhttp3.*;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 /*
  * This is a utility to process http request
  * Based on OkHttp3,
@@ -18,7 +20,11 @@ import java.io.IOException;
  * String result = new HttpRequest().post(String destinationUrl, String JsonString);
  */
 public class HttpRequest {
-    OkHttpClient client = new OkHttpClient();
+    //OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
     public static final MediaType JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
 
     public String get(String url){

@@ -34,7 +34,7 @@ public class TargetController {
         map.put("imgStream", imgStream);
         String url = config.getMachineLearningServer() + config.getTraceApi();
         String response = request.post(url, new Gson().toJson(map));
-        //System.out.println(response);
+        System.out.println(response);
         return parseJsonArray(response);
     }
 
