@@ -100,7 +100,13 @@ class UserMap extends React.Component{
             alt='无法显示图片'
             />;
             mapCanvas = <canvas id="lightCameraCanvas" width={mapInstance.width}
-                        height={mapInstance.height} margin={mapInstance.margin} />;
+                        height={mapInstance.height} margin={mapInstance.margin} style={{ 
+                            position: 'absolute',
+                            display:'block',
+                            zIndex: 2,
+                            left: '2.9%',
+                            top: '2.9%',
+                            margin: '2.5%'}}/>;
         }
     
         return (

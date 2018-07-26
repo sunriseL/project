@@ -52,7 +52,7 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="App">
+            <div className="App" style={{textAlign: 'center'}}>
                 <MainNav />
                 <Videocam id='cam-icon-light' fill='red' hidden/>
                 <Videocam id='cam-icon' fill='blue' hidden/>
