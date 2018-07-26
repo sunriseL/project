@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MapServiceImpl implements MapService {
     @Autowired
     private MapDao mapRepo;
-    private Map currentMap = new Map();
+    //private Map currentMap = new Map();
 
     public void addMap(String name, String bin){
         Map newMap = new Map();

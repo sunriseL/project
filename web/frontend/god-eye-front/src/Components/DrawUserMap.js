@@ -5,10 +5,10 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import '../App.css';
+// import '../App.css';
 import $ from "jquery";
 import { Grid, Input } from '../../node_modules/@material-ui/core';
-import './UserMap.css';
+// import './UserMap.css';
 import emitter from '../Utils/EventEmitter';
 
 const styles = {
@@ -196,15 +196,35 @@ class DrawUserMap extends React.Component{
                                 margin="normal"
                         />
                     </Grid>
-                    <Grid id="control-grid" item xs={2} className="control-grid">
-                        <input type="file"  id="image" onChange={() => select()} />
-                        <Button variant="contained" color="primary" >选择文件</Button>
+                    <Grid id="control-grid" item xs={2} className="control-grid" style={{position: 'relative'}}>
+                        <input type="file"  id="image" onChange={() => select()} style={{
+                                width: '40%',
+                                height: '80%',
+                                position: 'absolute',
+                                top: '20%',
+                                left: '10%',
+                                zIndex: 2,
+                                opacity: 0,
+                        }} />
+                        <Button variant="contained" color="primary" style={{
+                                width: '40%',
+                                position: 'absolute',
+                                top: '25%',
+                                left: '10%',
+                                zIndex: 1,
+                        }} >选择文件</Button>
                     </Grid>
                     <Grid item xs={2}>
                         <Input style={{top:'25%'}} id="map-path" value="文件路径" disabled/>
                     </Grid>
                     <Grid item xs={2} className='control-grid' style={{position:'relative'}}>
-                        <Button variant="contained" color="primary" onClick = {() => this.upload()}>上传地图</Button>
+                        <Button variant="contained" color="primary" style={{
+                                width: '40%',
+                                position: 'absolute',
+                                top: '25%',
+                                left: '10%',
+                                zIndex: 1,
+                        }} onClick = {() => this.upload()}>上传地图</Button>
                     </Grid>
                 </Grid>
             </Card>

@@ -11,7 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import blue from '@material-ui/core/colors/blue';
 import PropTypes from 'prop-types';
-import '../App.css';
+// import '../App.css';
 
 const styles = {
     avatar: {

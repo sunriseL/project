@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import SelectObject from "./SelectObject";
-import '../App.css';
+// import '../App.css';
 import emitter from "../Utils/EventEmitter";
 
 const styles = {

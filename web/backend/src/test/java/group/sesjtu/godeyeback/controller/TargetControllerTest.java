@@ -51,11 +51,11 @@ public class TargetControllerTest {
         assertEquals("{\"x\":\"-0.1\",\"y\":\"-0.1\",\"camera\":\"camera1\"}",leftDown);
     }
 
-    @Test
-    public void chooseTarget() throws Exception {
-        mockMvc.perform(post("/target/choose").param("imgStream", "123"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void chooseTarget() throws Exception {
+//        mockMvc.perform(post("/target/choose").param("imgStream", "123"))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     public void traceTarget() throws Exception {
