@@ -6,15 +6,16 @@ import emitter from "../Utils/EventEmitter";
 import Divider from '../../node_modules/@material-ui/core/Divider';
 import file from '../image/2.mp4';
 
-let canvas,time,x1,y1,x2,y2,imgUrl;
-
+let canvas,canvas1,time,x1,y1,x2,y2,imgUrl;
+const width=900;
+const height=600;
 function sendSelectedImg(){
     console.log('sendSelectedImg');
     $.ajax({
         type: "post",
         url: "http://localhost:8081/target/trace",
         crossDomain: true,
-        async: false,
+        //async: false,
         dataType:"json",
         data: {imgStream: imgUrl},
         success: function (data) {
@@ -30,33 +31,25 @@ function drawRoute(data){
     // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
     // backend should return only (x, y) or similar array
     console.log(data);
-    let c = document.getElementById('screenShot');
-    let ctx = c.getContext('2d');
-    let h = c.height;
-    let w = c.width;
     for(let i = 0; i < data.length; i++){
-        drawPoint(ctx, i, +data[i].x*w, +data[i].y*h,data[i].time);
+        drawPoint(i, +data[i].x*width, +data[i].y*height,data[i].time);
     }
 }
 
-function drawPoint(ctx,i,x,y,time) {
+function drawPoint(i,x,y,time) {
     setTimeout(function() {
-        let video = document.getElementById("checkVideo");
-        canvas = document.getElementById('screenShot');
-        video.currentTime = time;
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-     }, 1200 * i);
-    setTimeout(function() {
-        // let video = document.getElementById("checkVideo");
-        // canvas = document.getElementById('screenShot');
-        // video.currentTime = time;
-        // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        // ctx.beginPath();
-        // ctx.strokeStyle="#0000ff";
-        // ctx.lineWidth = 3;
-        // ctx.rect(x,y-240,160,240);
-        // ctx.stroke();
-    }, 660 * i);
+        console.log(x,y);
+        let c = document.getElementById('searchResult');
+        let ctx = c.getContext('2d');
+        document.getElementById("checkVideo").currentTime = time;
+        c.height = height;
+        c.width = width;
+        setTimeout(function() {
+        ctx.strokeStyle="#0000ff";
+        ctx.lineWidth = 3;
+        ctx.rect(x-40,y-Math.abs(y2-y1),Math.abs(x2-x1),Math.abs(y2-y1));
+        ctx.stroke()},300);
+     }, 550 * i);
 }
 
 function currentFrameCanvas(){
@@ -66,6 +59,10 @@ function currentFrameCanvas(){
     canvas.width = 900;
     canvas.height = 600;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    let c = document.getElementById('searchResult');
+    c.height = height;
+    c.width = width;
+    c.getContext('2d').drawImage(video, 0, 0, c.width, c.height);
 }
 
 function select(x1,y1,x2,y2){
@@ -76,10 +73,9 @@ function select(x1,y1,x2,y2){
     ctx.rect(x1,y1,x2-x1,y2-y1);
     ctx.stroke();
     let cut = document.getElementById("canvasCut");
-    let cutContext = cut.getContext('2d');
     cut.width = Math.abs(x2-x1);
     cut.height = Math.abs(y2-y1);
-    cutContext.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
+    cut.getContext('2d').drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
     imgUrl = cut.toDataURL('image/png');
 }
 
@@ -137,8 +133,12 @@ class SelectObject extends React.Component {
                         <Typography variant='display1'>截取图像如下</Typography>
                     </div>
                     <canvas id = "canvasCut" />
-                    <canvas id = "searchResult" />
-                    <video id = "checkVideo" style={{margin: '1%'}} controls preload={true}/>
+                    <div className='centerDiv'style={{position:'relative' }}>
+                        <Typography variant='display1'>追踪结果如下</Typography>
+                        <canvas id = "searchResult"
+                                style={{margin: '1%', width:900,height:600, position:'absolute' }} />
+                        <video id = "checkVideo" style={{margin: '1%',width:900,height:600}} controls preload={true}/>
+                    </div>
                 </div>
             </div>
         )

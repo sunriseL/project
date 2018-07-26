@@ -25,7 +25,6 @@ import ZoomOutMap from '@material-ui/icons/ZoomOutMap';
 import Divider from '../../node_modules/@material-ui/core/Divider';
 
 const drawerWidth = 300;
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -84,10 +83,6 @@ class MainNav extends React.Component {
             anchor: 'left',
         };
     }
-    // state = {
-    //     open: false,
-    //     anchor: 'left',
-    // };
 
     handleDrawerOpen = () => {
         this.setState({ open: true });

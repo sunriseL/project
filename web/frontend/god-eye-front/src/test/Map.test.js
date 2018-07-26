@@ -3,7 +3,6 @@ import { shallow ,render, mount} from 'enzyme'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import HistoryVideoForm from "../Components/HistoryVideoForm"
-import TargetDialog from "../Components/TargetDialog";
 import DrawUserMap from "../Components/DrawUserMap";
 import Settings from "../Components/Settings";
 import MainNav from "../Components/MainNav";
@@ -14,12 +13,10 @@ import CurrentVideo from "../Components/CurrentVideo";
 import TraceTarget from "../Components/TraceTarget";
 import UserMap from "../Components/UserMap";
 import CameraDialog from "../Components/CameraDialog";
-import EventEmitter from "../Utils/EventEmitter";
-import TestUtils from 'react-dom/test-utils';
 import jsdom from 'jsdom';
 import SelectObject from "../Components/SelectObject";
 import App from "../App";
-import {Canvas} from "jsdom/lib/jsdom/utils";
+import VideoPlayer from "../Components/VideoPlayer";
 
 if (typeof document === 'undefined') {
     global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
@@ -53,7 +50,7 @@ const setupApp = () => {
     const props = {
         onAddClick: jest.fn()
     };
-    const wrapper = shallow(<App {...props} />)
+    const wrapper = shallow(<App {...props} />);
     return {
         props,
         wrapper
@@ -71,7 +68,6 @@ describe('<App />', () => {
     });
 });
 
-
 describe('<HistoryVideoForm />', () => {
     it('Component should be render', () => {
         expect(shallow(<HistoryVideoForm />).find('Grid').exists());
@@ -88,42 +84,20 @@ describe('<HistoryVideoForm />', () => {
     });
 });
 
-describe('<TargetDialog />', () => {
-    it('Component should be render', () => {
-        expect(shallow(<TargetDialog />).find('Dialog').exists());
-    });
-    it('allows us to set props', () => {
-        const wrapper = mount(<TargetDialog bar="baz"/>);
-        expect(wrapper.props().bar).toBe('baz');
-        wrapper.setProps({ bar: 'foo' });
-        expect(wrapper.props().bar).toBe('foo');
-    });
-    it('render 0 div', () => {
-        const wrapper = render(<TargetDialog />);
-        expect(wrapper.find('div')).toHaveLength(0);
-    });
-});
-
 describe('<DrawUserMap />', () => {
+    const props = {
+        onAddClick: jest.fn()
+    };
+    const wrapper = shallow(<DrawUserMap {...props} />);
     it('Component should be render', () => {
-        expect(shallow(<DrawUserMap />).find('Grid').exists());
+        expect(wrapper.find('Grid').exists());
     });
-    it('allows us to set props', () => {
-        const wrapper = mount(<TargetDialog bar="baz"/>);
-        expect(wrapper.props().bar).toBe('baz');
-        wrapper.setProps({ bar: 'foo' });
-        expect(wrapper.props().bar).toBe('foo');
-    });
-});
-
-describe('<Settings />', () => {
-    it('DrawUserMap Component should be render', () => {
-        expect(shallow(<Settings />).find('BreadCrumb').exists());
+   //mount
+    it('renders', () => {
+        const wrapper = render(<DrawUserMap />);
+        expect(wrapper.find('ListItem')).toHaveLength(0);
     });
 });
-
-// describe('<VideoPlayer />', () => {
-// });
 
 describe('<MainNav />', () => {
     it('Component should be render', () => {
@@ -137,58 +111,47 @@ describe('<MainNav />', () => {
     });
 });
 
-describe('<HistoryVideo />', () => {
-    it('Component should be render', () => {
-        expect(shallow(<HistoryVideo />).find('Grid').exists());
-    });
-    it('renders', () => {
-        const wrapper = render(<HistoryVideo />);
-        expect(wrapper.find('ListItem')).toHaveLength(0);
-    });
-   //mount
-});
-
 describe('<AddCamera />', () => {
     it('Component should be render', () => {
         expect(shallow(<AddCamera />).find('Grid').exists());
     });
-    it('allows us to set props', () => {
-        const wrapper = mount(<AddCamera bar="baz"/>);
-        expect(wrapper.props().bar).toBe('baz');
-        wrapper.setProps({ bar: 'foo' });
-        expect(wrapper.props().bar).toBe('foo');
-    });
-    it('renders', () => {
-        const wrapper = render(<AddCamera />);
-        expect(wrapper.find('ListItem')).toHaveLength(0);
-    });
+    // it('allows us to set props', () => {
+    //     const wrapper = mount(<AddCamera />);
+    //     wrapper.find('.handleBack').simulate('click');
+    //     expect(wrapper.handleBack().toBeCalled());
+    //  });
 });
 
 describe('<ConfirmDialog />', () => {
     it('Component should be render', () => {
         expect(shallow(<ConfirmDialog />).find('Grid').exists());
     });
-    it('allows us to set props', () => {
-        const wrapper = mount(<ConfirmDialog bar="baz"/>);
-        expect(wrapper.props().bar).toBe('baz');
-        wrapper.setProps({ bar: 'foo' });
-        expect(wrapper.props().bar).toBe('foo');
-    });
 });
 
 describe('<CurrentVideo />', () => {
+    //shallow media
     it('render', () => {
         const wrapper = render(<CurrentVideo/>);
         expect(wrapper.find('div')).toHaveLength(12);
     });
-
 });
 
 describe('<TraceTarget />', () => {
     it('Component should be render', () => {
         expect(shallow(<TraceTarget />).find('Grid').exists());
     });
-   //mount
+});
+
+describe('<HistoryVideo />', () => {
+    it('Component should be render', () => {
+        expect(shallow(<HistoryVideo />).find('Grid').exists());
+    });
+});
+
+describe('<Settings />', () => {
+    it('DrawUserMap Component should be render', () => {
+        expect(shallow(<Settings />).find('BreadCrumb').exists());
+    });
 });
 
 describe('<UserMap />', () => {
@@ -203,23 +166,23 @@ describe('<CameraDialog />', () => {
         expect(shallow(<CameraDialog />).find('Grid').exists());
     });
     it('allows us to set props', () => {
-        const wrapper = mount(<CameraDialog bar="baz"/>);
-        expect(wrapper.props().bar).toBe('baz');
-        wrapper.setProps({ bar: 'foo' });
-        expect(wrapper.props().bar).toBe('foo');
-    });
-    it('render', () => {
-        const wrapper = render(<CameraDialog />);
-        expect(wrapper.find('ListItem')).toHaveLength(0);
+        mount(<CameraDialog />);
     });
 });
 
 describe('<SelectObject />', () => {
     it('render', () => {
         const wrapper = render(<SelectObject/>);
-        expect(wrapper.find('div')).toHaveLength(10);
+        expect(wrapper.find('canvas').length).not.toBe(0);
     });
-   //mount getContext
+   //mount getContext/render video.src
 });
 
-
+describe('<VideoPlayer />', () => {
+    it('allows us to set props', () => {
+        mount(<VideoPlayer/>);
+    });
+    it('Component should be render', () => {
+        expect(shallow(<VideoPlayer />).find('Grid').exists());
+    });
+});

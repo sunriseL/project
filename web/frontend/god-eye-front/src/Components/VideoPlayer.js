@@ -77,7 +77,7 @@ class VideoPlayer extends React.Component {
                 </video>
                 <Grid container spacing={24}>
                     <Grid item xs>
-                        <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button>
+                        <Button variant="contained" onClick={this.handleClickOpen}>选择摄像头</Button>
                     </Grid>
                     <Grid item xs>
                         <Typography variant="subheading">当前摄像头: {this.state.selectedValue}</Typography>

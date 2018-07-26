@@ -5,10 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-// import '../App.css';
 import $ from "jquery";
 import { Grid, Input } from '../../node_modules/@material-ui/core';
-// import './UserMap.css';
 import emitter from '../Utils/EventEmitter';
 
 const styles = {
@@ -121,11 +119,8 @@ class DrawUserMap extends React.Component{
             alert("您的浏览器不支持FileReader,请使用Chrome访问本应用");
             return;
         }
-
         let reader = new FileReader();
-        try{
-            reader.readAsDataURL(file);
-        }catch(e){
+        try{reader.readAsDataURL(file);}catch(e){
             alert("请选择图片");
             return;
         }
@@ -175,7 +170,7 @@ class DrawUserMap extends React.Component{
         let mapInstantce = <div>Loading</div>;
 
         if(!(localStorage.getItem('ifDBEmpty')==='true')){
-            mapInstantce = <canvas id="canvas" ></canvas>
+            mapInstantce = <canvas id="canvas" />
         }
 
         return (

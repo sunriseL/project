@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class HttpRequest {
     //OkHttpClient client = new OkHttpClient();
     OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
                 .build();
     public static final MediaType JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
 

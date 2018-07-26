@@ -6,7 +6,6 @@ import UserMap from './UserMap';
 
 
 class TraceTarget extends React.Component {
-
     render(){
         return(
             <Grid>

@@ -240,7 +240,7 @@ class AddCamera extends React.Component {
                 </ExpansionPanelDetails>
                 <ExpansionPanelActions>
                     {this.state.activeStep !== steps.length && 
-                        <Button
+                        <Button className="handleBack"
                         disabled={activeStep === 0}
                         onClick={this.handleBack}
                         >
