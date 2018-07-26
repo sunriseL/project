@@ -115,11 +115,6 @@ describe('<AddCamera />', () => {
     it('Component should be render', () => {
         expect(shallow(<AddCamera />).find('Grid').exists());
     });
-    // it('allows us to set props', () => {
-    //     const wrapper = mount(<AddCamera />);
-    //     wrapper.find('.handleBack').simulate('click');
-    //     expect(wrapper.handleBack().toBeCalled());
-    //  });
 });
 
 describe('<ConfirmDialog />', () => {

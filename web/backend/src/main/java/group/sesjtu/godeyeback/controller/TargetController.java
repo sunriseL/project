@@ -49,6 +49,7 @@ public class TargetController {
             HashMap<String, String> map = new HashMap<>();
             map.put("x",obj.get("x").toString());
             map.put("y",obj.get("y").toString());
+            map.put("cameraid",obj.get("cameraid").toString());
             map.put("time",Double.toString(obj.get("relative_time").getAsDouble()/1000));
 //            map.put("x",Double.toString(p.getX()));
 //            map.put("y",Double.toString(p.getY()));
