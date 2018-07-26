@@ -23,6 +23,7 @@ public class HttpRequest {
     //OkHttpClient client = new OkHttpClient();
     OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
                 .build();
     public static final MediaType JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
 
