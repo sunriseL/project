@@ -4,7 +4,8 @@ import Typography from '../../node_modules/@material-ui/core/Typography';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
 import Divider from '../../node_modules/@material-ui/core/Divider';
-import VideoPlayer from "./VideoPlayer";
+import file from '../image/2.mp4';
+
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
 
@@ -34,23 +35,31 @@ function drawRoute(data){
     let h = c.height;
     let w = c.width;
     for(let i = 0; i < data.length; i++){
-        console.log(data[i].x,data[i].y,data[i].time);
         drawPoint(ctx, i, +data[i].x*w, +data[i].y*h,data[i].time);
     }
 }
 
 function drawPoint(ctx,i,x,y,time) {
+  //  setTimeout(function() {
+        let v = document.getElementById("checkVideo");
+        canvas = document.getElementById('screenShot');
+        v.currentTime = time;
+        let t = window.setInterval(function() {
+            ctx.drawImage(v, 0, 0, 900, 600);
+        }, 500);
+ //    }, 500 * i);
     setTimeout(function() {
-        ctx.beginPath();
-        ctx.arc(x, y, 10, 0, Math.PI * 2);
-        ctx.fillStyle = 'red';
-        ctx.globalAlpha = 0.7;
-        ctx.fill();
-        ctx.beginPath();
-        ctx.font = "10px Courier New";
-        ctx.fillText(time, x + 5, y);
-        ctx.fill();
-     }, 400 * i);
+        // let video = document.getElementById("checkVideo");
+        // canvas = document.getElementById('screenShot');
+        // video.currentTime = time;
+        // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // ctx.beginPath();
+        ctx.strokeStyle="#0000ff";
+        ctx.lineWidth = 3;
+        ctx.rect(x,y-240,160,240);
+        ctx.stroke();
+        window.clearInterval(t);
+    }, 500 * i);
 }
 
 function currentFrameCanvas(){
@@ -107,6 +116,8 @@ function selectObj(e){
 class SelectObject extends React.Component {
     componentDidMount(){
         canvas = document.getElementById('screenShot');
+        let video = document.getElementById('checkVideo');
+        video.src = file;
         time = 0;
         window.setTimeout(function () {
             canvas.removeEventListener('click', selectObj, false);
@@ -121,7 +132,7 @@ class SelectObject extends React.Component {
         return(
             <div>
                 <div className="centerDiv">
-                        <canvas id="screenShot" style={{margin: '1%'}} />
+                    <canvas id="screenShot" style={{margin: '1%'}} />
                 </div>
                 <div className="centerDiv" style={{alignContent: 'center'}}>
                     <Divider />
@@ -130,7 +141,7 @@ class SelectObject extends React.Component {
                     </div>
                     <canvas id = "canvasCut" />
                     <canvas id = "searchResult" />
-                    <VideoPlayer id = "checkVideo" />
+                    <video id = "checkVideo" style={{margin: '1%'}} controls preload={true}/>
                 </div>
             </div>
         )

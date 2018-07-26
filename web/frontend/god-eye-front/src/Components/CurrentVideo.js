@@ -10,8 +10,8 @@ import file1 from '../image/2.mp4';
 import emitter from "../Utils/EventEmitter";
 
 let video;
-//const camera = ['camera1', 'camera2','camera3'];
 const videoList = {'camera1':file1, 'camera2':file1, 'camera3':file1};
+//const videoList = {'camera1':'', 'camera2':'', 'camera3':''};
 
 function getUserMedia(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){

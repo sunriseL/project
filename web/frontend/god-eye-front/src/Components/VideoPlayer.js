@@ -2,14 +2,15 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import file1 from '../image/2.mp4';
+import file from '../image/2.mp4';
 import '../App.css';
 import { Grid } from '@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import ConfirmDialog from "./ConfirmDialog";
 
-const video = {'camera1':file1, 'camera2':file1, 'camera3':file1};
+const video = {'camera1':file, 'camera2':file, 'camera3':file};
+//const video = {'camera1':'', 'camera2':'', 'camera3':''};
 
 function ifTarget(){
     let url = document.location.toString();
@@ -26,7 +27,7 @@ class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: file1,
+            videoLink: file,
             catchTime: 0,
             cameraOpen: false,
             targetOpen: false,
@@ -65,7 +66,7 @@ class VideoPlayer extends React.Component {
         return(
         <Paper  elevation={1} style={{margin: "1%"}} square='true'>
             <Grid>
-                <video id="video_id" style={ this.style } controls="controls" preload={false}>
+                <video id="video_id" style={ this.style } controls="controls" preload={true}>
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 
                     <source src= { this.state['videoLink'] } type="video/ogg" /> 
                     <source src= { this.state['videoLink'] } type="video/webm" />
@@ -90,10 +91,6 @@ class VideoPlayer extends React.Component {
                     open={this.state.cameraOpen}
                     onClose={this.handleClose}
                 />
-                {/* <TargetDialog 
-                    open={this.state.targetOpen} 
-                    onClose={this.targetClose}
-                /> */}
             </Grid>
         </Paper>
         );
