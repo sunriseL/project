@@ -21,7 +21,7 @@ public class MapServiceImpl implements MapService {
         mapRepo.save(newMap);
         defaultMap.setStr(bin);
         mapRepo.save(defaultMap);
-        System.out.println("add map: "+name);
+        System.out.println("add map: "+ name );
     }
 
     public Map getMap(String name){

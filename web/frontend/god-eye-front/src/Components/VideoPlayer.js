@@ -2,15 +2,15 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-//import file1 from '../image/2.mp4';
+import file from '../image/2.mp4';
 // import '../App.css';
 import { Grid } from '@material-ui/core';
 import CameraDialog from "./CameraDialog";
 import emitter from "../Utils/EventEmitter";
 import ConfirmDialog from "./ConfirmDialog";
 
-//const video = {'camera1':file, 'camera2':file, 'camera3':file};
-const video = {'camera1':'', 'camera2':'', 'camera3':''};
+const video = {'camera1':file, 'camera2':file, 'camera3':file};
+//const video = {'camera1':'', 'camera2':'', 'camera3':''};
 
 function ifTarget(){
     let url = document.location.toString();
