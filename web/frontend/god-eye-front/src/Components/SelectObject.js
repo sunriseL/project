@@ -4,17 +4,17 @@ import Typography from '../../node_modules/@material-ui/core/Typography';
 import $ from "jquery";
 import emitter from "../Utils/EventEmitter";
 import Divider from '../../node_modules/@material-ui/core/Divider';
-// import file from '../image/2.mp4';
 
 let canvas,time,x1,y1,x2,y2,imgUrl;
-
+const width = 900;
+const height = 600;
 function sendSelectedImg(){
     console.log('sendSelectedImg');
     $.ajax({
         type: "post",
         url: "http://localhost:8081/target/trace",
         crossDomain: true,
-        async: false,
+        //async: false,
         dataType:"json",
         data: {imgStream: imgUrl},
         success: function (data) {
@@ -30,42 +30,42 @@ function drawRoute(data){
     // data should be formatted as JSONArray as [{cameraId: , x: , y: , relativeTime: , absoluteTime , }]
     // backend should return only (x, y) or similar array
     console.log(data);
-    let c = document.getElementById('screenShot');
-    let ctx = c.getContext('2d');
-    let h = c.height;
-    let w = c.width;
     for(let i = 0; i < data.length; i++){
-        drawPoint(ctx, i, +data[i].x*w, +data[i].y*h,data[i].time);
+        drawPoint(i, +data[i].x*width, +data[i].y*height,data[i].time,data[i].cameraid);
     }
 }
 
-function drawPoint(ctx,i,x,y,time) {
+function getCustomTime(t,cameraId){
+    let intT = Math.round(t);
+    let min = Math.floor(+intT/60);
+    let sec = +intT % 60;
+    return "camera"+cameraId+":  "+min+" 分 "+sec+" 秒";
+}
+
+function drawPoint(i,x,y,time,camera) {
     setTimeout(function() {
-        let video = document.getElementById("checkVideo");
-        canvas = document.getElementById('screenShot');
-        video.currentTime = time;
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-     }, 1200 * i);
-    setTimeout(function() {
-        // let video = document.getElementById("checkVideo");
-        // canvas = document.getElementById('screenShot');
-        // video.currentTime = time;
-        // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        // ctx.beginPath();
-        // ctx.strokeStyle="#0000ff";
-        // ctx.lineWidth = 3;
-        // ctx.rect(x,y-240,160,240);
-        // ctx.stroke();
-    }, 660 * i);
+        let c = document.getElementById('searchResult');
+        let ctx = c.getContext('2d');
+        document.getElementById("checkVideo").currentTime = time;
+        setTimeout(function(){
+            c.height = height;
+            c.width = width;
+            ctx.font = "30px Arial";
+            ctx.fillText(getCustomTime(time,camera),30,30);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle="#0000ff";
+            ctx.rect(x-40,y-Math.abs(y2-y1)+30,Math.abs(x2-x1),Math.abs(y2-y1)*0.9);
+            ctx.stroke();
+        });
+     }, 1000 * i);
 }
 
 function currentFrameCanvas(){
     let video = document.getElementById("video_id");
     canvas = document.getElementById('screenShot');
-    let ctx = canvas.getContext('2d');
-    canvas.width = 900;
-    canvas.height = 600;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 }
 
 function select(x1,y1,x2,y2){
@@ -76,10 +76,9 @@ function select(x1,y1,x2,y2){
     ctx.rect(x1,y1,x2-x1,y2-y1);
     ctx.stroke();
     let cut = document.getElementById("canvasCut");
-    let cutContext = cut.getContext('2d');
     cut.width = Math.abs(x2-x1);
     cut.height = Math.abs(y2-y1);
-    cutContext.drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
+    cut.getContext('2d').drawImage(canvas,x1,y1,x2-x1,y2-y1,0,0,Math.abs(x2-x1),Math.abs(y2-y1));
     imgUrl = cut.toDataURL('image/png');
 }
 
@@ -112,9 +111,10 @@ function selectObj(e){
 
 class SelectObject extends React.Component {
     componentDidMount(){
+        document.getElementById("video_id").pause();
         canvas = document.getElementById('screenShot');
         let video = document.getElementById('checkVideo');
-        video.src = '';
+        video.src = document.getElementById("video_id").src;
         time = 0;
         window.setTimeout(function () {
             canvas.removeEventListener('click', selectObj, false);
@@ -128,17 +128,23 @@ class SelectObject extends React.Component {
     render(){
         return(
             <div>
-                <div className="centerDiv">
+                <div style={{textAlign:'center'}}>
                     <canvas id="screenShot" style={{margin: '1%'}} />
                 </div>
-                <div className="centerDiv" style={{alignContent: 'center'}}>
+                <div style={{alignContent: 'center',textAlign:'center'}}>
                     <Divider />
-                    <div className='centerDiv'>
+                    <div style={{margin:'auto 0'}}>
                         <Typography variant='display1'>截取图像如下</Typography>
                     </div>
-                    <canvas id = "canvasCut" />
-                    <canvas id = "searchResult" />
-                    <video id = "checkVideo" style={{margin: '1%'}} controls preload={true}/>
+                    <canvas id = "canvasCut" style={{textAlign:'center'}}/>
+                    <Divider />
+                    <div style={{position:'relative',textAlign:'center'}}>
+                        <Typography variant='display1'>追踪结果如下</Typography>
+                        <canvas id = "searchResult"
+                                style={{margin: '1%', width:900,height:600, position:'absolute' }} />
+                        <video id = "checkVideo"
+                               style={{margin: '1%',width:900,height:600}} preload={true}/>
+                    </div>
                 </div>
             </div>
         )

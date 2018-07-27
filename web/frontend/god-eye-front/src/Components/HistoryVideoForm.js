@@ -16,7 +16,6 @@ class HistoryVideoForm extends React.Component {
         if (err) {
             return;
         }
-
         // Should format date value before submit.
         const rangeTimeValue = fieldsValue['range-time-picker'];
         const values = {
@@ -40,7 +39,7 @@ class HistoryVideoForm extends React.Component {
         })
         // Commit time data to server here
         });
-    }
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;

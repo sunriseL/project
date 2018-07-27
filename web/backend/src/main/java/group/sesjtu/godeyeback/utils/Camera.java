@@ -78,8 +78,6 @@ public class Camera {
         this.verticalAngle = PI / 4;
     }
 
-    
-
     // get a point from the ML part and change it into a point on the map
     public Point coordinateChange(Point MLPoint) {
         // ML Point's X and Y will range from 0-1, as a percentage of the max width and height
@@ -92,7 +90,6 @@ public class Camera {
         double resultX = (1 - MLY) * downX + MLY * upX;
         double resultY = (1 - MLY) * downY + MLY * upY;
         Point resPoint = new Point(resultX, resultY);
-
         return resPoint;
     }
 

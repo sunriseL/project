@@ -119,11 +119,8 @@ class DrawUserMap extends React.Component{
             alert("您的浏览器不支持FileReader,请使用Chrome访问本应用");
             return;
         }
-
         let reader = new FileReader();
-        try{
-            reader.readAsDataURL(file);
-        }catch(e){
+        try{reader.readAsDataURL(file);}catch(e){
             alert("请选择图片");
             return;
         }
@@ -173,7 +170,7 @@ class DrawUserMap extends React.Component{
         let mapInstantce = <div>Loading</div>;
 
         if(!(localStorage.getItem('ifDBEmpty')==='true')){
-            mapInstantce = <canvas id="canvas" ></canvas>
+            mapInstantce = <canvas id="canvas" />
         }
 
         return (

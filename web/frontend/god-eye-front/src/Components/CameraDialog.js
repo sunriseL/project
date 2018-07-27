@@ -38,7 +38,7 @@ class CameraDialog extends React.Component {
                 <div>
                     <List>
                         {camera.map(camera => (
-                            <ListItem button onClick={() => this.handleListItemClick(camera)} key={camera}>
+                            <ListItem button className="item1" onClick={() => this.handleListItemClick(camera)} key={camera}>
                                 <ListItemAvatar>
                                     <Avatar className={classes.avatar}>
                                         <PersonIcon />
