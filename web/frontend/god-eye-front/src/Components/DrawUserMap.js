@@ -33,6 +33,9 @@ function svgToImg(svgTag){
 }
 
 function drawCamera(x, y){
+    if(localStorage.getItem('ifDBEmpty')!=='false'){
+        return;
+    }
     clearCanvas();
     x *= c.width;
     y *= c.height;
@@ -41,6 +44,9 @@ function drawCamera(x, y){
 }
 
 function drawAlpha(x,y,alpha){
+    if(localStorage.getItem('ifDBEmpty')!=='false'){
+        return;
+    }
     clearCanvas();
     ctx.beginPath();
     drawCamera(x, y);
@@ -111,7 +117,7 @@ class DrawUserMap extends React.Component{
 
     componentWillUpdate(){
         img.src = this.state['map_bin'];
-        img.onload=function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
+        img.onload = function(){ctx.drawImage(img, 0, 0, c.width, c.height)};
     }
 
     getBase64(file, cb){

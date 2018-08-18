@@ -9,7 +9,6 @@ import emitter from "../Utils/EventEmitter";
 import ConfirmDialog from "./ConfirmDialog";
 
 const video = {'camera1':file, 'camera2':file, 'camera3':file};
-//const video = {'camera1':'', 'camera2':'', 'camera3':''};
 
 function ifTarget(){
     let url = document.location.toString();
@@ -26,11 +25,11 @@ class VideoPlayer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            videoLink: '',
+            videoLink: file,//may get the link from mongodb
             catchTime: 0,
             cameraOpen: false,
             targetOpen: false,
-            selectedValue: localStorage.getItem('selectedCamera'),
+            selectedValue: localStorage.getItem('selectedCamera')||'camera1',
         };
         this.style = {
             height: "94%",
@@ -63,9 +62,9 @@ class VideoPlayer extends React.Component {
     
     render(){
         return(
-        <Paper  elevation={1} style={{margin: "1%"}} square='true'>
+        <Paper  elevation={1} style={{margin: "1%"}} square={true}>
             <Grid>
-                <video id="video_id" style={ this.style } controls="controls" preload={true}>
+                <video id="video_id" style={ this.style } controls preload="true">
                     <source src= { this.state['videoLink'] } type="video/mp4" /> 
                     <source src= { this.state['videoLink'] } type="video/ogg" /> 
                     <source src= { this.state['videoLink'] } type="video/webm" />

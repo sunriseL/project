@@ -88,7 +88,7 @@ class CurrentVideo extends React.Component {
                     </Grid>
                     <Grid item xs>
                         <Paper style={{margin:"1%", height:"98%"}} square={true}>
-                            <video id="currentVideo" width="640" height="480" autoplay controls></video>
+                            <video id="currentVideo" width="640" height="480" autoPlay controls />
                         <Grid container spacing={24}>
                             <Grid item xs>
                                 <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button></Grid>

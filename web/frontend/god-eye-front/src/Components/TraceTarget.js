@@ -17,7 +17,7 @@ class TraceTarget extends React.Component {
                         </Breadcrumb>
                     </Grid>
                 </Grid>
-                <Grid container xs={12} spacing={8}>
+                <Grid container item xs={12} spacing={8}>
                     <Grid item xs={6}>
                         <UserMap />
                     </Grid>
