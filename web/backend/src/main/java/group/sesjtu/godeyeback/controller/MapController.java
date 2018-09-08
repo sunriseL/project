@@ -38,4 +38,5 @@ public class MapController {
     public int hasMap(){
         return mapService.hasMap();
     }
+
 }
