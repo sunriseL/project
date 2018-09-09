@@ -5,6 +5,8 @@ import group.sesjtu.godeyeback.config.GlobalConfig;
 import group.sesjtu.godeyeback.utils.Camera;
 import group.sesjtu.godeyeback.utils.HttpRequest;
 import group.sesjtu.godeyeback.utils.Point;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,31 +14,45 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This class handles the interaction between the frontend and the target server
+ */
 @CrossOrigin("http://localhost:3000")
 @RestController
 public class TargetController {
     @Autowired
     GlobalConfig config;
+    private Logger log = LogManager.getLogger(TargetController.class.getName());
 
-//    @RequestMapping("/target/choose")
-//    public  String chooseTarget(@RequestParam("imgStream") String imgStream){
-//        HttpRequest request = new HttpRequest();
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("imgStream", imgStream);
-//        String url = config.getMachineLearningServer() + config.getChooseApi();
-//        return request.post(url, new Gson().toJson(map));
-//    }
-
+    /**
+     * This method sends the target posted by frontend to the target server and
+     * returns the response back to the frontend
+     * @param imgStream The imgStream posted by frontend
+     * @return The response of the target-tracing server
+     */
     @RequestMapping("/target/trace")
     public String traceTarget(@RequestParam("imgStream") String imgStream) {
         HttpRequest request = new HttpRequest();
         HashMap<String, String> map = new HashMap<>();
         map.put("imgStream", imgStream);
         String url = config.getMachineLearningServer() + config.getTraceApi();
-        String response = request.post(url, new Gson().toJson(map));
+        String response = "abc";
+        try {
+            response = request.post(url, new Gson().toJson(map));
+            log.info("Trace the target");
+            System.out.println(response);
+        }catch(Exception e){
+            log.error(e);
+            log.error(response);
+        }
         return parseJsonArray(response);
     }
 
+    /**
+     * This method parses the jsonArray posted by the target server to String
+     * @param response The response from the target server
+     * @return String of response
+     */
     public String parseJsonArray(String response){
         List<JsonObject> ansAry = new ArrayList<>();
         JsonObject jsonObj = new Gson().fromJson(response, JsonObject.class);

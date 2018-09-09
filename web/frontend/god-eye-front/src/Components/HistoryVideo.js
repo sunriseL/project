@@ -25,7 +25,7 @@ class HistoryVideo extends React.Component {
                             </Breadcrumb>
                         </Grid>
                     </Grid>
-                    <Grid container xs={12} spacing={24}>
+                    <Grid container item xs={12} spacing={24}>
                         <Grid item xs={6} style={{position:'relative'}}>
                             <UserMap />
                         </Grid>

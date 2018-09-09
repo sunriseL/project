@@ -6,12 +6,11 @@ import CameraDialog from "./CameraDialog";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from "@material-ui/core/Paper";
-//import file1 from '../image/2.mp4';
+import file from '../image/2.mp4';
 import emitter from "../Utils/EventEmitter";
 
 let video;
-//const videoList = {'camera1':file1, 'camera2':file1, 'camera3':file1};
-const videoList = {'camera1':'', 'camera2':'', 'camera3':''};
+const videoList = {'camera1':file, 'camera2':file, 'camera3':file};
 
 function getUserMedia(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){
@@ -88,7 +87,7 @@ class CurrentVideo extends React.Component {
                     </Grid>
                     <Grid item xs>
                         <Paper style={{margin:"1%", height:"98%"}} square={true}>
-                            <video id="currentVideo" width="640" height="480" autoplay controls></video>
+                            <video id="currentVideo" width="640" height="480" autoPlay controls />
                         <Grid container spacing={24}>
                             <Grid item xs>
                                 <Button variant="contained"  onClick={this.handleClickOpen}>选择摄像头</Button></Grid>

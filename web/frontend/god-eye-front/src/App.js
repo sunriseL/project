@@ -3,6 +3,7 @@ import './App.css';
 import MainNav from './Components/MainNav';
 import $ from 'jquery';
 import Videocam from '@material-ui/icons/Videocam';
+require('babel-polyfill');
 
 class App extends Component {
     ifDBEmpty(){
