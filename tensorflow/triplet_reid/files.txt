@@ -1,2 +1,0 @@
-../Market/bounding_box_test/-1_c1s1_016051_02.jpg
-../Market/bounding_box_test/-1_c1s1_016051_03.jpg
