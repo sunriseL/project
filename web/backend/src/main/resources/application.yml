@@ -1,0 +1,11 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    mongodb:
+      database: GEDB
+      uri: mongodb+srv://root:root@godeyedb-8emuv.gcp.mongodb.net

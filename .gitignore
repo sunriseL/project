@@ -1,3 +1,4 @@
+### Machine Learning ###
 model/*
 __pycache__
 tensorflow/object_detection/test_image/*
@@ -19,5 +20,10 @@ ssd_mobilenet_v1_coco_2017_11_17.tar.gz
 ssd_mobilenet_v1_coco_2017_11_17/*
 *.npz
 
+### IDE ###
+.vscode/
+.idea/
 
+### Test Report ###
+web/backend/testReport/
 
