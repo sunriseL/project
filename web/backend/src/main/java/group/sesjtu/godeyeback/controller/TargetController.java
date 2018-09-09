@@ -5,6 +5,8 @@ import group.sesjtu.godeyeback.config.GlobalConfig;
 import group.sesjtu.godeyeback.utils.Camera;
 import group.sesjtu.godeyeback.utils.HttpRequest;
 import group.sesjtu.godeyeback.utils.Point;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +19,7 @@ import java.util.List;
 public class TargetController {
     @Autowired
     GlobalConfig config;
-
-//    @RequestMapping("/target/choose")
-//    public  String chooseTarget(@RequestParam("imgStream") String imgStream){
-//        HttpRequest request = new HttpRequest();
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("imgStream", imgStream);
-//        String url = config.getMachineLearningServer() + config.getChooseApi();
-//        return request.post(url, new Gson().toJson(map));
-//    }
+    private Logger log = LogManager.getLogger(TargetController.class.getName());
 
     @RequestMapping("/target/trace")
     public String traceTarget(@RequestParam("imgStream") String imgStream) {
@@ -34,6 +28,7 @@ public class TargetController {
         map.put("imgStream", imgStream);
         String url = config.getMachineLearningServer() + config.getTraceApi();
         String response = request.post(url, new Gson().toJson(map));
+        log.info("Trace the target, success");
         return parseJsonArray(response);
     }
 

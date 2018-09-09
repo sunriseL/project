@@ -6,12 +6,11 @@ import CameraDialog from "./CameraDialog";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from "@material-ui/core/Paper";
-//import file1 from '../image/2.mp4';
+import file from '../image/2.mp4';
 import emitter from "../Utils/EventEmitter";
 
 let video;
-//const videoList = {'camera1':file1, 'camera2':file1, 'camera3':file1};
-const videoList = {'camera1':'', 'camera2':'', 'camera3':''};
+const videoList = {'camera1':file, 'camera2':file, 'camera3':file};
 
 function getUserMedia(constraints,success,error) {
     if(navigator.mediaDevices.getUserMedia){

@@ -10,6 +10,11 @@ import Input from '@material-ui/core/Input';
 import $ from 'jquery';
 import emitter from '../Utils/EventEmitter';
 
+/**
+ * return the instruction according to stepIndex
+ * @param stepIndex
+ * @returns {string}
+ */
 function getInstruction(stepIndex) {
     switch (stepIndex) {
         case 0:

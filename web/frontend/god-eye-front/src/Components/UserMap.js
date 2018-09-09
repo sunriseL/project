@@ -20,12 +20,14 @@ const styles = {
 let c, ctx;
 let cameraPosition=[];
 
+//initialize an array of 3 cameras
 function initCamera() {
     cameraPosition.push({camera: 'camera1', _x: 0.6, _y: 0.4});
     cameraPosition.push({camera: 'camera2', _x: 0.5, _y: 0.7});
     cameraPosition.push({camera: 'camera3', _x: 0.3, _y: 0.3});
 }
 
+//highlight the current camera
 function lightCamera(cameraValue){
     c = document.getElementById('lightCameraCanvas');
     ctx = c.getContext('2d');
@@ -50,6 +52,7 @@ function lightCamera(cameraValue){
     }
 }
 
+//judge whether the current page is the trace-target page
 function ifTarget(){
     let url = document.location.toString();
     let arrUrl = url.split("//");

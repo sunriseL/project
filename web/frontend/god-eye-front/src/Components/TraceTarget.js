@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import VideoPlayer from './VideoPlayer';
 import UserMap from './UserMap';
 
-
 class TraceTarget extends React.Component {
     render(){
         return(

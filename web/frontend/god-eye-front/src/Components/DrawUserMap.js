@@ -21,10 +21,13 @@ const styles = {
 };
 
 let c,ctx,img;
-function select(){
+
+//save the image to local storage
+function saveImg(){
     document.getElementById('map-path').value = document.getElementById('image').value;
 }
 
+//transform the camera svg to HTMLImage Element
 function svgToImg(svgTag){
     let svg_xml = (new XMLSerializer()).serializeToString(svgTag);
     let img = new Image();
@@ -32,6 +35,7 @@ function svgToImg(svgTag){
     return img;
 }
 
+//draw a camera on the canvas when user clicks (x,y)
 function drawCamera(x, y){
     if(localStorage.getItem('ifDBEmpty')!=='false'){
         return;
@@ -43,6 +47,7 @@ function drawCamera(x, y){
     svg.onload = function(){ ctx.drawImage(svg, x-25, y-25, 50, 50) };
 }
 
+//draw a segment to show the direction of camera
 function drawAlpha(x,y,alpha){
     if(localStorage.getItem('ifDBEmpty')!=='false'){
         return;
@@ -59,6 +64,7 @@ function drawAlpha(x,y,alpha){
     ctx.stroke();
 }
 
+//clear the canvas
 function clearCanvas () {
     c = document.getElementById('canvas');
     ctx = c.getContext('2d');
@@ -78,6 +84,7 @@ function getEventPosition(ev){
     return {x: x, y: y};
 }
 
+//get the event position and emit the signal
 function clickCanvas(e){
     let p = getEventPosition(e);
     emitter.emit('canvasClick', {
@@ -86,6 +93,7 @@ function clickCanvas(e){
     });
 }
 
+//initialize emitters to catch user's operation
 function initEmitter(){
     c.removeEventListener('click', clickCanvas, false);
     c.addEventListener('click', clickCanvas, false);
@@ -198,7 +206,7 @@ class DrawUserMap extends React.Component{
                         />
                     </Grid>
                     <Grid id="control-grid" item xs={2} className="control-grid" style={{position: 'relative'}}>
-                        <input type="file"  id="image" onChange={() => select()} style={{
+                        <input type="file"  id="image" onChange={() => saveImg()} style={{
                                 width: '40%',
                                 height: '80%',
                                 position: 'absolute',

@@ -24,10 +24,12 @@ public class VideoServiceImpl implements VideoService {
     }
 
     public String getVideo(String name){
+        log.info("Get video named "+name);
         return videoRepo.findByName(name).getStr();
     }
 
     public long deleteVideo(String name){
+        log.info("Delete video named "+name);
         return videoRepo.deleteByName(name);
     }
 

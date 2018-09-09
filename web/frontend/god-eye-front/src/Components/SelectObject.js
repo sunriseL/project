@@ -9,6 +9,7 @@ let canvas,time,x1,y1,x2,y2,imgUrl;
 const width = 900;
 const height = 600;
 
+
 function sendSelectedImg(){
     console.log('sendSelectedImg');
     $.ajax({
