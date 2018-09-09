@@ -36,8 +36,15 @@ public class TargetController {
         HashMap<String, String> map = new HashMap<>();
         map.put("imgStream", imgStream);
         String url = config.getMachineLearningServer() + config.getTraceApi();
-        String response = request.post(url, new Gson().toJson(map));
-        log.info("Trace the target, success");
+        String response = "abc";
+        try {
+            response = request.post(url, new Gson().toJson(map));
+            log.info("Trace the target");
+            System.out.println(response);
+        }catch(Exception e){
+            log.error(e);
+            log.error(response);
+        }
         return parseJsonArray(response);
     }
 
