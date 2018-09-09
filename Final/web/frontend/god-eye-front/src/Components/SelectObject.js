@@ -26,6 +26,7 @@ function sendSelectedImg(){
             alert("追踪失败");
         }
     })
+    window.location.href = "#searchResult";
 }
 
 function drawRoute(data){
